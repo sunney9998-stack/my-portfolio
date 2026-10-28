@@ -5,509 +5,414 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>역사 상상극장 기획서</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
+  /* 사이트 색상 그대로 적용: 검정·흰색 + 남색·호박색 */
   :root {
-    --bg: #faf8f4;
-    --surface: #ffffff;
-    --surface-2: #f2efe8;
-    --text: #1f1d1a;
-    --muted: #6b665d;
-    --line: #e4dfd4;
-    --accent: #c2562b;
-    --accent-soft: #fbe9df;
-    --ok: #2f7d4f;
-    --ok-soft: #e2f2e8;
-    --warn: #a86b00;
-    --warn-soft: #fbf0d6;
-    --info: #2d5fa8;
-    --info-soft: #e3ecf8;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #171614;
-      --surface: #201f1c;
-      --surface-2: #2a2825;
-      --text: #ede9e1;
-      --muted: #a39d92;
-      --line: #36332e;
-      --accent: #e8825a;
-      --accent-soft: #3a261d;
-      --ok: #6cc391;
-      --ok-soft: #1d3326;
-      --warn: #e0b04f;
-      --warn-soft: #362c17;
-      --info: #7ea8e6;
-      --info-soft: #1d2a3d;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #171614;
-    --surface: #201f1c;
-    --surface-2: #2a2825;
-    --text: #ede9e1;
-    --muted: #a39d92;
-    --line: #36332e;
-    --accent: #e8825a;
-    --accent-soft: #3a261d;
-    --ok: #6cc391;
-    --ok-soft: #1d3326;
-    --warn: #e0b04f;
-    --warn-soft: #362c17;
-    --info: #7ea8e6;
-    --info-soft: #1d2a3d;
+    --black: #111111;
+    --gray-600: #6b6b6b;
+    --gray-200: #e5e5e5;
+    --gray-100: #f5f5f5;
+    --white: #ffffff;
+    --navy: #2b3a67;
+    --navy-light: #e7eaf3;
+    --amber: #e8833a;
+    --amber-dark: #a8501a;
+    --amber-light: #fcebdd;
   }
   * { box-sizing: border-box; }
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Noto Sans KR", system-ui, sans-serif;
-    line-height: 1.7;
-    font-size: 16px;
+    margin: 0; background: var(--white); color: var(--black);
+    font-family: "Noto Sans KR", system-ui, sans-serif; line-height: 1.7; font-size: 16px;
   }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 16px 96px; }
-  header.top { margin-bottom: 40px; }
-  .eyebrow { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .04em; }
-  h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.25; margin: 8px 0 12px; }
-  .lead { color: var(--muted); font-size: 17px; margin: 0; }
-  .meta { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip {
-    display: inline-block; padding: 2px 10px; border-radius: 999px;
-    background: var(--surface-2); color: var(--muted); font-size: 13px; font-weight: 500;
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 96px; }
+
+  /* 표지 */
+  header.cover { background: var(--navy); color: var(--white); position: relative; overflow: hidden; }
+  header.cover::after {
+    content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 38%;
+    background: var(--amber); clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
   }
-  .chip.accent { background: var(--accent-soft); color: var(--accent); }
-  .chip.ok { background: var(--ok-soft); color: var(--ok); }
-  .chip.warn { background: var(--warn-soft); color: var(--warn); }
-  .chip.info { background: var(--info-soft); color: var(--info); }
-  nav.toc {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
-    padding: 16px 20px; margin-bottom: 48px;
-  }
+  header.cover .in { max-width: 960px; margin: 0 auto; padding: 56px 16px 48px; position: relative; z-index: 1; }
+  .eyebrow { font-weight: 700; font-size: 14px; letter-spacing: .04em; color: var(--amber); }
+  header.cover h1 { font-size: clamp(30px, 6vw, 48px); font-weight: 900; line-height: 1.2; margin: 8px 0 12px; max-width: 62%; }
+  header.cover .lead { max-width: 58%; opacity: .9; margin: 0; }
+  .meta { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 13px; font-weight: 500; background: var(--gray-100); color: var(--gray-600); }
+  .chip.nv { background: var(--navy-light); color: var(--navy); }
+  .chip.am { background: var(--amber); color: var(--black); }
+  .chip.aml { background: var(--amber-light); color: var(--amber-dark); }
+  header.cover .chip { background: rgba(255,255,255,.14); color: var(--white); }
+
+  nav.toc { border: 1px solid var(--gray-200); border-radius: 12px; padding: 16px 20px; margin: 40px 0 48px; }
   nav.toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 32px; }
-  nav.toc a { color: var(--text); text-decoration: none; }
-  nav.toc a:hover { color: var(--accent); }
-  section { margin-bottom: 56px; }
-  h2 {
-    font-size: 24px; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--line);
-  }
-  h2 .num { color: var(--accent); margin-right: 8px; }
-  h3 { font-size: 18px; margin: 28px 0 8px; }
+  nav.toc a { color: var(--black); text-decoration: none; }
+  nav.toc a:hover { color: var(--navy); text-decoration: underline; }
+
+  section { margin-bottom: 64px; scroll-margin-top: 16px; }
+  h2 { font-size: 26px; font-weight: 900; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--navy); }
+  h2 .num { color: var(--amber-dark); margin-right: 8px; }
+  h3 { font-size: 18px; margin: 32px 0 8px; }
   p { margin: 0 0 12px; }
-  .card {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px;
-  }
-  .grid { display: grid; gap: 16px; }
-  .grid.c3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-  .grid.c2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .muted { color: var(--gray-600); }
+  .card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 20px; }
   .card h4 { margin: 0 0 6px; font-size: 16px; }
-  .card p, .card li { color: var(--muted); font-size: 15px; }
+  .card p, .card li { color: var(--gray-600); font-size: 15px; }
   .card ul { margin: 0; padding-left: 18px; }
-  .callout {
-    border-left: 4px solid var(--accent); background: var(--accent-soft);
-    padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0;
-  }
-  .callout.info { border-color: var(--info); background: var(--info-soft); }
-  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
-  table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 680px; }
-  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { background: var(--surface-2); font-weight: 700; white-space: nowrap; }
+  .grid { display: grid; gap: 16px; }
+  .c2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .c3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .callout { border-left: 4px solid var(--navy); background: var(--navy-light); padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+  .callout.am { border-color: var(--amber); background: var(--amber-light); }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--gray-200); border-radius: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 600px; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
+  th { background: var(--gray-100); white-space: nowrap; }
   tr:last-child td { border-bottom: none; }
-  td.n { color: var(--accent); font-weight: 700; white-space: nowrap; }
-  td .sub { display: block; color: var(--muted); font-size: 13px; }
+  .label { font-size: 12px; font-weight: 700; color: var(--gray-600); letter-spacing: .04em; margin-bottom: 8px; }
+  .preview { border: 1px dashed var(--gray-600); border-radius: 14px; padding: 14px; }
 
-  /* pipeline */
-  .pipeline { display: flex; flex-direction: column; gap: 0; }
-  .step { display: grid; grid-template-columns: 36px 1fr; gap: 12px; }
-  .step .rail { display: flex; flex-direction: column; align-items: center; }
-  .dot {
-    width: 28px; height: 28px; border-radius: 50%; background: var(--surface-2); color: var(--muted);
-    display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0;
+  /* 현실 ↔ 상상 구조도 */
+  .loop { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .loop > div { border-radius: 12px; padding: 14px; font-size: 14px; }
+  .loop b { display: block; font-size: 15px; margin-bottom: 4px; }
+  .loop .r { background: var(--navy); color: var(--white); }
+  .loop .i { background: var(--amber); color: var(--black); }
+  .loop small { display: block; opacity: .85; }
+
+  /* 메인 히어로 미리보기 */
+  .hero { border-radius: 14px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; min-height: 220px; }
+  .hero .r { background: var(--navy); color: var(--white); padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .hero .i { background: var(--amber); color: var(--black); padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%); margin-left: -14%; padding-left: calc(14% + 20px); }
+  .hero small { font-weight: 700; letter-spacing: .04em; opacity: .85; }
+  .hero strong { font-size: clamp(18px, 3vw, 24px); font-weight: 900; line-height: 1.3; }
+
+  /* 뒤집기 카드 */
+  .flip-row { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+  .flip { perspective: 900px; cursor: pointer; height: 300px; border: 0; padding: 0; background: none; font: inherit; text-align: left; width: 100%; }
+  .flip .inner { position: relative; width: 100%; height: 100%; transition: transform .6s; transform-style: preserve-3d; }
+  .flip.on .inner { transform: rotateY(180deg); }
+  .flip .face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; }
+  .flip .front { background: var(--white); border: 2px solid var(--navy); color: var(--black); }
+  .flip .back { background: var(--amber); color: var(--black); transform: rotateY(180deg); }
+  .flip .art { flex: 1; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 900; margin-bottom: 10px; }
+  .flip .front .art { background: var(--navy-light); color: var(--navy); }
+  .flip .back .art { background: var(--amber-light); color: var(--amber-dark); }
+  .flip .tag { font-size: 12px; font-weight: 700; }
+  .flip .front .tag { color: var(--navy); }
+  .flip b { font-size: 17px; }
+  .flip span.d { font-size: 13px; }
+  .flip .front span.d { color: var(--gray-600); }
+  .flip:focus-visible { outline: 3px solid var(--navy); outline-offset: 4px; border-radius: 14px; }
+
+  /* 타임라인 + 필터 */
+  .filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .filters button {
+    font: inherit; font-size: 14px; padding: 4px 14px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--navy); background: var(--white); color: var(--navy);
   }
-  .step.gate .dot { background: var(--accent); color: #fff; }
-  .line { width: 2px; flex: 1; background: var(--line); min-height: 12px; }
-  .step:last-child .line { display: none; }
-  .step .body { padding-bottom: 16px; }
-  .step .body strong { font-size: 15px; }
-  .step .body span.d { display: block; color: var(--muted); font-size: 14px; }
+  .filters button[aria-pressed="true"] { background: var(--navy); color: var(--white); font-weight: 700; }
+  .timeline { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 14px; }
+  .era { flex: 0 0 auto; scroll-snap-align: start; }
+  .era-h { font-size: 13px; font-weight: 700; color: var(--navy); border-bottom: 3px solid var(--navy); padding-bottom: 4px; margin-bottom: 8px; white-space: nowrap; }
+  .era-h small { color: var(--gray-600); font-weight: 400; margin-left: 4px; }
+  .era-eps { display: flex; gap: 10px; }
+  .ep { width: 200px; border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; background: var(--white); }
+  .ep .th { height: 96px; background: var(--amber); display: flex; align-items: flex-end; padding: 8px 10px; font-weight: 900; font-size: 13px; }
+  .ep .th.tbd { background: var(--gray-100); color: var(--gray-600); font-weight: 500; }
+  .ep .bd { padding: 8px 10px; font-size: 13px; }
+  .ep .bd b { display: block; font-size: 14px; }
+  .ep .bd span { color: var(--gray-600); }
+  .era[hidden] { display: none; }
 
-  /* handoff flow */
-  .flow { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); counter-reset: f; }
-  .flow > div {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
-    font-size: 14px; color: var(--muted); position: relative;
+  /* 장소 짝 */
+  .pair { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: stretch; margin-bottom: 10px; }
+  .pair .r, .pair .i { border-radius: 12px; padding: 14px; font-size: 14px; min-height: 80px; }
+  .pair .r { background: var(--navy); color: var(--white); }
+  .pair .i { background: var(--amber); color: var(--black); }
+  .pair small { display: block; font-size: 12px; font-weight: 700; opacity: .85; }
+  .pair .arrow { align-self: center; color: var(--gray-600); font-weight: 700; }
+
+  /* 사이트맵 */
+  .map { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .map div { border: 2px solid var(--navy); border-radius: 12px; padding: 12px; font-size: 14px; }
+  .map div b { display: block; color: var(--navy); font-size: 15px; }
+  .map div.home { background: var(--navy); color: var(--white); }
+  .map div.home b { color: var(--amber); }
+
+  ul.q { list-style: none; padding: 0; margin: 0; counter-reset: q; }
+  ul.q li { counter-increment: q; padding: 10px 0 10px 36px; border-bottom: 1px solid var(--gray-200); position: relative; }
+  ul.q li:last-child { border-bottom: none; }
+  ul.q li::before {
+    content: counter(q); position: absolute; left: 0; top: 10px; width: 24px; height: 24px; border-radius: 50%;
+    background: var(--amber); color: var(--black); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center;
   }
-  .flow > div::before {
-    counter-increment: f; content: counter(f);
-    display: inline-flex; width: 22px; height: 22px; border-radius: 50%; margin-bottom: 6px;
-    align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
-    background: var(--accent-soft); color: var(--accent);
+  ul.q li span { display: block; color: var(--gray-600); font-size: 14px; }
+
+  .sw-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+  .sw { border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; }
+  .sw .c { height: 64px; display: flex; align-items: flex-end; padding: 8px 10px; font-weight: 700; font-size: 14px; }
+  .sw .m { padding: 10px 12px; font-size: 13px; color: var(--gray-600); }
+  .sw .m code { color: var(--black); }
+
+  footer { color: var(--gray-600); font-size: 13px; border-top: 1px solid var(--gray-200); padding-top: 16px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flip .inner { transition: none; }
   }
-  .flow > div b { display: block; color: var(--text); font-size: 15px; }
-
-  /* mockup */
-  .mock {
-    background: var(--surface-2); border: 1px dashed var(--line); border-radius: 12px; padding: 16px;
-  }
-  .mock-label { font-size: 12px; color: var(--muted); font-weight: 700; margin-bottom: 10px; letter-spacing: .04em; }
-  .ep-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-  .ep { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-  .ep .thumb {
-    aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
-    font-size: 13px; color: #fff; font-weight: 700; text-align: center; padding: 8px;
-  }
-  .ep .thumb.done { background: linear-gradient(135deg, #d9824f, #8a3d6b); }
-  .ep .thumb.prog { background: var(--surface); color: var(--text); flex-direction: column; align-items: stretch; gap: 6px; padding: 14px; border-bottom: 1px solid var(--line); }
-  .bar { height: 8px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
-  .bar i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
-  .ep .info { padding: 10px 12px; font-size: 14px; }
-  .ep .info b { display: block; }
-  .ep .info small { color: var(--muted); }
-  .load-row { display: grid; grid-template-columns: 160px 1fr 64px; gap: 10px; align-items: center; font-size: 14px; margin-bottom: 8px; }
-  .load-row .bar i.hi { background: var(--warn); }
-  .load-row .bar i.lo { background: var(--ok); }
-  .load-row em { font-style: normal; color: var(--muted); text-align: right; }
-
-  /* inbox mock */
-  .task { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
-  .task:last-child { margin-bottom: 0; }
-  .task-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
-  .task-head b { font-size: 15px; }
-  .task-cols { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 10px; font-size: 14px; }
-  .task-cols h5 { margin: 0 0 4px; font-size: 13px; color: var(--muted); }
-  .task-cols ul { margin: 0; padding-left: 18px; }
-  .fake-btn {
-    display: inline-block; margin-top: 8px; padding: 4px 12px; border-radius: 8px; font-size: 13px; font-weight: 700;
-    background: var(--accent); color: #fff;
-  }
-  .fake-btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
-
-  ul.check { list-style: none; padding: 0; margin: 0; }
-  ul.check li { padding: 8px 0; border-bottom: 1px solid var(--line); display: flex; gap: 10px; }
-  ul.check li:last-child { border-bottom: none; }
-  ul.check li::before { content: "□"; color: var(--accent); font-weight: 700; }
-
-  /* forms */
-  details.form { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 10px; }
-  details.form summary {
-    cursor: pointer; padding: 12px 16px; font-weight: 700; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
-  }
-  details.form summary small { color: var(--muted); font-weight: 400; font-size: 14px; }
-  details.form[open] summary { border-bottom: 1px solid var(--line); }
-  details.form .fbody { padding: 12px 16px 16px; overflow-x: auto; }
-  table.ft { min-width: 520px; font-size: 14px; }
-  table.ft th, table.ft td { padding: 8px 10px; }
-  table.ft td.req { color: var(--accent); font-weight: 700; white-space: nowrap; }
-  table.ft td.opt { color: var(--muted); white-space: nowrap; }
-  table.ft td.t { white-space: nowrap; }
-  table.ft tr.sub td:first-child { padding-left: 28px; color: var(--muted); }
-  .fnote { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
-  .legend { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 16px; }
-
-  /* wireframes */
-  .wf { border: 1px dashed var(--muted); border-radius: 12px; background: var(--surface); padding: 12px; font-size: 13px; }
-  .wf-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); margin-bottom: 10px; }
-  .wf-nav { display: flex; flex-wrap: wrap; gap: 6px; }
-  .wf-nav span { padding: 2px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); }
-  .wf-nav span.on { border-color: var(--accent); color: var(--accent); font-weight: 700; }
-  .wb { border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); padding: 8px 10px; color: var(--muted); min-height: 36px; }
-  .wb b { color: var(--text); font-weight: 700; }
-  .wb.hl { border-color: var(--accent); background: var(--accent-soft); }
-  .wcol { display: grid; gap: 8px; }
-  .wrow { display: grid; gap: 8px; margin-bottom: 8px; }
-  .w-12 { grid-template-columns: 1fr 2fr; }
-  .w-11 { grid-template-columns: 1fr 1fr; }
-  .w-4 { grid-template-columns: repeat(4, 1fr); }
-  .w-tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
-  .w-tabs span { padding: 2px 8px; border-bottom: 2px solid var(--line); }
-  .w-tabs span.on { border-color: var(--accent); color: var(--accent); font-weight: 700; }
-  .w-line { height: 6px; border-radius: 3px; background: var(--line); margin: 6px 0; }
-  .w-line.s { width: 60%; }
-  .w-steps { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; }
-  .w-steps i { height: 18px; border-radius: 4px; background: var(--line); font-style: normal; font-size: 10px; text-align: center; line-height: 18px; color: var(--muted); }
-  .w-steps i.d { background: var(--ok-soft); color: var(--ok); }
-  .w-steps i.c { background: var(--accent); color: #fff; }
-  .w-steps i.g { outline: 2px solid var(--accent); outline-offset: -2px; }
-  .mk { display: inline-flex; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; align-items: center; justify-content: center; margin-right: 4px; flex-shrink: 0; vertical-align: middle; }
-  ol.notes { margin: 10px 0 0; padding: 0; list-style: none; font-size: 14px; }
-  ol.notes li { display: flex; gap: 6px; padding: 4px 0; color: var(--muted); }
-  ol.notes li b { color: var(--text); }
-  .wf-table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 12px; }
-  .wf-table td, .wf-table th { border: 1px solid var(--line); padding: 4px 6px; text-align: center; background: var(--surface); }
-  .wf-table th { background: var(--surface-2); font-weight: 700; white-space: nowrap; }
-  .wf-table td:first-child { text-align: left; white-space: nowrap; }
-  .wf-table td.d { background: var(--ok-soft); color: var(--ok); }
-  .wf-table td.c { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
-  .wf-table td.late { background: var(--warn-soft); color: var(--warn); font-weight: 700; }
-  .scroll { overflow-x: auto; }
-  @media (max-width: 600px) {
-    .w-12, .w-11 { grid-template-columns: 1fr; }
-    .w-4 { grid-template-columns: 1fr 1fr; }
-  }
-
-  /* palette section: 사이트 실제 색 (기획서 테마와 무관하게 고정) */
-  .pal { --k: #111111; --w: #ffffff; --g6: #6b6b6b; --g2: #e5e5e5; --g1: #f5f5f5;
-         --nv: #2b3a67; --nv-t: #e7eaf3; --am: #e8833a; --am-d: #a8501a; --am-t: #fcebdd; }
-  .sw-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-  .sw { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
-  .sw .chipc { height: 72px; display: flex; align-items: flex-end; padding: 8px 10px; font-size: 13px; font-weight: 700; }
-  .sw .tints { display: flex; }
-  .sw .tints span { flex: 1; height: 28px; font-size: 11px; display: flex; align-items: center; justify-content: center; }
-  .sw .meta2 { padding: 10px 12px; font-size: 14px; }
-  .sw .meta2 code { font-size: 13px; }
-  .sw .meta2 small { display: block; color: var(--muted); }
-  .demo { background: var(--w); color: var(--k); border: 1px solid var(--g2); border-radius: 12px; overflow: hidden; font-size: 13px; }
-  .demo-bar { background: var(--nv); color: var(--w); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 8px 12px; }
-  .demo-bar .nv-link { opacity: .75; margin-right: 8px; }
-  .demo-bar .nv-link.on { opacity: 1; font-weight: 700; border-bottom: 2px solid var(--am); }
-  .d-badge { display: inline-block; min-width: 18px; padding: 0 5px; border-radius: 9px; background: var(--am); color: var(--k); font-size: 11px; font-weight: 700; text-align: center; }
-  .d-who { background: var(--am); color: var(--k); border-radius: 8px; padding: 3px 10px; font-weight: 700; }
-  .demo-body { padding: 12px; display: grid; gap: 10px; }
-  .d-card { border: 1px solid var(--g2); border-radius: 10px; padding: 10px 12px; background: var(--w); }
-  .d-card.new { border-left: 4px solid var(--am); }
-  .d-tag { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; margin-right: 4px; }
-  .t-new { background: var(--am); color: var(--k); }
-  .t-late { background: var(--am-t); color: var(--am-d); }
-  .t-prog { background: var(--nv-t); color: var(--nv); }
-  .t-done { background: var(--g1); color: var(--g6); }
-  .t-real { background: var(--nv); color: var(--w); }
-  .t-imag { background: var(--am); color: var(--k); }
-  .d-btn { display: inline-block; padding: 4px 12px; border-radius: 8px; font-weight: 700; font-size: 12px; margin-right: 4px; }
-  .b-pri { background: var(--nv); color: var(--w); }
-  .b-sec { background: var(--w); color: var(--nv); border: 1px solid var(--nv); }
-  .d-steps { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; }
-  .d-steps i { font-style: normal; height: 20px; border-radius: 4px; font-size: 10px; line-height: 20px; text-align: center; background: var(--g1); color: var(--g6); }
-  .d-steps i.d { background: var(--nv-t); color: var(--nv); }
-  .d-steps i.c { background: var(--nv); color: var(--w); font-weight: 700; }
-  .d-steps i.g { box-shadow: inset 0 0 0 2px var(--am); }
-  .d-muted { color: var(--g6); }
-  pre.tok { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-size: 13px; overflow-x: auto; margin: 0; }
-
-  footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px; }
-
-  @media (max-width: 600px) {
+  @media (max-width: 640px) {
     nav.toc ol { columns: 1; }
-    .load-row { grid-template-columns: 100px 1fr 52px; }
-    .wrap { padding-top: 32px; }
+    header.cover::after { width: 22%; }
+    header.cover h1, header.cover .lead { max-width: 80%; }
+    .loop { grid-template-columns: 1fr 1fr; }
+    .hero { grid-template-columns: 1fr; }
+    .hero .i { clip-path: none; margin-left: 0; padding-left: 20px; }
+    .pair { grid-template-columns: 1fr; }
+    .pair .arrow { justify-self: center; transform: rotate(90deg); }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header class="top">
-    <div class="eyebrow">기획서 초안 · v0.2 사람 담당자 버전</div>
-    <h1>협업 제작 관리 사이트<br>「역사 상상극장」(가칭)</h1>
-    <p class="lead">아이가 부모님께 한국사를 듣다가 상상의 세계로 빠져드는 유튜브 애니메이션을 단계별 담당자들이 나눠 만들고, 그 과정을 총괄 PD가 한눈에 관리하는 사이트입니다.</p>
+<header class="cover">
+  <div class="in">
+    <div class="eyebrow">기획서 v0.3 · 포트폴리오 사이트</div>
+    <h1>역사 상상극장<br>(가칭)</h1>
+    <p class="lead">2026년의 평범한 가족. 부모님이 들려주는 역사 이야기에 빠져든 아이는 그 시대로 상상 여행을 떠납니다. 이 사이트는 그 세계관과 캐릭터, 이야기를 보여주는 소개 사이트입니다.</p>
     <div class="meta">
       <span class="chip">작성일 2026-10-28</span>
-      <span class="chip">총괄 PD 이동훈</span>
-      <span class="chip info">이번 수업: 사람 담당자가 직접 작성·전달 (1인 시연)</span>
-      <span class="chip">다음 수업: 담당자 일부를 AI로 교체</span>
+      <span class="chip">기획 이동훈</span>
+      <span class="chip">제작 관리 기능 제외</span>
     </div>
-  </header>
+  </div>
+</header>
+
+<div class="wrap">
 
   <nav class="toc">
     <ol>
-      <li><a href="#s1">콘텐츠 개요</a></li>
-      <li><a href="#s2">누가 쓰는가</a></li>
-      <li><a href="#s3">담당자 작업 흐름</a></li>
-      <li><a href="#s4">화면 구성</a></li>
-      <li><a href="#s5">보고 나서 무엇을 하는가</a></li>
-      <li><a href="#s6">제작 단계와 승인 지점</a></li>
-      <li><a href="#s7">역할 분담과 주고받는 자료</a></li>
-      <li><a href="#sf">단계별 제출 양식</a></li>
-      <li><a href="#sw">화면별 와이어프레임</a></li>
-      <li><a href="#sc">색상 규칙</a></li>
-      <li><a href="#s8">AI 전환을 위한 설계 원칙</a></li>
-      <li><a href="#s9">관리 기능 목록</a></li>
-      <li><a href="#s10">미정 사항과 다음 단계</a></li>
+      <li><a href="#s1">방향 전환</a></li>
+      <li><a href="#s2">세계관</a></li>
+      <li><a href="#s3">사이트 구조</a></li>
+      <li><a href="#s4">페이지별 구성</a></li>
+      <li><a href="#s5">캐릭터 설계</a></li>
+      <li><a href="#s6">스토리 목록 (초안)</a></li>
+      <li><a href="#s7">디자인 요소</a></li>
+      <li><a href="#s8">색상 규칙</a></li>
+      <li><a href="#s9">만드는 방법</a></li>
+      <li><a href="#s10">정해야 할 것</a></li>
     </ol>
   </nav>
 
   <!-- 1 -->
   <section id="s1">
-    <h2><span class="num">1</span>콘텐츠 개요</h2>
+    <h2><span class="num">1</span>방향 전환</h2>
+    <div class="grid c2">
+      <div class="card">
+        <h4>빠지는 것</h4>
+        <ul>
+          <li>담당자 배정, 내 작업함, 제출·검수·승인</li>
+          <li>"나는 누구?" 사용자 전환</li>
+          <li>파일 업로드와 데이터 저장 (Supabase 불필요)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>새로 하는 것</h4>
+        <ul>
+          <li>세계관, 캐릭터, 스토리, 장소를 <b>보여주는</b> 포트폴리오 사이트</li>
+          <li>뒤집기 카드, 가로 타임라인, 시대별 필터 같은 디자인 요소</li>
+          <li>이전 기획(제작 과정)은 "제작 노트" 페이지의 읽을거리로 재활용</li>
+        </ul>
+      </div>
+    </div>
     <div class="callout">
-      <strong>핵심 구조:</strong> 부모님이 역사 이야기를 시작하면, 상상력이 풍부한 아이가 이야기에 빠져들고 화면이 아이의 <strong>상상 세계</strong>로 전환됩니다. 이야기가 끝날 즈음 다시 현실로 돌아오며 부모님의 설명도 마무리됩니다.
-    </div>
-    <div class="grid c3">
-      <div class="card"><h4>시청 대상</h4><p>5~7세 미취학 아동과 함께 보는 부모</p></div>
-      <div class="card"><h4>다루는 범위</h4><p>한국사부터 시작하고, 소재가 떨어지면 세계사로 확장</p></div>
-      <div class="card"><h4>영상 길이</h4><p>10분 내외로 계획. 제작 부담이 크면 3분으로 축소 검토</p></div>
-      <div class="card"><h4>업로드 주기</h4><p>미정</p></div>
-      <div class="card"><h4>등장인물</h4><p>아이 캐릭터 1명, 부모님 캐릭터 (구성 미정)</p></div>
-      <div class="card"><h4>제작 방식</h4><p>단계마다 사람 담당자를 배정. 담당자는 사이트에 와서 앞 단계 자료를 받아 가고, 작업 결과를 올림</p></div>
-    </div>
-    <div class="callout info">
-      <strong>10분 vs 3분 참고:</strong> 글 작업(기획, 시나리오, 검수)은 길이가 늘어도 부담이 크지 않습니다. 병목은 <strong>콘티와 영상 컷 제작</strong>입니다. 컷 하나가 보통 5~10초이므로 10분 영상은 약 60~120컷, 3분 영상은 약 20~35컷입니다. 해당 담당자의 작업량도 거의 이 비율대로 늘어납니다.
+      <strong>양을 채우는 두 축:</strong> ① 모든 고정 캐릭터에 <b>2026년 현실 모습 + 상상 속 모습</b> 두 버전이 있어 분량이 두 배가 되고, ② 에피소드가 늘 때마다 <b>역사 인물과 시대 장소</b>가 함께 늘어납니다.
     </div>
   </section>
 
   <!-- 2 -->
   <section id="s2">
-    <h2><span class="num">2</span>누가 쓰는가</h2>
+    <h2><span class="num">2</span>세계관</h2>
     <div class="grid c2">
-      <div class="card">
-        <h4>총괄 PD 1명 (나)</h4>
-        <ul>
-          <li>에피소드를 만들고 단계별 담당자를 배정함</li>
-          <li>핵심 4단계에서 결과물을 승인하거나 반려함</li>
-          <li>담당자별 작업량과 마감을 보고 역할을 다시 나눔</li>
-        </ul>
+      <div class="card" style="border-color:var(--navy)">
+        <h4 style="color:var(--navy)">현실 · 2026년</h4>
+        <p>지금의 대한민국에 사는 평범한 가족. 스마트폰, 태블릿, 아파트 같은 오늘의 일상 속에서 부모님이 역사 이야기를 꺼냅니다.</p>
       </div>
-      <div class="card">
-        <h4>단계 담당자 (사람)</h4>
-        <ul>
-          <li>자기에게 배정된 작업만 <b>내 작업함</b>에서 확인</li>
-          <li>앞 단계 결과물을 보거나 내려받아 작업</li>
-          <li>정해진 양식에 맞춰 결과를 작성·업로드하고 제출</li>
-          <li>다른 단계 결과물의 검수자로도 배정됨</li>
-          <li>한 사람이 여러 역할을 겸할 수 있음</li>
-        </ul>
+      <div class="card" style="border-color:var(--amber);background:var(--amber-light)">
+        <h4 style="color:var(--amber-dark)">상상 · 그 이야기의 시대</h4>
+        <p style="color:var(--black)">아이는 이야기 속 시대로 넘어가, 그 시대의 아이가 되어 역사 인물을 직접 만납니다. 에피소드마다 시대가 바뀝니다.</p>
       </div>
     </div>
-    <div class="callout">
-      <strong>이번 수업은 1인 시연입니다.</strong> 기능 구현과 디자인이 목표이므로, 실제로는 한 사람이 화면 상단의 <b>"나는 누구?"</b> 선택으로 PD와 담당자 A~E를 바꿔가며 흐름을 보여줍니다. 계정·비밀번호 없이 이름만 고르면 그 사람의 화면이 됩니다.
+    <h3>한 편의 흐름</h3>
+    <div class="loop">
+      <div class="r"><b>① 2026년 일상</b><small>현실의 작은 계기 (물건, 질문, 장소)</small></div>
+      <div class="r"><b>② 부모님의 이야기</b><small>"옛날 옛날에…"</small></div>
+      <div class="i"><b>③ 상상 속 그 시대</b><small>아이가 역사 인물을 만나 사건을 겪음</small></div>
+      <div class="r"><b>④ 다시 2026년</b><small>배운 것을 오늘의 말로 정리</small></div>
     </div>
-    <div class="callout info">
-      <strong>담당자가 개인적으로 AI 도구를 쓰는 것은 자유입니다.</strong> 사이트는 "누가 무엇을 받아서 무엇을 냈는가"만 관리하고, 작업 방법은 묻지 않습니다. 사이트가 AI와 직접 연결되는 것은 다음 수업 범위입니다.
-    </div>
+    <p class="muted" style="margin-top:12px;font-size:14px">※ 현실로 넘어가는 계기(매번 같은 장치인지 등)는 10장 질문에서 정합니다.</p>
   </section>
 
   <!-- 3 -->
   <section id="s3">
-    <h2><span class="num">3</span>담당자 작업 흐름</h2>
-    <p>한 단계가 다음 단계로 넘어가는 과정입니다. 모든 단계가 같은 흐름을 따릅니다.</p>
-    <div class="flow">
-      <div><b>새 작업 표시</b>앞 단계가 끝나면 내 작업함에 새 작업과 "새 작업 N건" 배지가 뜸</div>
-      <div><b>자료 받기</b>앞 단계 결과물, 설정집, PD 지시사항 확인·다운로드</div>
-      <div><b>작업</b>사이트 밖에서 자유롭게 작업 (직접 또는 개인 AI 도구)</div>
-      <div><b>제출</b>양식 작성 + 파일(이미지·음성·영상)을 사이트에 직접 업로드</div>
-      <div><b>검수</b>배정된 검수자가 지적 사항을 남김 → 필요시 수정 후 재제출</div>
-      <div><b>승인·전달</b>승인 단계면 PD 승인 후, 아니면 검수 통과 후 다음 담당자에게 넘어감</div>
+    <h2><span class="num">3</span>사이트 구조</h2>
+    <div class="map">
+      <div class="home"><b>메인</b>극장 입구</div>
+      <div><b>세계관</b>현실 ↔ 상상 구조</div>
+      <div><b>캐릭터</b>고정 가족 + 역사 인물</div>
+      <div><b>스토리</b>시대별 타임라인 → 에피소드 상세</div>
+      <div><b>장소</b>2026년 공간 ↔ 시대 공간</div>
+      <div><b>제작 노트</b>기획 의도, 스타일 가이드</div>
     </div>
+    <p class="muted" style="margin-top:12px;font-size:14px">상단 메뉴로 6개 페이지를 오갑니다. 캐릭터 카드, 에피소드 카드, 장소 카드는 서로 링크로 이어집니다 (예: 이순신 카드 → 거북선 에피소드 → 거북선 갑판 장소).</p>
   </section>
 
   <!-- 4 -->
   <section id="s4">
-    <h2><span class="num">4</span>화면 구성</h2>
+    <h2><span class="num">4</span>페이지별 구성</h2>
 
-    <h3>① 메인: 에피소드 목록</h3>
-    <p>에피소드를 카드로 나열합니다. 완성된 에피소드는 <strong>썸네일</strong>이, 제작 중인 에피소드는 <strong>진행 현황과 현재 담당자</strong>가 보입니다.</p>
-    <div class="mock">
-      <div class="mock-label">화면 예시 (샘플 데이터)</div>
-      <div class="ep-grid">
-        <div class="ep">
-          <div class="thumb done">1화 · 단군 할아버지와<br>곰의 동굴</div>
-          <div class="info"><b>1화 단군신화</b><small><span class="chip ok">업로드 완료</span></small></div>
-        </div>
-        <div class="ep">
-          <div class="thumb prog">
-            <small style="color:var(--muted)">현재 단계 · 콘티 · 담당자 B</small>
-            <div class="bar"><i style="width:42%"></i></div>
-            <small>5/12 단계 · 승인 대기 1건</small>
-          </div>
-          <div class="info"><b>2화 주몽과 활쏘기</b><small><span class="chip warn">내 승인 필요</span></small></div>
-        </div>
-        <div class="ep">
-          <div class="thumb prog">
-            <small style="color:var(--muted)">현재 단계 · 역사 리서치 · 담당자 C</small>
-            <div class="bar"><i style="width:15%"></i></div>
-            <small>2/12 단계 · 마감 D-2</small>
-          </div>
-          <div class="info"><b>3화 세종대왕과 한글</b><small><span class="chip info">담당자 작업 중</span></small></div>
-        </div>
+    <h3>메인 · 극장 입구</h3>
+    <p>첫 화면 한 장에 이 작품의 핵심인 <b>현실에서 상상으로 넘어가는 순간</b>을 담습니다. 스크롤을 내리면 남색 현실 화면이 호박색 상상 화면으로 바뀌고, 그 아래로 대표 캐릭터·최신 에피소드·시대 타임라인 맛보기가 이어집니다.</p>
+    <div class="preview">
+      <div class="label">메인 첫 화면 미리보기</div>
+      <div class="hero">
+        <div class="r"><small>2026 · 우리 집 거실</small><strong>"아빠, 한글은<br>누가 만들었어?"</strong></div>
+        <div class="i"><small>1443 · 경복궁 집현전</small><strong>어느새 나는<br>집현전 한가운데에 서 있었다</strong></div>
       </div>
     </div>
 
-    <h3>② 내 작업함 (담당자 화면)</h3>
-    <p>"나는 누구?"에서 담당자를 고르면 가장 먼저 보는 화면입니다. <strong>받아 갈 것</strong>과 <strong>내야 할 것</strong>이 한 카드에 같이 보입니다. 새로 들어온 작업은 메뉴의 배지와 카드의 "새 작업" 표시로 알려줍니다. 메일·메신저 알림은 없습니다.</p>
-    <div class="mock">
-      <div class="mock-label">담당자 C의 작업함 예시 (샘플 데이터)</div>
-      <div class="task-head" style="margin-bottom:10px">
-        <span style="font-size:14px">나는 누구? <span class="chip accent">담당자 C (리서치·검수) ▾</span></span>
-        <span class="chip warn">새 작업 1건</span>
-      </div>
-      <div class="task">
-        <div class="task-head"><b>3화 세종대왕과 한글 · 역사 리서치</b><span><span class="chip accent">새 작업</span> <span class="chip warn">마감 10/30</span></span></div>
-        <div class="task-cols">
-          <div>
-            <h5>받아 갈 자료</h5>
-            <ul>
-              <li>스토리 컨셉 v2 (PD 승인됨)</li>
-              <li>캐릭터·세계관 설정집</li>
-              <li>PD 메모: "훈민정음 창제 이유 위주로"</li>
-            </ul>
-            <span class="fake-btn ghost">자료 보기</span>
+    <h3>세계관</h3>
+    <p>2장의 "한 편의 흐름"을 큰 그림으로 풀어 보여주는 페이지. 전환 장치, 상상 세계의 규칙(아이는 그 시대에서 어떤 존재인지, 어떻게 돌아오는지)을 소개합니다.</p>
+
+    <h3>캐릭터</h3>
+    <p>고정 가족과 역사 인물을 카드로 나열합니다. 고정 가족 카드는 <b>눌러서 뒤집으면 상상 속 모습</b>이 나옵니다. 카드를 열면 상세 소개로 이동합니다 (5장 항목).</p>
+    <div class="preview">
+      <div class="label">뒤집기 카드 미리보기 · 눌러 보세요 (샘플)</div>
+      <div class="flip-row">
+        <button class="flip" type="button" aria-label="아이 카드 뒤집기">
+          <div class="inner">
+            <div class="face front"><span class="tag">2026 · 현실</span><div class="art">아이</div><b>아이 (이름 미정)</b><span class="d">7살, 질문이 많은 상상 대장</span></div>
+            <div class="face back"><span class="tag">상상 속</span><div class="art">아이</div><b>그 시대의 아이</b><span class="d">시대마다 다른 옷, 다른 역할</span></div>
           </div>
-          <div>
-            <h5>제출할 것</h5>
-            <ul>
-              <li>핵심 사실 5~10개 + 출처</li>
-              <li>아이 눈높이 핵심 포인트 3개</li>
-              <li>주의할 오해·논쟁 지점</li>
-            </ul>
-            <span class="fake-btn">작성하고 제출</span>
+        </button>
+        <button class="flip" type="button" aria-label="엄마 카드 뒤집기">
+          <div class="inner">
+            <div class="face front"><span class="tag">2026 · 현실</span><div class="art">엄마</div><b>엄마</b><span class="d">직업·성격 미정</span></div>
+            <div class="face back"><span class="tag">상상 속</span><div class="art">엄마</div><b>이야기의 목소리</b><span class="d">상상 속 등장 방식 미정</span></div>
+          </div>
+        </button>
+        <button class="flip" type="button" aria-label="아빠 카드 뒤집기">
+          <div class="inner">
+            <div class="face front"><span class="tag">2026 · 현실</span><div class="art">아빠</div><b>아빠</b><span class="d">직업·성격 미정</span></div>
+            <div class="face back"><span class="tag">상상 속</span><div class="art">아빠</div><b>이야기의 목소리</b><span class="d">상상 속 등장 방식 미정</span></div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <h3>스토리</h3>
+    <p>고조선부터 근현대까지 <b>가로로 흐르는 타임라인</b>. 위의 시대 버튼으로 걸러 볼 수 있습니다. 에피소드 카드를 누르면 상세 페이지로 갑니다.</p>
+    <div class="preview">
+      <div class="label">타임라인 + 시대 필터 미리보기 · 버튼을 눌러 보고, 옆으로 밀어 보세요 (샘플)</div>
+      <div class="filters" role="group" aria-label="시대 필터">
+        <button type="button" data-era="all" aria-pressed="true">전체</button>
+        <button type="button" data-era="gojoseon" aria-pressed="false">고조선</button>
+        <button type="button" data-era="samguk" aria-pressed="false">삼국</button>
+        <button type="button" data-era="goryeo" aria-pressed="false">고려</button>
+        <button type="button" data-era="joseon" aria-pressed="false">조선</button>
+        <button type="button" data-era="modern" aria-pressed="false">근현대</button>
+      </div>
+      <div class="timeline">
+        <div class="era" data-era="gojoseon">
+          <div class="era-h">고조선 <small>BC 2333~</small></div>
+          <div class="era-eps"><div class="ep"><div class="th">곰의 동굴</div><div class="bd"><b>단군 할아버지와 곰의 동굴</b><span>단군 · 웅녀</span></div></div></div>
+        </div>
+        <div class="era" data-era="samguk">
+          <div class="era-h">삼국 <small>BC 57~668</small></div>
+          <div class="era-eps"><div class="ep"><div class="th">고구려 활터</div><div class="bd"><b>주몽과 활쏘기</b><span>주몽</span></div></div></div>
+        </div>
+        <div class="era" data-era="goryeo">
+          <div class="era-h">고려 <small>918~1392</small></div>
+          <div class="era-eps"><div class="ep"><div class="th">도자기 가마</div><div class="bd"><b>하늘빛 그릇의 비밀</b><span>고려청자 도공</span></div></div></div>
+        </div>
+        <div class="era" data-era="joseon">
+          <div class="era-h">조선 <small>1392~1897</small></div>
+          <div class="era-eps">
+            <div class="ep"><div class="th">집현전</div><div class="bd"><b>세종대왕과 한글</b><span>세종 · 집현전 학자</span></div></div>
+            <div class="ep"><div class="th">거북선 갑판</div><div class="bd"><b>이순신과 거북선</b><span>이순신</span></div></div>
           </div>
         </div>
-      </div>
-      <div class="task">
-        <div class="task-head"><b>2화 주몽과 활쏘기 · 시나리오 검수</b><span class="chip info">검수 요청</span></div>
-        <div class="task-cols">
-          <div><h5>받아 갈 자료</h5><ul><li>시나리오 v1 (담당자 A 작성)</li></ul></div>
-          <div><h5>제출할 것</h5><ul><li>지적 사항 목록 (사실 오류 / 연령 부적합 / 기타)</li></ul></div>
+        <div class="era" data-era="modern">
+          <div class="era-h">근현대 <small>1897~</small></div>
+          <div class="era-eps"><div class="ep"><div class="th tbd">주제 미정</div><div class="bd"><b>다룰지 미정</b><span>10장 질문</span></div></div></div>
         </div>
       </div>
     </div>
-
-    <h3>③ 에피소드 상세</h3>
-    <div class="grid c2">
-      <div class="card"><h4>한눈에 보기</h4><p>주제, 시대, 현실 → 상상 세계 전환 아이디어, 한 줄 줄거리</p></div>
-      <div class="card"><h4>진행 현황과 담당자</h4><p>12단계 타임라인, 단계별 담당자·검수자·마감일, 현재 위치</p></div>
-      <div class="card"><h4>제출된 결과물</h4><p>단계별 제출물(글, 이미지, 음성, 영상 링크 등), 제출자, 버전 기록</p></div>
-      <div class="card"><h4>검수·승인 기록</h4><p>검수자의 지적 사항, 반영 여부, PD의 승인·반려 코멘트</p></div>
-    </div>
-
-    <h3>④ 전체 관리 페이지 (PD 화면)</h3>
-    <p>모든 에피소드를 한 표에서 보고, 담당자 배정을 바꿉니다. 부하율은 <strong>담당자별 진행 중 작업 수</strong>로 계산합니다.</p>
-    <div class="mock">
-      <div class="mock-label">담당자별 작업량 예시 (샘플 데이터)</div>
-      <div class="load-row"><span>담당자 D (영상)</span><div class="bar"><i class="hi" style="width:100%"></i></div><em>5건</em></div>
-      <div class="load-row"><span>담당자 B (콘티)</span><div class="bar"><i style="width:60%"></i></div><em>3건</em></div>
-      <div class="load-row"><span>담당자 A (시나리오)</span><div class="bar"><i style="width:40%"></i></div><em>2건</em></div>
-      <div class="load-row"><span>담당자 C (리서치·검수)</span><div class="bar"><i class="lo" style="width:20%"></i></div><em>1건</em></div>
-      <p style="margin:10px 0 0;font-size:13px;color:var(--muted)">→ 여유가 있는 담당자에게 검수를 넘기거나, 밀린 역할에 사람을 추가 배정합니다.</p>
-    </div>
-
-    <h3>⑤ 그 밖의 화면</h3>
+    <h4 style="margin:20px 0 6px">에피소드 상세 페이지에 들어갈 것</h4>
     <div class="grid c3">
-      <div class="card"><h4>캐릭터·세계관 설정집</h4><p>캐릭터 외형, 말투, 그림체 기준. 모든 담당자가 참고하는 기준 문서. PD만 수정</p></div>
-      <div class="card"><h4>담당자 관리</h4><p>담당자 등록, 맡은 역할, 연락처</p></div>
-      <div class="card"><h4>업로드 캘린더</h4><p>에피소드별 공개 예정일과 단계별 마감일</p></div>
+      <div class="card"><h4>대표 장면</h4><p>현실 장면 한 장 + 상상 장면 한 장을 나란히</p></div>
+      <div class="card"><h4>줄거리</h4><p>2026년의 계기 → 상상 속 사건 → 다시 현실</p></div>
+      <div class="card"><h4>등장인물</h4><p>캐릭터 카드로 연결</p></div>
+      <div class="card"><h4>오늘의 교훈</h4><p>아이가 가져갈 한 문장</p></div>
+      <div class="card"><h4>역사 한 스푼</h4><p>실제 역사 사실 3가지와 출처</p></div>
+      <div class="card"><h4>부모님과 나눌 질문</h4><p>보고 나서 아이와 이야기할 질문 2~3개</p></div>
+    </div>
+
+    <h3>장소</h3>
+    <p>현실 공간과, 그곳에서 이어지는 상상 공간을 <b>짝으로</b> 보여줍니다.</p>
+    <div class="preview">
+      <div class="label">장소 짝 미리보기 (샘플)</div>
+      <div class="pair"><div class="r"><small>2026</small>우리 집 거실 소파</div><div class="arrow">→</div><div class="i"><small>고조선</small>곰과 호랑이가 사는 동굴</div></div>
+      <div class="pair"><div class="r"><small>2026</small>한강 공원 활쏘기 체험장</div><div class="arrow">→</div><div class="i"><small>고구려</small>졸본의 활터</div></div>
+      <div class="pair"><div class="r"><small>2026</small>박물관 거북선 모형 앞</div><div class="arrow">→</div><div class="i"><small>조선</small>한산도 앞바다, 거북선 갑판</div></div>
+    </div>
+
+    <h3>제작 노트</h3>
+    <div class="grid c3">
+      <div class="card"><h4>기획 의도</h4><p>왜 5~7세에게 역사를, 왜 상상이라는 형식으로</p></div>
+      <div class="card"><h4>스타일 가이드</h4><p>색상 규칙, 그림체, 글꼴, 캐릭터 비율</p></div>
+      <div class="card"><h4>제작 과정</h4><p>컨셉 → 리서치 → 시나리오 → 콘티 → 영상까지 12단계 소개 (이전 기획 재활용)</p></div>
     </div>
   </section>
 
   <!-- 5 -->
   <section id="s5">
-    <h2><span class="num">5</span>보고 나서 무엇을 하는가</h2>
+    <h2><span class="num">5</span>캐릭터 설계</h2>
+    <h3>캐릭터 상세 페이지 항목</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>항목</th><th>고정 가족</th><th>역사 인물</th></tr></thead>
+        <tbody>
+          <tr><td><b>그림</b></td><td>2026년 모습 + 상상 속 모습 (뒤집기)</td><td>그 시대 모습 1장</td></tr>
+          <tr><td><b>기본 정보</b></td><td>이름, 나이, 2026년의 직업·학교</td><td>이름, 시대, 실제로 한 일</td></tr>
+          <tr><td><b>성격</b></td><td>키워드 3개</td><td>키워드 3개 (아이 눈높이로)</td></tr>
+          <tr><td><b>말버릇·대표 대사</b></td><td>한 줄</td><td>작품 속 대사 한 줄</td></tr>
+          <tr><td><b>좋아하는 것 / 무서워하는 것</b></td><td>있음</td><td>선택</td></tr>
+          <tr><td><b>2026년의 배경</b></td><td>사는 곳, 하루 일과, 가족과의 관계</td><td>—</td></tr>
+          <tr><td><b>상상 속 역할</b></td><td>시대별로 어떤 모습이 되는지</td><td>아이와 어떻게 만나는지</td></tr>
+          <tr><td><b>등장 에피소드</b></td><td>전체</td><td>해당 에피소드 링크</td></tr>
+          <tr><td><b>진짜 역사 한 줄</b></td><td>—</td><td>실제 기록에 남은 사실</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>캐릭터 목록 (초안)</h3>
     <div class="grid c2">
       <div class="card">
-        <h4>총괄 PD</h4>
+        <h4>고정 가족</h4>
         <ul>
-          <li><b>승인 / 반려</b>: 핵심 4단계 결과물 확인 후 다음 단계로 보내거나 수정 요청</li>
-          <li><b>배정 변경</b>: 작업량을 보고 담당자를 바꾸거나 추가</li>
-          <li><b>재작업 요청</b>: 특정 단계만 다시 하도록 되돌림. 이전 버전과 비교</li>
-          <li><b>지연 대응</b>: 마감이 지난 작업 알림을 보고 독촉하거나 재배정</li>
+          <li>아이 (주인공)</li>
+          <li>엄마 / 아빠 (구성 미정)</li>
+          <li>그 밖의 고정 캐릭터 후보: 반려동물, 할머니·할아버지, 동생 → 10장 질문</li>
         </ul>
       </div>
       <div class="card">
-        <h4>단계 담당자</h4>
+        <h4>역사 인물 (에피소드 후보 기준)</h4>
         <ul>
-          <li><b>자료 받기</b>: 앞 단계 결과물과 설정집 확인·다운로드</li>
-          <li><b>제출</b>: 양식 작성, 파일 직접 업로드</li>
-          <li><b>검수</b>: 배정된 결과물에 지적 사항 남기기</li>
-          <li><b>수정 재제출</b>: 반려·지적 사항 반영 후 새 버전 제출</li>
+          <li>단군, 웅녀 · 고조선</li>
+          <li>주몽 · 고구려</li>
+          <li>고려청자 도공 · 고려</li>
+          <li>세종대왕, 집현전 학자 · 조선</li>
+          <li>이순신 · 조선</li>
         </ul>
       </div>
     </div>
@@ -515,615 +420,124 @@
 
   <!-- 6 -->
   <section id="s6">
-    <h2><span class="num">6</span>제작 단계와 승인 지점</h2>
-    <p>모든 단계는 제출 후 <strong>다른 담당자가 검수</strong>합니다. 기본 검수자는 다음 단계 담당자이고, PD가 여유 있는 사람으로 바꿀 수 있습니다. <span class="chip accent">승인</span> 표시가 있는 4단계는 검수 뒤 PD가 직접 승인해야 다음으로 넘어갑니다.</p>
-    <p style="color:var(--muted);font-size:14px">※ 지금은 핵심 단계만 승인(B안)하고, 흐름이 자리를 잡으면 최종 영상만 확인(C안)하도록 설정에서 바꿀 수 있게 만듭니다.</p>
-    <div class="card pipeline">
-      <div class="step gate"><div class="rail"><div class="dot">1</div><div class="line"></div></div><div class="body"><strong>스토리 컨셉 <span class="chip accent">승인</span></strong><span class="d">주제 선정, 핵심 교훈, 상상 세계 콘셉트</span></div></div>
-      <div class="step"><div class="rail"><div class="dot">2</div><div class="line"></div></div><div class="body"><strong>역사 리서치</strong><span class="d">사실 자료 수집, 출처 정리, 아이 눈높이 핵심 포인트</span></div></div>
-      <div class="step gate"><div class="rail"><div class="dot">3</div><div class="line"></div></div><div class="body"><strong>시나리오 <span class="chip accent">승인</span></strong><span class="d">대사, 장면 구성, 현실 ↔ 상상 전환 지점</span></div></div>
-      <div class="step"><div class="rail"><div class="dot">4</div><div class="line"></div></div><div class="body"><strong>고증·연령 적합성 검수</strong><span class="d">사실 오류, 5~7세에 맞지 않는 표현 점검</span></div></div>
-      <div class="step gate"><div class="rail"><div class="dot">5</div><div class="line"></div></div><div class="body"><strong>콘티 <span class="chip accent">승인</span></strong><span class="d">컷 분할, 구도, 화면 전환, 컷별 길이</span></div></div>
-      <div class="step"><div class="rail"><div class="dot">6</div><div class="line"></div></div><div class="body"><strong>캐릭터·배경 아트</strong><span class="d">설정집 기준으로 키 이미지 제작</span></div></div>
-      <div class="step"><div class="rail"><div class="dot">7</div><div class="line"></div></div><div class="body"><strong>음성</strong><span class="d">부모님, 아이, 상상 세계 인물 목소리</span></div></div>
-      <div class="step"><div class="rail"><div class="dot">8</div><div class="line"></div></div><div class="body"><strong>영상 컷 제작</strong><span class="d">컷별 영상 클립</span></div></div>
-      <div class="step"><div class="rail"><div class="dot">9</div><div class="line"></div></div><div class="body"><strong>음악·효과음</strong><span class="d">배경음악, 전환 효과음</span></div></div>
-      <div class="step"><div class="rail"><div class="dot">10</div><div class="line"></div></div><div class="body"><strong>편집·자막</strong><span class="d">컷 이어붙이기, 음성 싱크, 자막</span></div></div>
-      <div class="step"><div class="rail"><div class="dot">11</div><div class="line"></div></div><div class="body"><strong>썸네일·메타데이터</strong><span class="d">썸네일, 제목, 설명, 태그</span></div></div>
-      <div class="step gate"><div class="rail"><div class="dot">12</div><div class="line"></div></div><div class="body"><strong>최종 영상 검수 <span class="chip accent">승인</span></strong><span class="d">전체 영상 확인 후 업로드</span></div></div>
+    <h2><span class="num">6</span>스토리 목록 (초안)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>시대</th><th>에피소드 (가제)</th><th>2026년의 계기 (예시)</th><th>상상 속 장소</th><th>역사 인물</th></tr></thead>
+        <tbody>
+          <tr><td>고조선</td><td><b>단군 할아버지와 곰의 동굴</b></td><td>마늘 반찬을 안 먹겠다는 아이</td><td>곰과 호랑이의 동굴</td><td>단군, 웅녀</td></tr>
+          <tr><td>삼국</td><td><b>주몽과 활쏘기</b></td><td>체험장에서 처음 쏘아 본 활</td><td>졸본의 활터</td><td>주몽</td></tr>
+          <tr><td>고려</td><td><b>하늘빛 그릇의 비밀</b></td><td>할머니 댁 찬장의 푸른 그릇</td><td>강진의 가마터</td><td>고려청자 도공</td></tr>
+          <tr><td>조선</td><td><b>세종대왕과 한글</b></td><td>받아쓰기 숙제가 싫은 날</td><td>경복궁 집현전</td><td>세종, 집현전 학자</td></tr>
+          <tr><td>조선</td><td><b>이순신과 거북선</b></td><td>박물관의 거북선 모형</td><td>한산도 앞바다</td><td>이순신</td></tr>
+          <tr><td>근현대</td><td colspan="4" class="muted">다룰지, 무엇을 다룰지 미정</td></tr>
+        </tbody>
+      </table>
     </div>
+    <p class="muted" style="margin-top:10px;font-size:14px">※ 에피소드 수와 목록은 10장 질문에서 확정합니다. 표의 계기와 장소는 예시입니다.</p>
   </section>
 
   <!-- 7 -->
   <section id="s7">
-    <h2><span class="num">7</span>역할 분담과 주고받는 자료</h2>
-    <p>각 역할이 <b>무엇을 받고 무엇을 내는지</b>를 고정해 둡니다. 담당자 A~E는 1인 시연용 가상 인물이며, "나는 누구?" 목록에 그대로 나옵니다. 마지막 칸은 다음 수업에서 AI로 바꿀 때의 후보입니다.</p>
+    <h2><span class="num">7</span>디자인 요소</h2>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>#</th><th>역할</th><th>받는 것</th><th>내는 것</th><th>담당자</th><th>향후 AI 후보</th></tr></thead>
+        <thead><tr><th>요소</th><th>쓰는 곳</th><th>설명</th></tr></thead>
         <tbody>
-          <tr><td class="n">0</td><td><b>총괄 PD</b></td><td>승인 단계 결과물, 작업량 현황</td><td>승인·반려, 배정</td><td>이동훈</td><td>사람 유지</td></tr>
-          <tr><td class="n">1</td><td><b>컨셉 기획</b></td><td>PD가 정한 주제, 설정집</td><td>컨셉 문서 (주제, 교훈, 상상 세계, 한 줄 줄거리)</td><td>PD 겸임</td><td>Claude 또는 GPT</td></tr>
-          <tr><td class="n">2</td><td><b>역사 리서처</b></td><td>컨셉 문서</td><td>사실 목록 + 출처, 핵심 포인트</td><td>담당자 C</td><td>Gemini<span class="sub">보조: Perplexity</span></td></tr>
-          <tr><td class="n">3</td><td><b>시나리오 작가</b></td><td>컨셉, 리서치 자료, 설정집</td><td>시나리오 (장면, 대사, 전환 지점)</td><td>담당자 A</td><td>Claude</td></tr>
-          <tr><td class="n">4</td><td><b>고증·연령 검수</b></td><td>시나리오, 리서치 자료</td><td>지적 사항 목록</td><td>담당자 C<span class="sub">시나리오 작가와 다른 사람</span></td><td>GPT</td></tr>
-          <tr><td class="n">5</td><td><b>콘티 작가</b></td><td>확정 시나리오, 설정집</td><td>컷 목록 (번호, 구도, 길이, 대사, 컷 설명)</td><td>담당자 B</td><td>GPT</td></tr>
-          <tr><td class="n">6</td><td><b>아트 디렉터</b></td><td>콘티, 설정집</td><td>캐릭터 시트, 배경, 키 이미지</td><td>담당자 B 또는 별도</td><td>GPT 이미지 / Gemini 이미지<span class="sub">보조: Midjourney</span></td></tr>
-          <tr><td class="n">7</td><td><b>성우</b></td><td>시나리오 대사</td><td>캐릭터별 음성 파일</td><td>담당자 E</td><td>ElevenLabs</td></tr>
-          <tr><td class="n">8</td><td><b>영상 컷 제작</b></td><td>콘티, 키 이미지</td><td>컷별 영상 클립</td><td>담당자 D<span class="sub">가장 무거움. 복수 배정 1순위</span></td><td>Google Veo<span class="sub">대안: Sora, Kling, Runway</span></td></tr>
-          <tr><td class="n">9</td><td><b>음악·효과음</b></td><td>콘티 (장면 분위기)</td><td>BGM, 효과음 파일</td><td>담당자 E</td><td>Suno<span class="sub">효과음: ElevenLabs</span></td></tr>
-          <tr><td class="n">10</td><td><b>편집자</b></td><td>영상 컷, 음성, 음악, 시나리오</td><td>완성 영상, 자막 파일</td><td>담당자 D</td><td>자동 편집 스크립트<span class="sub">끝까지 사람이 남을 가능성 큼</span></td></tr>
-          <tr><td class="n">11</td><td><b>퍼블리셔</b></td><td>완성 영상, 컨셉</td><td>썸네일, 제목, 설명, 태그</td><td>담당자 A</td><td>GPT (이미지) + Claude (문구)</td></tr>
-          <tr><td class="n">12</td><td><b>최종 QA</b></td><td>완성 영상, 메타데이터</td><td>최종 점검 의견</td><td>PD</td><td>Gemini</td></tr>
+          <tr><td><b>현실 → 상상 전환 스크롤</b></td><td>메인</td><td>스크롤하면 남색 화면이 비스듬히 호박색으로 덮이며 시대가 바뀜</td></tr>
+          <tr><td><b>뒤집기 카드</b></td><td>캐릭터, 장소</td><td>누르거나 키보드로 선택하면 상상 속 모습으로 뒤집힘</td></tr>
+          <tr><td><b>가로 타임라인</b></td><td>스토리, 메인 맛보기</td><td>시대 순서대로 옆으로 밀어서 보기. 시대 경계에 연도 표시</td></tr>
+          <tr><td><b>시대별 필터</b></td><td>스토리, 캐릭터, 장소</td><td>시대 버튼으로 해당 시대만 보기</td></tr>
+          <tr><td><b>나란히 비교</b></td><td>장소, 에피소드 상세</td><td>2026년 장면과 상상 장면을 좌우로 배치</td></tr>
+          <tr><td><b>스크롤 등장 효과</b></td><td>전체</td><td>카드가 화면에 들어올 때 살짝 떠오름. "움직임 줄이기" 설정을 켠 사람에게는 끔</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="callout info">
-      <strong>검수 배정 원칙:</strong> 결과물을 만든 사람과 다른 사람이 검수합니다. 나중에 AI로 바꿀 때도 같은 원칙으로, 만든 AI와 다른 회사의 AI가 검수하도록 배정합니다.
-    </div>
-  </section>
-
-  <!-- forms -->
-  <section id="sf">
-    <h2><span class="num">8</span>단계별 제출 양식</h2>
-    <p>담당자가 "작성하고 제출"을 누르면 나오는 입력 칸입니다. 자유 글 한 덩어리가 아니라 칸을 나눠 두어야 다음 담당자가 필요한 것만 골라 보고, 나중에 AI가 같은 칸을 채울 수 있습니다.</p>
-    <div class="legend">
-      <span class="chip">짧은 글</span><span class="chip">긴 글</span><span class="chip">선택</span><span class="chip">숫자</span><span class="chip">날짜</span><span class="chip">체크</span><span class="chip">자동</span><span class="chip info">파일</span><span class="chip accent">반복 목록</span>
-      <span style="font-size:13px;color:var(--muted)">· 반복 목록은 "+ 추가"로 줄을 늘리는 칸입니다</span>
-    </div>
-
-    <div class="callout info">
-      <strong>컷 번호가 단계를 잇는 열쇠입니다.</strong> 5단계 콘티에서 컷 번호가 정해지면, 6~9단계의 이미지·음성·영상·음악은 모두 "몇 번 컷의 것인지"를 골라서 올립니다. 그래야 편집 담당자가 컷별로 모아 볼 수 있고, 영상 단계의 진행률(올라온 컷 / 전체 컷)도 자동으로 계산됩니다.
-    </div>
-
-    <h3>모든 제출에 공통으로 붙는 칸</h3>
-    <div class="table-wrap">
-      <table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>작업 메모</td><td class="t"><span class="chip">긴 글</span></td><td class="opt">선택</td><td>다음 담당자나 PD에게 남길 말</td></tr>
-          <tr><td>사용한 도구</td><td class="t"><span class="chip">짧은 글</span></td><td class="opt">선택</td><td>예: 직접 작성, ChatGPT, CapCut. 나중에 어떤 단계를 AI로 바꿀지 판단하는 자료</td></tr>
-          <tr><td>수정 내역</td><td class="t"><span class="chip">긴 글</span></td><td class="req">재제출 시 필수</td><td>검수·반려 지적 중 무엇을 고쳤는지</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="fnote">제출자, 제출 시각, 버전 번호는 사이트가 자동으로 기록합니다.</p>
-
-    <h3>단계별 양식</h3>
-
-    <details class="form" open>
-      <summary>1. 스토리 컨셉 <span class="chip accent">승인</span> <small>담당: PD 겸임</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>에피소드 제목</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td>예: 주몽과 활쏘기</td></tr>
-          <tr><td>시대</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>고조선 / 삼국 / 고려 / 조선 / 근현대 / 세계사</td></tr>
-          <tr><td>중심 인물·사건</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td></td></tr>
-          <tr><td>핵심 교훈</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td>아이가 가져갈 한 문장</td></tr>
-          <tr><td>현실 장면</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>어디서, 무엇을 계기로 부모님이 이야기를 시작하는지</td></tr>
-          <tr><td>상상 세계 콘셉트</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>아이가 빠져드는 세계의 모습, 아이의 역할</td></tr>
-          <tr><td>한 줄 줄거리</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td>메인 카드에 표시</td></tr>
-          <tr><td>참고 이미지</td><td class="t"><span class="chip info">파일</span></td><td class="opt">선택</td><td>분위기 참고용, 여러 장</td></tr>
-        </tbody>
-      </table></div>
-    </details>
-
-    <details class="form">
-      <summary>2. 역사 리서치 <small>담당: C</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>핵심 사실</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수 3개 이상</td><td></td></tr>
-          <tr class="sub"><td>└ 사실</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td></td></tr>
-          <tr class="sub"><td>└ 출처</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td>책 이름, 기관, 링크</td></tr>
-          <tr><td>아이 눈높이 포인트</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수 3개</td><td>5~7세에게 꼭 전할 것</td></tr>
-          <tr><td>쉬운 말 풀이</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="opt">선택</td><td>어려운 용어 → 아이용 설명</td></tr>
-          <tr><td>주의할 지점</td><td class="t"><span class="chip">긴 글</span></td><td class="opt">선택</td><td>흔한 오해, 학계 논쟁, 아이에게 민감한 내용</td></tr>
-        </tbody>
-      </table></div>
-    </details>
-
-    <details class="form">
-      <summary>3. 시나리오 <span class="chip accent">승인</span> <small>담당: A</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>예상 길이</td><td class="t"><span class="chip">숫자</span></td><td class="req">필수</td><td>분 단위</td></tr>
-          <tr><td>장면</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>장면 번호는 자동</td></tr>
-          <tr class="sub"><td>└ 현실 / 상상</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>타임라인에 색으로 구분</td></tr>
-          <tr class="sub"><td>└ 장소</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td></td></tr>
-          <tr class="sub"><td>└ 등장인물</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>설정집 인물 중 여러 명</td></tr>
-          <tr class="sub"><td>└ 대사·지문</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>"인물: 대사" 형식</td></tr>
-          <tr><td>전환 지점 설명</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>현실 → 상상, 상상 → 현실로 넘어가는 순간과 방법</td></tr>
-        </tbody>
-      </table></div>
-    </details>
-
-    <details class="form">
-      <summary>4. 고증·연령 적합성 검수 <small>담당: C · 3단계 시나리오의 검수 단계</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>판정</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>통과 / 수정 필요. 수정 필요면 3단계로 되돌아감</td></tr>
-          <tr><td>지적 사항</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">수정 필요 시</td><td></td></tr>
-          <tr class="sub"><td>└ 장면 번호</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>시나리오 장면 목록에서 고름</td></tr>
-          <tr class="sub"><td>└ 종류</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>사실 오류 / 연령 부적합 / 어색한 표현 / 기타</td></tr>
-          <tr class="sub"><td>└ 내용과 수정 제안</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td></td></tr>
-        </tbody>
-      </table></div>
-    </details>
-
-    <details class="form">
-      <summary>5. 콘티 <span class="chip accent">승인</span> <small>담당: B</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>컷</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>컷 번호는 자동. 총 컷 수와 총 길이도 자동 합산</td></tr>
-          <tr class="sub"><td>└ 장면 번호</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>시나리오 장면과 연결</td></tr>
-          <tr class="sub"><td>└ 길이</td><td class="t"><span class="chip">숫자</span></td><td class="req">필수</td><td>초 단위</td></tr>
-          <tr class="sub"><td>└ 구도</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>풍경 / 전신 / 상반신 / 클로즈업</td></tr>
-          <tr class="sub"><td>└ 화면 설명</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>누가 어디서 무엇을 하는지. 나중에 영상 AI 프롬프트가 되는 칸</td></tr>
-          <tr class="sub"><td>└ 대사</td><td class="t"><span class="chip">짧은 글</span></td><td class="opt">선택</td><td>이 컷에서 나오는 대사</td></tr>
-          <tr class="sub"><td>└ 다음 컷 전환</td><td class="t"><span class="chip">선택</span></td><td class="opt">선택</td><td>컷 / 페이드 / 상상 전환 효과</td></tr>
-          <tr class="sub"><td>└ 스케치</td><td class="t"><span class="chip info">파일</span></td><td class="opt">선택</td><td>손그림 사진도 가능</td></tr>
-        </tbody>
-      </table></div>
-    </details>
-
-    <details class="form">
-      <summary>6. 캐릭터·배경 아트 <small>담당: B 또는 별도</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>캐릭터 시트</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="opt">새 인물만</td><td>인물 선택 + 이미지. 확정되면 설정집에 등록</td></tr>
-          <tr><td>배경</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>장소 이름 + 이미지</td></tr>
-          <tr><td>컷별 키 이미지</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>컷 번호 선택 + 이미지</td></tr>
-        </tbody>
-      </table></div>
-    </details>
-
-    <details class="form">
-      <summary>7. 음성 <small>담당: E</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>대사 음성</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>콘티에서 대사가 있는 컷이 미리 채워져 있음</td></tr>
-          <tr class="sub"><td>└ 컷 번호 · 인물 · 대사</td><td class="t"><span class="chip">자동</span></td><td></td><td>콘티에서 불러옴</td></tr>
-          <tr class="sub"><td>└ 음성 파일</td><td class="t"><span class="chip info">파일</span></td><td class="req">필수</td><td>바로 재생해 볼 수 있음</td></tr>
-          <tr><td>인물별 목소리 메모</td><td class="t"><span class="chip">긴 글</span></td><td class="opt">선택</td><td>톤, 속도. 다음 화에서도 같은 목소리 유지용</td></tr>
-        </tbody>
-      </table></div>
-    </details>
-
-    <details class="form">
-      <summary>8. 영상 컷 제작 <small>담당: D</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>컷 클립</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>콘티의 컷이 모두 미리 나열됨. 한 컷씩 올리고 중간 저장 가능</td></tr>
-          <tr class="sub"><td>└ 영상 파일</td><td class="t"><span class="chip info">파일</span></td><td class="req">필수</td><td>50MB 이하</td></tr>
-          <tr class="sub"><td>└ 실제 길이</td><td class="t"><span class="chip">자동</span></td><td></td><td>파일에서 읽음. 콘티 길이와 다르면 표시</td></tr>
-        </tbody>
-      </table>
-      <p class="fnote">컷이 많아 가장 오래 걸리는 단계라, 제출 전에도 "올라온 컷 / 전체 컷"이 진행률로 보입니다.</p></div>
-    </details>
-
-    <details class="form">
-      <summary>9. 음악·효과음 <small>담당: E</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>배경음악</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>시작 컷 ~ 끝 컷, 분위기, 파일</td></tr>
-          <tr><td>효과음</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="opt">선택</td><td>컷 번호, 설명, 파일</td></tr>
-        </tbody>
-      </table></div>
-    </details>
-
-    <details class="form">
-      <summary>10. 편집·자막 <small>담당: D</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>완성 영상</td><td class="t"><span class="chip info">파일</span></td><td class="req">필수</td><td>50MB 이하 (아래 참고)</td></tr>
-          <tr><td>자막 파일</td><td class="t"><span class="chip info">파일</span></td><td class="opt">선택</td><td>.srt</td></tr>
-          <tr><td>최종 길이</td><td class="t"><span class="chip">자동</span></td><td></td><td>파일에서 읽음</td></tr>
-          <tr><td>빠진 컷·변경 사항</td><td class="t"><span class="chip">긴 글</span></td><td class="opt">선택</td><td>콘티와 달라진 점</td></tr>
-        </tbody>
-      </table>
-      <p class="fnote">⚠ 10분 영상은 50MB를 넘기 쉬우므로 <b>시연용 저화질로 압축</b>해서 올립니다 (예: 480p). 유튜브 업로드용 원본은 사이트 밖에서 보관합니다.</p></div>
-    </details>
-
-    <details class="form">
-      <summary>11. 썸네일·메타데이터 <small>담당: A</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>썸네일</td><td class="t"><span class="chip info">파일</span></td><td class="req">필수</td><td>1280×720. 메인 카드에도 사용</td></tr>
-          <tr><td>제목 후보</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수 2개 이상</td><td>PD가 최종 승인 때 하나 고름</td></tr>
-          <tr><td>설명</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>유튜브 설명란</td></tr>
-          <tr><td>태그</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td>쉼표로 구분</td></tr>
-          <tr><td>공개 예정일</td><td class="t"><span class="chip">날짜</span></td><td class="req">필수</td><td>업로드 캘린더에 표시</td></tr>
-        </tbody>
-      </table></div>
-    </details>
-
-    <details class="form">
-      <summary>12. 최종 영상 검수 <span class="chip accent">승인</span> <small>담당: PD</small></summary>
-      <div class="fbody"><table class="ft">
-        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
-        <tbody>
-          <tr><td>점검 목록</td><td class="t"><span class="chip">체크</span></td><td class="req">전부 체크</td><td>사실 확인 / 연령 적합 / 캐릭터 일관성 / 음성 싱크 / 자막 오탈자 / 썸네일·제목</td></tr>
-          <tr><td>최종 제목</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>11단계 후보 중 하나</td></tr>
-          <tr><td>의견</td><td class="t"><span class="chip">긴 글</span></td><td class="opt">선택</td><td></td></tr>
-        </tbody>
-      </table></div>
-    </details>
-
-    <h3>검수 양식과 승인 양식</h3>
-    <div class="grid c2">
-      <div class="card">
-        <h4>검수 (검수자가 작성, 4단계 제외 모든 단계)</h4>
-        <ul>
-          <li><b>판정</b> <span class="chip">선택</span> 통과 / 수정 필요</li>
-          <li><b>지적 사항</b> <span class="chip accent">반복 목록</span> 위치(장면·컷 번호), 내용, 수정 제안</li>
-          <li>수정 필요면 같은 담당자에게 되돌아가고, 담당자는 "수정 내역"을 적어 재제출</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h4>승인 (PD가 작성, 1·3·5·12단계)</h4>
-        <ul>
-          <li><b>결정</b> <span class="chip">선택</span> 승인 / 반려</li>
-          <li><b>코멘트</b> <span class="chip">긴 글</span> 반려 시 필수</li>
-          <li>검수 결과와 지적 사항 반영 여부를 같은 화면에서 보고 결정</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- wireframes -->
-  <section id="sw">
-    <h2><span class="num">9</span>화면별 와이어프레임</h2>
-    <p>실제 색과 디자인이 아니라 <b>무엇이 어디에 놓이는지</b>만 보여주는 뼈대입니다. 휴대폰 화면에서는 좌우로 나뉜 영역이 위아래로 쌓입니다. 동그라미 번호는 아래 설명과 짝입니다.</p>
-
-    <h3>① 공통: 상단바와 "나는 누구?"</h3>
-    <div class="wf">
-      <div class="wf-bar">
-        <span><span class="mk">1</span><b>역사 상상극장</b></span>
-        <span class="wf-nav"><span class="mk">2</span><span class="on">내 작업함 <b style="color:var(--accent)">2</b></span><span>에피소드</span><span>설정집</span><span>캘린더</span></span>
-        <span><span class="mk">3</span>나는 누구? <span class="chip accent">담당자 C ▾</span></span>
-      </div>
-      <div class="wrow w-4">
-        <div class="wb hl"><b>PD 이동훈</b><br>총괄</div>
-        <div class="wb"><b>담당자 A</b><br>시나리오·퍼블리셔</div>
-        <div class="wb"><b>담당자 B</b><br>콘티·아트</div>
-        <div class="wb"><b>담당자 C</b><br>리서치·검수</div>
-        <div class="wb"><b>담당자 D</b><br>영상·편집</div>
-        <div class="wb"><b>담당자 E</b><br>음성·음악</div>
-      </div>
-      <div style="color:var(--muted)"><span class="mk">4</span>처음 접속하면 위처럼 사람 카드가 나오고, 하나를 누르면 그 사람의 화면으로 들어갑니다.</div>
-    </div>
-    <ol class="notes">
-      <li><span class="mk">1</span><span><b>로고</b>: 누르면 그 사람의 첫 화면(PD는 전체 관리, 담당자는 내 작업함)으로 이동</span></li>
-      <li><span class="mk">2</span><span><b>메뉴</b>: 고른 사람에 따라 달라짐. PD는 <b>전체 관리 · 승인 대기 N · 에피소드 · 설정집 · 담당자 · 캘린더</b>, 담당자는 <b>내 작업함 N · 에피소드 · 설정집 · 캘린더</b>. N이 "새 작업" 배지</span></li>
-      <li><span class="mk">3</span><span><b>나는 누구?</b>: 언제든 눌러서 다른 사람으로 바꿈. 시연 때 가장 많이 누르는 버튼이라 항상 오른쪽 위 고정</span></li>
-      <li><span class="mk">4</span><span><b>사람 고르기 화면</b>: 첫 접속이거나 선택을 지웠을 때만 나옴. 이후엔 새로고침해도 유지</span></li>
-    </ol>
-
-    <h3>② 내 작업함 (담당자)</h3>
-    <div class="wf">
-      <div class="w-tabs"><span class="mk">1</span><span class="on">새 작업 1</span><span>진행 중 1</span><span>검수 요청 1</span><span>수정 요청 0</span><span>완료</span></div>
-      <div class="wb hl" style="margin-bottom:8px">
-        <span class="mk">2</span><b>3화 세종대왕과 한글 · 2. 역사 리서치</b> <span class="chip accent">새 작업</span> <span class="chip warn">마감 D-2</span>
-        <div class="wrow w-11" style="margin:8px 0 0">
-          <div class="wb"><b>받아 갈 자료</b><div class="w-line"></div><div class="w-line s"></div></div>
-          <div class="wb"><b>제출할 것</b><div class="w-line"></div><div class="w-line s"></div></div>
-        </div>
-        <div style="margin-top:8px"><span class="mk">3</span><span class="fake-btn" style="margin:0">작업 시작</span></div>
-      </div>
-      <div class="wb"><b>2화 주몽과 활쏘기 · 시나리오 검수</b> <span class="chip info">검수 요청</span></div>
-    </div>
-    <ol class="notes">
-      <li><span class="mk">1</span><span><b>상태 탭</b>: 새 작업 → 진행 중 → 완료. 검수자로 배정된 건은 "검수 요청", 반려·지적받은 건은 "수정 요청"에 모임. 마감 빠른 순 정렬</span></li>
-      <li><span class="mk">2</span><span><b>작업 카드</b>: 에피소드·단계·마감과 함께 받을 자료, 제출할 것을 요약. "새 작업" 표시는 한 번 열면 사라짐</span></li>
-      <li><span class="mk">3</span><span><b>작업 시작</b>: 누르면 진행 중으로 옮겨지고 ③ 제출 화면으로 이동</span></li>
-    </ol>
-
-    <h3>③ 제출 화면 (담당자)</h3>
-    <div class="wf">
-      <div class="wb" style="margin-bottom:8px"><b>← 내 작업함</b> &nbsp; 3화 세종대왕과 한글 · 2. 역사 리서치 · v1 작성 중</div>
-      <div class="wrow w-12">
-        <div class="wb">
-          <span class="mk">1</span><b>받은 자료</b>
-          <div class="w-tabs" style="margin-top:6px"><span class="on">컨셉 v2</span><span>설정집</span><span>PD 메모</span></div>
-          <div class="w-line"></div><div class="w-line"></div><div class="w-line s"></div>
-          <div class="wb" style="margin-top:8px;background:var(--surface)">이미지·음성·영상은 여기서 바로 보기·재생·다운로드</div>
-        </div>
-        <div class="wb">
-          <span class="mk">2</span><b>제출 양식</b> (8장 2단계 항목)
-          <div class="wb" style="margin-top:6px;background:var(--surface)">핵심 사실 1 · 사실 / 출처</div>
-          <div class="wb" style="margin-top:6px;background:var(--surface)">핵심 사실 2 · 사실 / 출처</div>
-          <div style="margin:6px 0">+ 추가</div>
-          <div class="wb" style="background:var(--surface)">아이 눈높이 포인트 ×3</div>
-          <div class="wb" style="margin-top:6px;background:var(--surface)">공통 칸: 작업 메모 · 사용한 도구</div>
-          <div style="margin-top:8px"><span class="mk">3</span><span class="fake-btn ghost" style="margin:0">임시 저장</span> <span class="fake-btn" style="margin:0">제출</span></div>
-        </div>
-      </div>
-    </div>
-    <ol class="notes">
-      <li><span class="mk">1</span><span><b>받은 자료</b>: 7장의 "받는 것"만 탭으로 보여줌. 쓰면서 옆에서 계속 볼 수 있게 왼쪽 고정</span></li>
-      <li><span class="mk">2</span><span><b>제출 양식</b>: 단계마다 8장의 칸이 그대로 나옴. 필수 칸이 비면 제출 버튼이 눌리지 않고 그 칸을 표시</span></li>
-      <li><span class="mk">3</span><span><b>임시 저장 / 제출</b>: 영상처럼 오래 걸리는 단계는 임시 저장으로 나눠 올림. 제출하면 검수자 작업함에 "검수 요청"이 생김</span></li>
-    </ol>
-
-    <h3>④ 에피소드 상세 (모두)</h3>
-    <div class="wf">
-      <div class="wb" style="margin-bottom:8px">
-        <span class="mk">1</span><b>2화 주몽과 활쏘기</b> <span class="chip">삼국</span> <span class="chip warn">승인 대기</span>
-        <div class="w-line s"></div>
-      </div>
-      <div style="margin-bottom:8px"><span class="mk">2</span>
-        <div class="w-steps" style="margin-top:4px"><i class="d">1</i><i class="d">2</i><i class="d">3</i><i class="d">4</i><i class="c g">5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>10</i><i>11</i><i class="g">12</i></div>
-      </div>
-      <div class="wrow w-12">
-        <div class="wb"><span class="mk">3</span><b>5. 콘티</b><br>담당 B · 검수 C<br>마감 10/31<br><br><b>버전</b><br>v2 · 10/28 (검수 통과)<br>v1 · 10/26 (수정 요청)</div>
-        <div class="wcol">
-          <div class="wb"><span class="mk">4</span><b>제출 내용 v2</b> · 컷 24개 · 총 3분 10초<div class="w-line"></div><div class="w-line"></div><div class="w-line s"></div></div>
-          <div class="wb"><span class="mk">5</span><b>검수·승인 기록</b> · C: 통과 (지적 2건 반영됨)<div class="w-line s"></div></div>
-          <div class="wb hl"><span class="mk">6</span><b>PD 승인</b> &nbsp;<span class="fake-btn" style="margin:0">승인</span> <span class="fake-btn ghost" style="margin:0">반려</span> · 코멘트 칸</div>
-        </div>
-      </div>
-    </div>
-    <ol class="notes">
-      <li><span class="mk">1</span><span><b>요약</b>: 제목, 시대, 상태, 한 줄 줄거리, 핵심 교훈</span></li>
-      <li><span class="mk">2</span><span><b>12단계 타임라인</b>: 완료는 초록, 현재는 진한 색, 승인 단계는 테두리. 칸을 누르면 아래가 그 단계로 바뀜</span></li>
-      <li><span class="mk">3</span><span><b>단계 정보</b>: 담당자, 검수자, 마감, 버전 목록. 버전 두 개를 골라 비교 가능</span></li>
-      <li><span class="mk">4</span><span><b>제출 내용</b>: 양식 칸 그대로 표시. 콘티 이후 단계는 컷 번호 순으로 이미지·음성·영상을 나란히 봄</span></li>
-      <li><span class="mk">5</span><span><b>검수·승인 기록</b>: 지적 사항과 반영 여부, 승인·반려 코멘트</span></li>
-      <li><span class="mk">6</span><span><b>PD 승인 영역</b>: PD로 보고 있고 승인 단계일 때만 나옴. PD 메뉴의 "승인 대기"는 이 화면들로 바로 가는 목록</span></li>
-    </ol>
-
-    <h3>⑤ 전체 관리 (PD)</h3>
-    <div class="wf">
-      <div class="wrow w-4">
-        <div class="wb"><span class="mk">1</span>진행 중 에피소드<br><b style="font-size:18px">3</b></div>
-        <div class="wb hl">승인 대기<br><b style="font-size:18px">1</b></div>
-        <div class="wb">검수 대기<br><b style="font-size:18px">2</b></div>
-        <div class="wb">마감 지남<br><b style="font-size:18px;color:var(--warn)">1</b></div>
-      </div>
-      <div class="wb" style="margin-bottom:8px;background:var(--surface)">
-        <span class="mk">2</span><b>에피소드 현황표</b>
-        <div class="scroll" style="margin-top:6px">
-          <table class="wf-table">
-            <tr><th>에피소드</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr>
-            <tr><td>2화 주몽</td><td class="d">✓</td><td class="d">✓</td><td class="d">✓</td><td class="d">✓</td><td class="c">B</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>3화 세종</td><td class="d">✓</td><td class="late">C</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>4화 (기획 중)</td><td class="c">PD</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-          </table>
-        </div>
-      </div>
-      <div class="wrow w-11">
-        <div class="wb"><span class="mk">3</span><b>담당자별 작업량</b><div class="w-line"></div><div class="w-line s"></div><div class="w-line"></div></div>
-        <div class="wb"><span class="mk">4</span><b>배정 바꾸기</b><br>단계 칸 선택 → 담당자 · 검수자 · 마감 변경</div>
-      </div>
-      <div><span class="mk">5</span><span class="fake-btn" style="margin:0">+ 새 에피소드</span></div>
-    </div>
-    <ol class="notes">
-      <li><span class="mk">1</span><span><b>숫자 타일</b>: 누르면 해당 작업 목록으로 이동. 승인 대기와 마감 지남은 강조색</span></li>
-      <li><span class="mk">2</span><span><b>현황표</b>: 줄은 에피소드, 칸은 12단계. 칸에 현재 담당자 표시, 마감 지난 칸은 노란색. 칸을 누르면 ④ 상세의 그 단계로</span></li>
-      <li><span class="mk">3</span><span><b>담당자별 작업량</b>: 4장의 막대. 진행 중 작업 수 기준</span></li>
-      <li><span class="mk">4</span><span><b>배정 바꾸기</b>: 현황표에서 칸을 고르고 담당자를 바꾸면, 작업이 새 담당자의 작업함으로 옮겨감</span></li>
-      <li><span class="mk">5</span><span><b>새 에피소드</b>: 제목만 넣어 만들고, 12단계 기본 담당자는 7장 표대로 자동 배정. 1단계 컨셉 작업이 PD 작업함에 생김</span></li>
-    </ol>
-
-    <div class="callout info">
-      <strong>시연 순서 제안:</strong> PD로 새 에피소드 만들기 → 컨셉 제출 → 승인 → "나는 누구?"를 담당자 C로 바꿔 새 작업 배지 확인 → 리서치 제출 → 담당자 A로 바꿔 시나리오 작성 … 이렇게 사람을 바꿔가며 한 편이 흘러가는 모습을 보여줍니다.
-    </div>
-  </section>
-
-  <!-- colors -->
-  <section id="sc" class="pal">
-    <h2><span class="num">10</span>색상 규칙</h2>
-    <p>사이트에 쓰는 색은 <b>검정, 흰색, 남색, 호박색</b> 네 가지뿐입니다. 회색은 검정을 옅게 한 것, 연한 남색·연한 호박색은 각 색을 흰색에 섞은 것으로 보고 새 색으로 치지 않습니다.</p>
-    <div class="callout">
-      <strong>한 줄 규칙:</strong> <b>남색 = 현실·기본·진행</b>, <b>호박색 = 상상·내가 해야 할 일</b>. 화면에서 호박색이 보이면 "지금 눌러볼 것"이라는 뜻이 되도록, 호박색은 아껴서 씁니다.
-    </div>
-
-    <h3>팔레트</h3>
-    <div class="sw-grid">
-      <div class="sw">
-        <div class="chipc" style="background:#2b3a67;color:#fff">남색</div>
-        <div class="tints"><span style="background:#2b3a67;color:#fff">기본</span><span style="background:#e7eaf3;color:#2b3a67">연한</span></div>
-        <div class="meta2"><code>#2B3A67</code> · <code>#E7EAF3</code><small>밤하늘·먹색. 부모님이 들려주는 역사, 현실 세계. 상단바, 주 버튼, 진행 중, 완료</small></div>
-      </div>
-      <div class="sw">
-        <div class="chipc" style="background:#e8833a;color:#111">호박색</div>
-        <div class="tints"><span style="background:#e8833a;color:#111">기본</span><span style="background:#a8501a;color:#fff">글자용</span><span style="background:#fcebdd;color:#a8501a">연한</span></div>
-        <div class="meta2"><code>#E8833A</code> · <code>#A8501A</code> · <code>#FCEBDD</code><small>등불·노을. 아이의 상상 세계. 새 작업, 승인 대기, 마감 지남, "나는 누구?"</small></div>
-      </div>
-      <div class="sw">
-        <div class="chipc" style="background:#111;color:#fff">검정</div>
-        <div class="tints"><span style="background:#111;color:#fff">글자</span><span style="background:#6b6b6b;color:#fff">보조</span><span style="background:#e5e5e5;color:#111">선</span></div>
-        <div class="meta2"><code>#111111</code> · <code>#6B6B6B</code> · <code>#E5E5E5</code><small>본문 글자, 보조 설명, 구분선</small></div>
-      </div>
-      <div class="sw">
-        <div class="chipc" style="background:#fff;color:#111;border-bottom:1px solid var(--line)">흰색</div>
-        <div class="tints"><span style="background:#fff;color:#111">배경</span><span style="background:#f5f5f5;color:#6b6b6b">면</span></div>
-        <div class="meta2"><code>#FFFFFF</code> · <code>#F5F5F5</code><small>페이지 배경, 카드, 입력 칸. 예정 단계·비활성 칸은 회색 면</small></div>
-      </div>
-    </div>
-
-    <h3>화면 요소별 사용</h3>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>요소</th><th>색</th><th>이유</th></tr></thead>
-        <tbody>
-          <tr><td><b>상단바</b></td><td>남색 바탕 + 흰 글자</td><td>모든 화면의 틀. 가장 넓게 깔리는 색은 차분한 쪽으로</td></tr>
-          <tr><td><b>"나는 누구?" 버튼</b></td><td>호박색 바탕 + 검정 글자</td><td>시연 때 가장 많이 누르는 버튼. 남색 바 위에서 바로 눈에 띔</td></tr>
-          <tr><td><b>주 버튼</b> (제출, 승인, 작업 시작)</td><td>남색 바탕 + 흰 글자</td><td>"다음으로 넘기기"는 진행의 색</td></tr>
-          <tr><td><b>보조 버튼</b> (임시 저장, 반려)</td><td>흰 바탕 + 남색 테두리·글자</td><td>주 버튼과 같은 계열, 덜 강하게</td></tr>
-          <tr><td><b>새 작업 배지, 승인 대기</b></td><td>호박색 바탕 + 검정 글자</td><td>내가 처리할 것</td></tr>
-          <tr><td><b>마감 지남</b></td><td>연한 호박색 바탕 + 진한 호박색 글자 + "!"</td><td>새 작업과 같은 계열이지만 모양으로 구분. 빨간색 없이 경고 표현</td></tr>
-          <tr><td><b>진행 중 / 현재 단계</b></td><td>남색 (태그는 연한 남색)</td><td></td></tr>
-          <tr><td><b>완료 단계</b></td><td>연한 남색 + ✓</td><td>지나간 진행. 현재 단계보다 약하게</td></tr>
-          <tr><td><b>예정 단계, 완료 탭</b></td><td>회색 면 + 회색 글자</td><td>지금 신경 쓸 필요 없는 것</td></tr>
-          <tr><td><b>승인 단계 표시</b> (1·3·5·12)</td><td>호박색 테두리</td><td>PD가 손대야 하는 지점</td></tr>
-          <tr><td><b>현실 / 상상 장면</b></td><td>현실 = 남색, 상상 = 호박색</td><td>콘텐츠 구조와 색이 그대로 맞물림. 시나리오·콘티 목록에서 전환 지점이 한눈에 보임</td></tr>
-          <tr><td><b>담당자 작업량 막대</b></td><td>보통 = 남색, 과부하 = 호박색</td><td>재배정이 필요한 사람만 튀게</td></tr>
-          <tr><td><b>입력 칸 오류</b> (필수 칸 비었을 때)</td><td>호박색 테두리 + 진한 호박색 안내 글</td><td>"고쳐야 할 것"도 내가 할 일</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>적용 예시</h3>
-    <div class="demo">
-      <div class="demo-bar">
-        <span><b>역사 상상극장</b></span>
-        <span><span class="nv-link on">내 작업함 <span class="d-badge">2</span></span><span class="nv-link">에피소드</span><span class="nv-link">설정집</span></span>
-        <span class="d-who">담당자 A ▾</span>
-      </div>
-      <div class="demo-body">
-        <div class="d-card new">
-          <span class="d-tag t-new">새 작업</span><b>4화 이순신과 거북선 · 3. 시나리오</b>
-          <div class="d-muted" style="margin:4px 0 8px">마감 11/02 · 받을 자료 3개</div>
-          <span class="d-btn b-pri">작업 시작</span>
-        </div>
-        <div class="d-card">
-          <span class="d-tag t-late">! 마감 지남</span><b>2화 주몽과 활쏘기 · 11. 썸네일</b>
-          <div style="margin-top:8px"><span class="d-btn b-sec">임시 저장</span><span class="d-btn b-pri">제출</span></div>
-        </div>
-        <div class="d-card">
-          <b>장면 목록</b>
-          <div style="margin-top:6px"><span class="d-tag t-real">현실</span>1. 거실, 아빠가 책을 펼침</div>
-          <div><span class="d-tag t-imag">상상</span>2. 거북선 갑판 위의 아이</div>
-          <div><span class="d-tag t-real">현실</span>3. 다시 거실, 아이의 질문</div>
-        </div>
-        <div class="d-card">
-          <b>진행 단계</b> <span class="d-tag t-prog">진행 중</span><span class="d-tag t-done">예정</span>
-          <div class="d-steps" style="margin-top:6px"><i class="d g">✓</i><i class="d">✓</i><i class="c g">3</i><i>4</i><i class="g">5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>10</i><i>11</i><i class="g">12</i></div>
-        </div>
-      </div>
-    </div>
-    <p class="fnote">※ 9장 와이어프레임의 초록·노랑은 자리 표시용이며, 실제 화면은 이 장의 색을 따릅니다. 이 기획서 문서 자체의 색도 사이트 색과는 별개입니다.</p>
-
-    <h3>글자 대비 (읽기 쉬움 확인)</h3>
-    <ul class="check" style="font-size:15px">
-      <li>남색 위 흰 글자, 흰 바탕 위 남색 글자: 충분히 읽힘</li>
-      <li>호박색 위에는 <b>검정 글자만</b> 씁니다. 흰 글자는 흐려서 읽기 어렵습니다</li>
-      <li>흰 바탕에 호박색 <b>글자</b>를 쓸 때는 진한 호박색 <code>#A8501A</code>를 씁니다</li>
-    </ul>
-
-    <h3>구현용 색 변수</h3>
-    <pre class="tok">:root {
-  --black: #111111;       /* 본문 글자 */
-  --gray-600: #6b6b6b;    /* 보조 글자 */
-  --gray-200: #e5e5e5;    /* 구분선, 테두리 */
-  --gray-100: #f5f5f5;    /* 회색 면, 예정 단계 */
-  --white: #ffffff;       /* 배경, 카드 */
-
-  --navy: #2b3a67;        /* 현실·기본·진행: 상단바, 주 버튼, 현재 단계 */
-  --navy-light: #e7eaf3;  /* 완료 단계, 진행 중 태그 */
-
-  --amber: #e8833a;       /* 상상·내 할 일: 배지, "나는 누구?", 승인 표시 (검정 글자와 함께) */
-  --amber-dark: #a8501a;  /* 흰 바탕 위 호박색 글자 */
-  --amber-light: #fcebdd; /* 마감 지남 태그 바탕 */
-}</pre>
-    <p class="fnote">다크 모드는 이번 수업 범위에서 제외합니다.</p>
   </section>
 
   <!-- 8 -->
   <section id="s8">
-    <h2><span class="num">11</span>AI 전환을 위한 설계 원칙</h2>
-    <p>다음 수업에서 사이트를 갈아엎지 않고 담당자만 바꿔 끼우려면, 지금부터 아래 네 가지를 지켜서 만듭니다.</p>
-    <div class="grid c2">
-      <div class="card"><h4>① 담당자에 "종류" 칸을 둔다</h4><p>담당자 정보에 <b>사람 / AI</b> 구분을 미리 넣어 둡니다. 지금은 모두 "사람"이고, 나중엔 같은 자리에 AI를 등록하면 됩니다.</p></div>
-      <div class="card"><h4>② 제출 양식을 항목으로 고정한다</h4><p>자유 글 한 덩어리가 아니라 7장의 "내는 것"처럼 정해진 칸으로 받습니다. 사람이 채우던 칸을 나중에 AI가 같은 형식으로 채우게 됩니다.</p></div>
-      <div class="card"><h4>③ 단계 사이는 "제출 → 다음 작업 생성"으로만 잇는다</h4><p>앞 단계가 승인되면 다음 담당자의 작업함에 작업이 생기는 한 가지 방식만 씁니다. 받는 쪽이 사람이든 AI든 같은 통로를 씁니다.</p></div>
-      <div class="card"><h4>④ 받는 자료를 단계마다 명시한다</h4><p>각 단계가 어떤 앞 단계 결과물을 읽는지 정해 둡니다. 나중에 AI에게 넘길 입력(프롬프트 재료)이 그대로 이것이 됩니다.</p></div>
+    <h2><span class="num">8</span>색상 규칙</h2>
+    <p>이 기획서 전체가 사이트 색 그대로 칠해져 있습니다. 검정·흰색에 두 가지 색만 더합니다.</p>
+    <div class="callout am">
+      <strong>한 줄 규칙:</strong> <b>남색 = 2026년 현실</b>, <b>호박색 = 상상 속 그 시대</b>. 이야기 구조가 곧 색 구조입니다.
     </div>
+    <div class="sw-grid">
+      <div class="sw"><div class="c" style="background:var(--navy);color:var(--white)">남색</div><div class="m"><code>#2B3A67</code> · 연한 <code>#E7EAF3</code><br>현실 장면, 메뉴, 제목 선, 버튼</div></div>
+      <div class="sw"><div class="c" style="background:var(--amber)">호박색</div><div class="m"><code>#E8833A</code> · 글자용 <code>#A8501A</code> · 연한 <code>#FCEBDD</code><br>상상 장면, 카드 뒷면, 시대 썸네일</div></div>
+      <div class="sw"><div class="c" style="background:var(--black);color:var(--white)">검정</div><div class="m"><code>#111111</code> · 보조 <code>#6B6B6B</code> · 선 <code>#E5E5E5</code><br>본문 글자, 설명, 구분선</div></div>
+      <div class="sw"><div class="c" style="background:var(--white);border-bottom:1px solid var(--gray-200)">흰색</div><div class="m"><code>#FFFFFF</code> · 면 <code>#F5F5F5</code><br>배경, 카드 앞면, 미정 칸</div></div>
+    </div>
+    <ul style="margin-top:16px;font-size:15px">
+      <li>호박색 위에는 <b>검정 글자만</b> 씁니다 (흰 글자는 대비 2.7:1로 읽기 어려움).</li>
+      <li>흰 바탕 위 호박색 글자는 진한 호박색 <code>#A8501A</code>를 씁니다 (5.5:1).</li>
+      <li>그림(일러스트) 속 색은 이 규칙에서 제외합니다. 규칙은 사이트의 틀(바탕, 글자, 버튼, 카드)에만 적용합니다.</li>
+    </ul>
   </section>
 
   <!-- 9 -->
   <section id="s9">
-    <h2><span class="num">12</span>관리 기능 목록</h2>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>기능</th><th>설명</th><th>상태</th></tr></thead>
-        <tbody>
-          <tr><td><b>에피소드 목록</b></td><td>썸네일 또는 진행 현황·현재 담당자 카드</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>"나는 누구?" 사용자 전환</b></td><td>계정 없이 PD·담당자 이름을 골라 화면 전환. 고른 사람은 새로고침해도 유지</td><td><span class="chip ok">포함 · 신규</span></td></tr>
-          <tr><td><b>내 작업함</b></td><td>담당자별 할 일, 받을 자료, 제출 양식, 마감</td><td><span class="chip ok">포함 · 신규</span></td></tr>
-          <tr><td><b>새 작업 표시</b></td><td>메뉴 배지 "새 작업 N건", 카드의 "새 작업" 표시. 열어보면 사라짐. 사이트 밖 알림 없음</td><td><span class="chip ok">포함 · 신규</span></td></tr>
-          <tr><td><b>제출·자료 전달</b></td><td>양식 작성, 이미지·음성·영상 파일 직접 업로드, 앞 단계 자료 열람·재생·다운로드</td><td><span class="chip ok">포함 · 신규</span></td></tr>
-          <tr><td><b>담당자 관리·배정</b></td><td>담당자 등록, 역할·검수자 배정, 사람/AI 종류 칸</td><td><span class="chip ok">포함 · 신규</span></td></tr>
-          <tr><td><b>에피소드 상세</b></td><td>요약, 진행 현황, 단계별 담당자, 결과물</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>전체 관리 페이지</b></td><td>전 에피소드 현황표, 담당자별 작업량, 재배정</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>상호 검수</b></td><td>다른 담당자가 결과물에 지적 사항 남기기</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>승인 체크포인트</b></td><td>핵심 4단계 PD 승인 (B안 → 추후 C안 전환 가능)</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>캐릭터·세계관 설정집</b></td><td>모든 담당자가 참고하는 기준 문서</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>버전 기록·재작업</b></td><td>제출 버전 비교, 단계별 되돌리기</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>마감·지연 표시</b></td><td>단계별 마감일, 지난 작업 강조</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>업로드 캘린더</b></td><td>공개 예정일</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>AI 자동 연결</b></td><td>사이트가 AI에게 직접 작업을 넘기고 결과를 받음</td><td><span class="chip info">다음 수업</span></td></tr>
-          <tr><td><b>유튜브 성과</b></td><td>조회수, 시청 지속률 (유튜브 API 연동 필요)</td><td><span class="chip">이번엔 제외</span></td></tr>
-          <tr><td><b>비용 추적</b></td><td>AI별·에피소드별 API 비용</td><td><span class="chip">이번엔 제외</span></td></tr>
-        </tbody>
-      </table>
+    <h2><span class="num">9</span>만드는 방법</h2>
+    <div class="grid c3">
+      <div class="card"><h4>정적 사이트</h4><p>HTML·CSS·JavaScript만 사용. 서버와 데이터베이스 없음</p></div>
+      <div class="card"><h4>GitHub Pages</h4><p>저장소에 올리면 바로 링크로 공개. 선생님은 링크로 확인</p></div>
+      <div class="card"><h4>콘텐츠 목록 파일</h4><p>캐릭터·에피소드·장소를 목록 파일 하나에 적고 페이지가 그걸 읽어 카드로 그림. 캐릭터를 추가할 때 목록에 한 줄만 더하면 됨</p></div>
     </div>
   </section>
 
   <!-- 10 -->
   <section id="s10">
-    <h2><span class="num">13</span>미정 사항과 다음 단계</h2>
-    <div class="grid c2">
-      <div class="card">
-        <h4>확정된 것 (2026-10-28)</h4>
-        <ul>
-          <li>1인 시연: 한 사람이 PD와 담당자 A~E를 바꿔가며 진행</li>
-          <li>로그인: 계정 없이 "나는 누구?" 선택</li>
-          <li>파일: 사이트에 직접 업로드 (추후 변경 가능)</li>
-          <li>알림: 사이트 안 표시만</li>
-          <li>저장: Supabase (선생님이 같은 데이터를 보고 피드백할 수 있도록)</li>
-          <li>배포: GitHub Pages</li>
-          <li>제출 양식: 8장 항목으로 확정</li>
-          <li>50MB 넘는 영상: 시연용 저화질로 압축해서 업로드</li>
-          <li>색상: 검정·흰색 + 남색·호박색 (10장)</li>
-        </ul>
-        <h4 style="margin-top:16px">아직 정할 것</h4>
-        <ul class="check">
-          <li>업로드 주기, 영상 길이 (10분 / 3분)</li>
-          <li>부모님 캐릭터 구성, 그림체와 분위기</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h4>다음 단계</h4>
-        <ul class="check">
-          <li>남은 미정 사항 확정</li>
-          <li>에피소드 1편으로 사람 담당자 흐름 시험</li>
-          <li>(다음 수업) 담당자 일부를 AI로 교체</li>
-        </ul>
-      </div>
-    </div>
-    <h3>기술 구성</h3>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>구분</th><th>사용</th><th>역할</th><th>무료 범위에서 주의할 점</th></tr></thead>
-        <tbody>
-          <tr><td><b>사이트 공개</b></td><td>GitHub Pages</td><td>저장소의 화면 파일을 주소 하나로 공개. 선생님은 링크로 접속</td><td>화면 파일만 올라감. 데이터는 Supabase에 저장</td></tr>
-          <tr><td><b>데이터</b></td><td>Supabase 데이터베이스</td><td>에피소드, 단계, 담당자, 제출 양식, 검수·승인 기록</td><td>500MB까지. 글 데이터로는 충분</td></tr>
-          <tr><td><b>파일</b></td><td>Supabase Storage</td><td>이미지, 음성, 영상 업로드와 재생</td><td>전체 1GB, <b>파일 하나 50MB까지</b>. 시연용 영상은 짧은 컷이나 저화질로</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="callout info">
-      <strong>운영 주의:</strong> ① Supabase 무료 프로젝트는 <b>1주일간 사용이 없으면 일시 정지</b>되므로, 선생님 확인 전에 한 번 접속해 두거나 대시보드에서 재개합니다. ② 계정 없는 "나는 누구?" 방식이라 링크를 아는 사람은 누구나 읽고 쓸 수 있습니다. 시연용으로는 괜찮지만, 링크는 수업 안에서만 공유합니다.
-    </div>
+    <h2><span class="num">10</span>정해야 할 것</h2>
 
-    <div class="callout">
-      <strong>참고:</strong> 이 페이지는 기획 공유용 정적 프로토타입입니다. 화면 예시의 에피소드, 담당자, 수치는 모두 샘플입니다.
-    </div>
+    <h3>캐릭터</h3>
+    <ul class="q">
+      <li>아이의 이름, 나이, 성별<span>시청자(5~7세)와 같은 또래로 할지</span></li>
+      <li>부모님 구성: 엄마, 아빠, 둘 다?<span>둘 다라면 에피소드마다 이야기해 주는 사람이 바뀌는지</span></li>
+      <li>그 밖의 고정 캐릭터<span>반려동물, 할머니·할아버지, 동생 등. 예: 반려동물이 상상 세계에서 말하는 길잡이가 됨</span></li>
+      <li>상상 속 아이의 모습<span>시대마다 그 시대 아이로 바뀜 / 2026년 모습 그대로 시간 여행</span></li>
+      <li>부모님은 상상 세계에 나오는지<span>목소리(내레이션)로만 / 그 시대 인물로 변신해 등장</span></li>
+    </ul>
+
+    <h3>세계관</h3>
+    <ul class="q">
+      <li>가족이 사는 곳<span>서울 아파트 / 지방 도시 / 한옥 마을 등</span></li>
+      <li>상상으로 넘어가는 계기<span>매번 같은 장치(예: 할머니가 준 오래된 물건) / 에피소드마다 다른 계기</span></li>
+      <li>돌아오는 방법<span>이야기가 끝나면 자연스럽게 / 정해진 신호</span></li>
+    </ul>
+
+    <h3>스토리</h3>
+    <ul class="q">
+      <li>사이트에 소개할 에피소드 수<span>시대별 1편씩 5~6편 추천</span></li>
+      <li>6장 에피소드 후보 확정 · 바꾸거나 더할 것</li>
+      <li>근현대를 다룰지, 다룬다면 무엇을<span>전쟁·분단 같은 무거운 주제는 5~7세 대상에 조심스러움</span></li>
+      <li>세계사까지 넣을지</li>
+    </ul>
+
+    <h3>디자인</h3>
+    <ul class="q">
+      <li>그림을 어떻게 준비할지<span>AI 이미지 생성 도구로 직접 / 우선 자리 표시로 만들고 나중에 교체</span></li>
+      <li>그림체<span>수채화 동화풍 / 플랫 일러스트 / 3D 애니메이션풍</span></li>
+      <li>사이트 이름 확정<span>"역사 상상극장"은 가칭</span></li>
+    </ul>
   </section>
 
-  <footer>역사 상상극장 · 기획서 초안 v0.2 · 2026-10-28</footer>
+  <footer>역사 상상극장 · 기획서 v0.3 · 2026-10-28</footer>
 </div>
+
+<script>
+  document.querySelectorAll('.flip').forEach(function (card) {
+    card.addEventListener('click', function () { card.classList.toggle('on'); });
+  });
+  var filterButtons = document.querySelectorAll('.filters button');
+  filterButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var era = btn.dataset.era;
+      filterButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+      document.querySelectorAll('.timeline .era').forEach(function (el) {
+        el.hidden = era !== 'all' && el.dataset.era !== era;
+      });
+    });
+  });
+</script>
 </body>
 </html>
