@@ -131,6 +131,20 @@
   .step .body strong { font-size: 15px; }
   .step .body span.d { display: block; color: var(--muted); font-size: 14px; }
 
+  /* handoff flow */
+  .flow { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); counter-reset: f; }
+  .flow > div {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+    font-size: 14px; color: var(--muted); position: relative;
+  }
+  .flow > div::before {
+    counter-increment: f; content: counter(f);
+    display: inline-flex; width: 22px; height: 22px; border-radius: 50%; margin-bottom: 6px;
+    align-items: center; justify-content: center; font-size: 12px; font-weight: 700;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  .flow > div b { display: block; color: var(--text); font-size: 15px; }
+
   /* mockup */
   .mock {
     background: var(--surface-2); border: 1px dashed var(--line); border-radius: 12px; padding: 16px;
@@ -149,10 +163,24 @@
   .ep .info { padding: 10px 12px; font-size: 14px; }
   .ep .info b { display: block; }
   .ep .info small { color: var(--muted); }
-  .load-row { display: grid; grid-template-columns: 140px 1fr 48px; gap: 10px; align-items: center; font-size: 14px; margin-bottom: 8px; }
+  .load-row { display: grid; grid-template-columns: 160px 1fr 64px; gap: 10px; align-items: center; font-size: 14px; margin-bottom: 8px; }
   .load-row .bar i.hi { background: var(--warn); }
   .load-row .bar i.lo { background: var(--ok); }
   .load-row em { font-style: normal; color: var(--muted); text-align: right; }
+
+  /* inbox mock */
+  .task { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+  .task:last-child { margin-bottom: 0; }
+  .task-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+  .task-head b { font-size: 15px; }
+  .task-cols { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 10px; font-size: 14px; }
+  .task-cols h5 { margin: 0 0 4px; font-size: 13px; color: var(--muted); }
+  .task-cols ul { margin: 0; padding-left: 18px; }
+  .fake-btn {
+    display: inline-block; margin-top: 8px; padding: 4px 12px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    background: var(--accent); color: #fff;
+  }
+  .fake-btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
 
   ul.check { list-style: none; padding: 0; margin: 0; }
   ul.check li { padding: 8px 0; border-bottom: 1px solid var(--line); display: flex; gap: 10px; }
@@ -163,7 +191,7 @@
 
   @media (max-width: 600px) {
     nav.toc ol { columns: 1; }
-    .load-row { grid-template-columns: 96px 1fr 40px; }
+    .load-row { grid-template-columns: 100px 1fr 52px; }
     .wrap { padding-top: 32px; }
   }
 </style>
@@ -172,26 +200,29 @@
 <div class="wrap">
 
   <header class="top">
-    <div class="eyebrow">기획서 초안 · v0.1 프로토타입</div>
-    <h1>AI 협업 제작 관리 사이트<br>「역사 상상극장」(가칭)</h1>
-    <p class="lead">아이가 부모님께 한국사를 듣다가 상상의 세계로 빠져드는 유튜브 애니메이션을 여러 AI가 나눠 만들고, 그 과정을 한 사람이 한눈에 관리하는 사이트입니다.</p>
+    <div class="eyebrow">기획서 초안 · v0.2 사람 담당자 버전</div>
+    <h1>협업 제작 관리 사이트<br>「역사 상상극장」(가칭)</h1>
+    <p class="lead">아이가 부모님께 한국사를 듣다가 상상의 세계로 빠져드는 유튜브 애니메이션을 단계별 담당자들이 나눠 만들고, 그 과정을 총괄 PD가 한눈에 관리하는 사이트입니다.</p>
     <div class="meta">
-      <span class="chip">작성일 2026-10-27</span>
-      <span class="chip">관리자 이동훈</span>
-      <span class="chip warn">진행 중: 질문 5/? 완료</span>
+      <span class="chip">작성일 2026-10-28</span>
+      <span class="chip">총괄 PD 이동훈</span>
+      <span class="chip info">이번 수업: 사람 담당자가 직접 작성·전달 (1인 시연)</span>
+      <span class="chip">다음 수업: 담당자 일부를 AI로 교체</span>
     </div>
   </header>
 
   <nav class="toc">
     <ol>
       <li><a href="#s1">콘텐츠 개요</a></li>
-      <li><a href="#s2">누가 보는가</a></li>
-      <li><a href="#s3">무엇을 보여주는가 (화면 구성)</a></li>
-      <li><a href="#s4">보고 나서 무엇을 하는가</a></li>
-      <li><a href="#s5">제작 단계와 승인 지점</a></li>
-      <li><a href="#s6">역할 분담과 추천 AI</a></li>
-      <li><a href="#s7">관리 기능 목록</a></li>
-      <li><a href="#s8">미정 사항과 다음 단계</a></li>
+      <li><a href="#s2">누가 쓰는가</a></li>
+      <li><a href="#s3">담당자 작업 흐름</a></li>
+      <li><a href="#s4">화면 구성</a></li>
+      <li><a href="#s5">보고 나서 무엇을 하는가</a></li>
+      <li><a href="#s6">제작 단계와 승인 지점</a></li>
+      <li><a href="#s7">역할 분담과 주고받는 자료</a></li>
+      <li><a href="#s8">AI 전환을 위한 설계 원칙</a></li>
+      <li><a href="#s9">관리 기능 목록</a></li>
+      <li><a href="#s10">미정 사항과 다음 단계</a></li>
     </ol>
   </nav>
 
@@ -207,42 +238,64 @@
       <div class="card"><h4>영상 길이</h4><p>10분 내외로 계획. 제작 부담이 크면 3분으로 축소 검토</p></div>
       <div class="card"><h4>업로드 주기</h4><p>미정</p></div>
       <div class="card"><h4>등장인물</h4><p>아이 캐릭터 1명, 부모님 캐릭터 (구성 미정)</p></div>
-      <div class="card"><h4>제작 방식</h4><p>단계마다 AI가 담당하고, 결과물을 다음 AI에게 자동으로 넘김</p></div>
+      <div class="card"><h4>제작 방식</h4><p>단계마다 사람 담당자를 배정. 담당자는 사이트에 와서 앞 단계 자료를 받아 가고, 작업 결과를 올림</p></div>
     </div>
     <div class="callout info">
-      <strong>10분 vs 3분 참고:</strong> 글 작업(기획, 시나리오, 검수)은 10분이어도 토큰 부담이 크지 않습니다. 실제 병목은 <strong>영상 생성</strong>입니다. 영상 AI는 보통 한 번에 5~10초 정도의 컷을 만들기 때문에, 10분 영상은 약 60~120컷, 3분 영상은 약 20~35컷이 필요합니다. 비용과 시간도 거의 이 비율대로 늘어납니다.
+      <strong>10분 vs 3분 참고:</strong> 글 작업(기획, 시나리오, 검수)은 길이가 늘어도 부담이 크지 않습니다. 병목은 <strong>콘티와 영상 컷 제작</strong>입니다. 컷 하나가 보통 5~10초이므로 10분 영상은 약 60~120컷, 3분 영상은 약 20~35컷입니다. 해당 담당자의 작업량도 거의 이 비율대로 늘어납니다.
     </div>
   </section>
 
   <!-- 2 -->
   <section id="s2">
-    <h2><span class="num">2</span>누가 보는가</h2>
+    <h2><span class="num">2</span>누가 쓰는가</h2>
     <div class="grid c2">
       <div class="card">
-        <h4>사람: 관리자 1명 (나)</h4>
+        <h4>총괄 PD 1명 (나)</h4>
         <ul>
-          <li>제작 전체를 혼자 관리함</li>
-          <li>핵심 단계에서 결과물을 승인하거나 반려함</li>
-          <li>AI별 작업량을 보고 역할을 다시 나눔</li>
+          <li>에피소드를 만들고 단계별 담당자를 배정함</li>
+          <li>핵심 4단계에서 결과물을 승인하거나 반려함</li>
+          <li>담당자별 작업량과 마감을 보고 역할을 다시 나눔</li>
         </ul>
       </div>
       <div class="card">
-        <h4>AI: 각 단계 담당자</h4>
+        <h4>단계 담당자 (사람)</h4>
         <ul>
-          <li>GPT, Gemini, Claude 등이 단계별 역할을 맡음</li>
-          <li>사이트(백엔드)를 통해 앞 단계 결과물을 자동으로 받아 작업함</li>
-          <li>다른 AI의 결과물을 검수하고 지적하기도 함</li>
+          <li>자기에게 배정된 작업만 <b>내 작업함</b>에서 확인</li>
+          <li>앞 단계 결과물을 보거나 내려받아 작업</li>
+          <li>정해진 양식에 맞춰 결과를 작성·업로드하고 제출</li>
+          <li>다른 단계 결과물의 검수자로도 배정됨</li>
+          <li>한 사람이 여러 역할을 겸할 수 있음</li>
         </ul>
       </div>
+    </div>
+    <div class="callout">
+      <strong>이번 수업은 1인 시연입니다.</strong> 기능 구현과 디자인이 목표이므로, 실제로는 한 사람이 화면 상단의 <b>"나는 누구?"</b> 선택으로 PD와 담당자 A~E를 바꿔가며 흐름을 보여줍니다. 계정·비밀번호 없이 이름만 고르면 그 사람의 화면이 됩니다.
+    </div>
+    <div class="callout info">
+      <strong>담당자가 개인적으로 AI 도구를 쓰는 것은 자유입니다.</strong> 사이트는 "누가 무엇을 받아서 무엇을 냈는가"만 관리하고, 작업 방법은 묻지 않습니다. 사이트가 AI와 직접 연결되는 것은 다음 수업 범위입니다.
     </div>
   </section>
 
   <!-- 3 -->
   <section id="s3">
-    <h2><span class="num">3</span>무엇을 보여주는가: 화면 구성</h2>
+    <h2><span class="num">3</span>담당자 작업 흐름</h2>
+    <p>한 단계가 다음 단계로 넘어가는 과정입니다. 모든 단계가 같은 흐름을 따릅니다.</p>
+    <div class="flow">
+      <div><b>새 작업 표시</b>앞 단계가 끝나면 내 작업함에 새 작업과 "새 작업 N건" 배지가 뜸</div>
+      <div><b>자료 받기</b>앞 단계 결과물, 설정집, PD 지시사항 확인·다운로드</div>
+      <div><b>작업</b>사이트 밖에서 자유롭게 작업 (직접 또는 개인 AI 도구)</div>
+      <div><b>제출</b>양식 작성 + 파일(이미지·음성·영상)을 사이트에 직접 업로드</div>
+      <div><b>검수</b>배정된 검수자가 지적 사항을 남김 → 필요시 수정 후 재제출</div>
+      <div><b>승인·전달</b>승인 단계면 PD 승인 후, 아니면 검수 통과 후 다음 담당자에게 넘어감</div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4">
+    <h2><span class="num">4</span>화면 구성</h2>
 
     <h3>① 메인: 에피소드 목록</h3>
-    <p>에피소드를 카드로 나열합니다. 완성된 에피소드는 <strong>썸네일</strong>이, 제작 중인 에피소드는 <strong>진행 현황</strong>이 보입니다.</p>
+    <p>에피소드를 카드로 나열합니다. 완성된 에피소드는 <strong>썸네일</strong>이, 제작 중인 에피소드는 <strong>진행 현황과 현재 담당자</strong>가 보입니다.</p>
     <div class="mock">
       <div class="mock-label">화면 예시 (샘플 데이터)</div>
       <div class="ep-grid">
@@ -252,7 +305,7 @@
         </div>
         <div class="ep">
           <div class="thumb prog">
-            <small style="color:var(--muted)">현재 단계 · 콘티</small>
+            <small style="color:var(--muted)">현재 단계 · 콘티 · 담당자 B</small>
             <div class="bar"><i style="width:42%"></i></div>
             <small>5/12 단계 · 승인 대기 1건</small>
           </div>
@@ -260,57 +313,111 @@
         </div>
         <div class="ep">
           <div class="thumb prog">
-            <small style="color:var(--muted)">현재 단계 · 역사 리서치</small>
+            <small style="color:var(--muted)">현재 단계 · 역사 리서치 · 담당자 C</small>
             <div class="bar"><i style="width:15%"></i></div>
-            <small>2/12 단계 · 진행 중</small>
+            <small>2/12 단계 · 마감 D-2</small>
           </div>
-          <div class="info"><b>3화 세종대왕과 한글</b><small><span class="chip info">AI 작업 중</span></small></div>
+          <div class="info"><b>3화 세종대왕과 한글</b><small><span class="chip info">담당자 작업 중</span></small></div>
         </div>
       </div>
     </div>
 
-    <h3>② 에피소드 상세</h3>
+    <h3>② 내 작업함 (담당자 화면)</h3>
+    <p>"나는 누구?"에서 담당자를 고르면 가장 먼저 보는 화면입니다. <strong>받아 갈 것</strong>과 <strong>내야 할 것</strong>이 한 카드에 같이 보입니다. 새로 들어온 작업은 메뉴의 배지와 카드의 "새 작업" 표시로 알려줍니다. 메일·메신저 알림은 없습니다.</p>
+    <div class="mock">
+      <div class="mock-label">담당자 C의 작업함 예시 (샘플 데이터)</div>
+      <div class="task-head" style="margin-bottom:10px">
+        <span style="font-size:14px">나는 누구? <span class="chip accent">담당자 C (리서치·검수) ▾</span></span>
+        <span class="chip warn">새 작업 1건</span>
+      </div>
+      <div class="task">
+        <div class="task-head"><b>3화 세종대왕과 한글 · 역사 리서치</b><span><span class="chip accent">새 작업</span> <span class="chip warn">마감 10/30</span></span></div>
+        <div class="task-cols">
+          <div>
+            <h5>받아 갈 자료</h5>
+            <ul>
+              <li>스토리 컨셉 v2 (PD 승인됨)</li>
+              <li>캐릭터·세계관 설정집</li>
+              <li>PD 메모: "훈민정음 창제 이유 위주로"</li>
+            </ul>
+            <span class="fake-btn ghost">자료 보기</span>
+          </div>
+          <div>
+            <h5>제출할 것</h5>
+            <ul>
+              <li>핵심 사실 5~10개 + 출처</li>
+              <li>아이 눈높이 핵심 포인트 3개</li>
+              <li>주의할 오해·논쟁 지점</li>
+            </ul>
+            <span class="fake-btn">작성하고 제출</span>
+          </div>
+        </div>
+      </div>
+      <div class="task">
+        <div class="task-head"><b>2화 주몽과 활쏘기 · 시나리오 검수</b><span class="chip info">검수 요청</span></div>
+        <div class="task-cols">
+          <div><h5>받아 갈 자료</h5><ul><li>시나리오 v1 (담당자 A 작성)</li></ul></div>
+          <div><h5>제출할 것</h5><ul><li>지적 사항 목록 (사실 오류 / 연령 부적합 / 기타)</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>③ 에피소드 상세</h3>
     <div class="grid c2">
       <div class="card"><h4>한눈에 보기</h4><p>주제, 시대, 현실 → 상상 세계 전환 아이디어, 한 줄 줄거리</p></div>
-      <div class="card"><h4>진행 현황과 현재 단계</h4><p>12단계 타임라인, 현재 위치, 담당 AI, 승인 대기 여부</p></div>
-      <div class="card"><h4>생성된 결과물</h4><p>단계별 산출물(컨셉 문서, 시나리오, 콘티 이미지, 음성, 영상 컷 등)과 버전 기록</p></div>
-      <div class="card"><h4>검수 기록</h4><p>다른 AI가 남긴 지적 사항, 반영 여부, 나의 승인과 반려 코멘트</p></div>
+      <div class="card"><h4>진행 현황과 담당자</h4><p>12단계 타임라인, 단계별 담당자·검수자·마감일, 현재 위치</p></div>
+      <div class="card"><h4>제출된 결과물</h4><p>단계별 제출물(글, 이미지, 음성, 영상 링크 등), 제출자, 버전 기록</p></div>
+      <div class="card"><h4>검수·승인 기록</h4><p>검수자의 지적 사항, 반영 여부, PD의 승인·반려 코멘트</p></div>
     </div>
 
-    <h3>③ 전체 관리 페이지</h3>
-    <p>모든 에피소드를 한 표에서 보고, 역할별 부하율을 보면서 작업을 다시 나눕니다.</p>
+    <h3>④ 전체 관리 페이지 (PD 화면)</h3>
+    <p>모든 에피소드를 한 표에서 보고, 담당자 배정을 바꿉니다. 부하율은 <strong>담당자별 진행 중 작업 수</strong>로 계산합니다.</p>
     <div class="mock">
-      <div class="mock-label">역할별 부하율 예시 (샘플 데이터)</div>
-      <div class="load-row"><span>영상 생성</span><div class="bar"><i class="hi" style="width:92%"></i></div><em>92%</em></div>
-      <div class="load-row"><span>콘티</span><div class="bar"><i style="width:60%"></i></div><em>60%</em></div>
-      <div class="load-row"><span>시나리오</span><div class="bar"><i style="width:45%"></i></div><em>45%</em></div>
-      <div class="load-row"><span>고증 검수</span><div class="bar"><i class="lo" style="width:12%"></i></div><em>12%</em></div>
-      <p style="margin:10px 0 0;font-size:13px;color:var(--muted)">→ 여유가 있는 AI에게 검수 작업을 넘기거나, 과부하인 역할에 AI를 추가로 배정합니다.</p>
+      <div class="mock-label">담당자별 작업량 예시 (샘플 데이터)</div>
+      <div class="load-row"><span>담당자 D (영상)</span><div class="bar"><i class="hi" style="width:100%"></i></div><em>5건</em></div>
+      <div class="load-row"><span>담당자 B (콘티)</span><div class="bar"><i style="width:60%"></i></div><em>3건</em></div>
+      <div class="load-row"><span>담당자 A (시나리오)</span><div class="bar"><i style="width:40%"></i></div><em>2건</em></div>
+      <div class="load-row"><span>담당자 C (리서치·검수)</span><div class="bar"><i class="lo" style="width:20%"></i></div><em>1건</em></div>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--muted)">→ 여유가 있는 담당자에게 검수를 넘기거나, 밀린 역할에 사람을 추가 배정합니다.</p>
     </div>
 
-    <h3>④ 그 밖의 화면</h3>
+    <h3>⑤ 그 밖의 화면</h3>
     <div class="grid c3">
-      <div class="card"><h4>캐릭터·세계관 설정집</h4><p>캐릭터 외형, 말투, 그림체 기준. 모든 AI가 참고하는 기준 문서</p></div>
-      <div class="card"><h4>업로드 캘린더</h4><p>에피소드별 공개 예정일</p></div>
-      <div class="card"><h4>유튜브 성과</h4><p>조회수, 시청 지속률. 다음 주제를 고를 때 참고</p></div>
-    </div>
-  </section>
-
-  <!-- 4 -->
-  <section id="s4">
-    <h2><span class="num">4</span>보고 나서 무엇을 하는가</h2>
-    <div class="grid c2">
-      <div class="card"><h4>승인 / 반려</h4><p>핵심 4단계에서 결과물을 확인하고 다음 단계로 보내거나 수정을 요청</p></div>
-      <div class="card"><h4>역할 재분배</h4><p>부하율을 보고 담당 AI를 바꾸거나 추가</p></div>
-      <div class="card"><h4>재생성</h4><p>마음에 들지 않는 단계만 다시 실행하고 이전 버전과 비교</p></div>
-      <div class="card"><h4>오류 대응</h4><p>자동 연결이 실패하거나 멈췄다는 알림을 받고 조치</p></div>
+      <div class="card"><h4>캐릭터·세계관 설정집</h4><p>캐릭터 외형, 말투, 그림체 기준. 모든 담당자가 참고하는 기준 문서. PD만 수정</p></div>
+      <div class="card"><h4>담당자 관리</h4><p>담당자 등록, 맡은 역할, 연락처</p></div>
+      <div class="card"><h4>업로드 캘린더</h4><p>에피소드별 공개 예정일과 단계별 마감일</p></div>
     </div>
   </section>
 
   <!-- 5 -->
   <section id="s5">
-    <h2><span class="num">5</span>제작 단계와 승인 지점</h2>
-    <p>모든 단계가 끝나면 <strong>다음 단계 AI나 여유 있는 AI가 결과물을 검수하고 지적</strong>합니다. 그중 <span class="chip accent">승인</span> 표시가 있는 4단계에서는 내가 직접 승인해야 다음으로 넘어갑니다. 자동 승인은 없습니다.</p>
+    <h2><span class="num">5</span>보고 나서 무엇을 하는가</h2>
+    <div class="grid c2">
+      <div class="card">
+        <h4>총괄 PD</h4>
+        <ul>
+          <li><b>승인 / 반려</b>: 핵심 4단계 결과물 확인 후 다음 단계로 보내거나 수정 요청</li>
+          <li><b>배정 변경</b>: 작업량을 보고 담당자를 바꾸거나 추가</li>
+          <li><b>재작업 요청</b>: 특정 단계만 다시 하도록 되돌림. 이전 버전과 비교</li>
+          <li><b>지연 대응</b>: 마감이 지난 작업 알림을 보고 독촉하거나 재배정</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>단계 담당자</h4>
+        <ul>
+          <li><b>자료 받기</b>: 앞 단계 결과물과 설정집 확인·다운로드</li>
+          <li><b>제출</b>: 양식 작성, 파일 직접 업로드</li>
+          <li><b>검수</b>: 배정된 결과물에 지적 사항 남기기</li>
+          <li><b>수정 재제출</b>: 반려·지적 사항 반영 후 새 버전 제출</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <h2><span class="num">6</span>제작 단계와 승인 지점</h2>
+    <p>모든 단계는 제출 후 <strong>다른 담당자가 검수</strong>합니다. 기본 검수자는 다음 단계 담당자이고, PD가 여유 있는 사람으로 바꿀 수 있습니다. <span class="chip accent">승인</span> 표시가 있는 4단계는 검수 뒤 PD가 직접 승인해야 다음으로 넘어갑니다.</p>
     <p style="color:var(--muted);font-size:14px">※ 지금은 핵심 단계만 승인(B안)하고, 흐름이 자리를 잡으면 최종 영상만 확인(C안)하도록 설정에서 바꿀 수 있게 만듭니다.</p>
     <div class="card pipeline">
       <div class="step gate"><div class="rail"><div class="dot">1</div><div class="line"></div></div><div class="body"><strong>스토리 컨셉 <span class="chip accent">승인</span></strong><span class="d">주제 선정, 핵심 교훈, 상상 세계 콘셉트</span></div></div>
@@ -320,7 +427,7 @@
       <div class="step gate"><div class="rail"><div class="dot">5</div><div class="line"></div></div><div class="body"><strong>콘티 <span class="chip accent">승인</span></strong><span class="d">컷 분할, 구도, 화면 전환, 컷별 길이</span></div></div>
       <div class="step"><div class="rail"><div class="dot">6</div><div class="line"></div></div><div class="body"><strong>캐릭터·배경 아트</strong><span class="d">설정집 기준으로 키 이미지 제작</span></div></div>
       <div class="step"><div class="rail"><div class="dot">7</div><div class="line"></div></div><div class="body"><strong>음성</strong><span class="d">부모님, 아이, 상상 세계 인물 목소리</span></div></div>
-      <div class="step"><div class="rail"><div class="dot">8</div><div class="line"></div></div><div class="body"><strong>영상 생성</strong><span class="d">컷별 영상 클립 생성</span></div></div>
+      <div class="step"><div class="rail"><div class="dot">8</div><div class="line"></div></div><div class="body"><strong>영상 컷 제작</strong><span class="d">컷별 영상 클립</span></div></div>
       <div class="step"><div class="rail"><div class="dot">9</div><div class="line"></div></div><div class="body"><strong>음악·효과음</strong><span class="d">배경음악, 전환 효과음</span></div></div>
       <div class="step"><div class="rail"><div class="dot">10</div><div class="line"></div></div><div class="body"><strong>편집·자막</strong><span class="d">컷 이어붙이기, 음성 싱크, 자막</span></div></div>
       <div class="step"><div class="rail"><div class="dot">11</div><div class="line"></div></div><div class="body"><strong>썸네일·메타데이터</strong><span class="d">썸네일, 제목, 설명, 태그</span></div></div>
@@ -328,89 +435,128 @@
     </div>
   </section>
 
-  <!-- 6 -->
-  <section id="s6">
-    <h2><span class="num">6</span>역할 분담과 추천 AI</h2>
-    <p>각 AI가 잘하는 분야를 기준으로 추천했습니다. 아직 확정이 아니며, 실제로 테스트해 보고 바꿔도 됩니다.</p>
+  <!-- 7 -->
+  <section id="s7">
+    <h2><span class="num">7</span>역할 분담과 주고받는 자료</h2>
+    <p>각 역할이 <b>무엇을 받고 무엇을 내는지</b>를 고정해 둡니다. 담당자 A~E는 1인 시연용 가상 인물이며, "나는 누구?" 목록에 그대로 나옵니다. 마지막 칸은 다음 수업에서 AI로 바꿀 때의 후보입니다.</p>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>#</th><th>역할</th><th>하는 일</th><th>추천 AI</th><th>추천 이유</th></tr></thead>
+        <thead><tr><th>#</th><th>역할</th><th>받는 것</th><th>내는 것</th><th>담당자</th><th>향후 AI 후보</th></tr></thead>
         <tbody>
-          <tr><td class="n">0</td><td><b>총괄 PD</b></td><td>핵심 4단계 승인, 역할 재분배</td><td>나 (사람)</td><td>최종 책임과 판단</td></tr>
-          <tr><td class="n">1</td><td><b>컨셉 기획</b></td><td>에피소드 주제, 교훈, 상상 세계 콘셉트</td><td>Claude 또는 GPT</td><td>아이디어 발상과 구조화</td></tr>
-          <tr><td class="n">2</td><td><b>역사 리서처</b></td><td>사료 조사, 출처 정리</td><td>Gemini<span class="sub">보조: Perplexity</span></td><td>웹 검색 연동이 강하고 출처 제시가 쉬움</td></tr>
-          <tr><td class="n">3</td><td><b>시나리오 작가</b></td><td>대사, 장면, 현실 ↔ 상상 전환</td><td>Claude</td><td>긴 글의 일관성과 자연스러운 한국어 대화체</td></tr>
-          <tr><td class="n">4</td><td><b>고증·연령 검수</b></td><td>사실 오류, 표현 수위 점검</td><td>GPT<span class="sub">시나리오 작가와 다른 AI로 배정</span></td><td>교차 검증. 쓴 AI가 아닌 다른 AI가 봐야 오류를 잘 잡음</td></tr>
-          <tr><td class="n">5</td><td><b>콘티 작가</b></td><td>컷 분할, 구도, 컷별 영상 프롬프트</td><td>GPT</td><td>구조화된 표 작성과 이미지 생성을 함께 처리</td></tr>
-          <tr><td class="n">6</td><td><b>아트 디렉터</b></td><td>캐릭터 시트, 배경, 키 이미지</td><td>GPT 이미지 생성 또는 Gemini 이미지<span class="sub">보조: Midjourney</span></td><td>같은 캐릭터를 반복해서 그리는 일관성이 중요</td></tr>
-          <tr><td class="n">7</td><td><b>성우</b></td><td>캐릭터별 음성 생성</td><td>ElevenLabs</td><td>한국어 음성 품질, 아이 목소리 설계 가능</td></tr>
-          <tr><td class="n">8</td><td><b>영상 생성</b></td><td>컷별 영상 클립</td><td>Google Veo<span class="sub">대안: Sora, Kling, Runway</span></td><td>가장 비싸고 느린 단계. 복수 배정 후보 1순위</td></tr>
-          <tr><td class="n">9</td><td><b>음악·효과음</b></td><td>배경음악, 효과음</td><td>Suno<span class="sub">효과음: ElevenLabs</span></td><td>분위기별 BGM을 빠르게 생성</td></tr>
-          <tr><td class="n">10</td><td><b>편집자</b></td><td>컷 연결, 싱크, 자막</td><td>자동 편집 스크립트 + CapCut 등</td><td>완전 자동화가 가장 어려운 단계. 초기엔 일부 수작업 예상</td></tr>
-          <tr><td class="n">11</td><td><b>퍼블리셔</b></td><td>썸네일, 제목, 설명, 태그</td><td>GPT (이미지) + Claude (문구)</td><td>클릭을 부르는 문구와 이미지 분업</td></tr>
-          <tr><td class="n">12</td><td><b>최종 QA</b></td><td>완성 영상 전체 점검</td><td>Gemini</td><td>긴 영상을 직접 보고 분석하는 능력</td></tr>
+          <tr><td class="n">0</td><td><b>총괄 PD</b></td><td>승인 단계 결과물, 작업량 현황</td><td>승인·반려, 배정</td><td>이동훈</td><td>사람 유지</td></tr>
+          <tr><td class="n">1</td><td><b>컨셉 기획</b></td><td>PD가 정한 주제, 설정집</td><td>컨셉 문서 (주제, 교훈, 상상 세계, 한 줄 줄거리)</td><td>PD 겸임</td><td>Claude 또는 GPT</td></tr>
+          <tr><td class="n">2</td><td><b>역사 리서처</b></td><td>컨셉 문서</td><td>사실 목록 + 출처, 핵심 포인트</td><td>담당자 C</td><td>Gemini<span class="sub">보조: Perplexity</span></td></tr>
+          <tr><td class="n">3</td><td><b>시나리오 작가</b></td><td>컨셉, 리서치 자료, 설정집</td><td>시나리오 (장면, 대사, 전환 지점)</td><td>담당자 A</td><td>Claude</td></tr>
+          <tr><td class="n">4</td><td><b>고증·연령 검수</b></td><td>시나리오, 리서치 자료</td><td>지적 사항 목록</td><td>담당자 C<span class="sub">시나리오 작가와 다른 사람</span></td><td>GPT</td></tr>
+          <tr><td class="n">5</td><td><b>콘티 작가</b></td><td>확정 시나리오, 설정집</td><td>컷 목록 (번호, 구도, 길이, 대사, 컷 설명)</td><td>담당자 B</td><td>GPT</td></tr>
+          <tr><td class="n">6</td><td><b>아트 디렉터</b></td><td>콘티, 설정집</td><td>캐릭터 시트, 배경, 키 이미지</td><td>담당자 B 또는 별도</td><td>GPT 이미지 / Gemini 이미지<span class="sub">보조: Midjourney</span></td></tr>
+          <tr><td class="n">7</td><td><b>성우</b></td><td>시나리오 대사</td><td>캐릭터별 음성 파일</td><td>담당자 E</td><td>ElevenLabs</td></tr>
+          <tr><td class="n">8</td><td><b>영상 컷 제작</b></td><td>콘티, 키 이미지</td><td>컷별 영상 클립</td><td>담당자 D<span class="sub">가장 무거움. 복수 배정 1순위</span></td><td>Google Veo<span class="sub">대안: Sora, Kling, Runway</span></td></tr>
+          <tr><td class="n">9</td><td><b>음악·효과음</b></td><td>콘티 (장면 분위기)</td><td>BGM, 효과음 파일</td><td>담당자 E</td><td>Suno<span class="sub">효과음: ElevenLabs</span></td></tr>
+          <tr><td class="n">10</td><td><b>편집자</b></td><td>영상 컷, 음성, 음악, 시나리오</td><td>완성 영상, 자막 파일</td><td>담당자 D</td><td>자동 편집 스크립트<span class="sub">끝까지 사람이 남을 가능성 큼</span></td></tr>
+          <tr><td class="n">11</td><td><b>퍼블리셔</b></td><td>완성 영상, 컨셉</td><td>썸네일, 제목, 설명, 태그</td><td>담당자 A</td><td>GPT (이미지) + Claude (문구)</td></tr>
+          <tr><td class="n">12</td><td><b>최종 QA</b></td><td>완성 영상, 메타데이터</td><td>최종 점검 의견</td><td>PD</td><td>Gemini</td></tr>
         </tbody>
       </table>
     </div>
     <div class="callout info">
-      <strong>검수 배정 원칙:</strong> 결과물을 만든 AI와 다른 회사의 AI가 검수하도록 배정합니다. 예를 들어 Claude가 쓴 시나리오는 GPT나 Gemini가 검수합니다. 같은 모델은 자기 실수를 잘 못 잡기 때문입니다.
+      <strong>검수 배정 원칙:</strong> 결과물을 만든 사람과 다른 사람이 검수합니다. 나중에 AI로 바꿀 때도 같은 원칙으로, 만든 AI와 다른 회사의 AI가 검수하도록 배정합니다.
     </div>
   </section>
 
-  <!-- 7 -->
-  <section id="s7">
-    <h2><span class="num">7</span>관리 기능 목록</h2>
+  <!-- 8 -->
+  <section id="s8">
+    <h2><span class="num">8</span>AI 전환을 위한 설계 원칙</h2>
+    <p>다음 수업에서 사이트를 갈아엎지 않고 담당자만 바꿔 끼우려면, 지금부터 아래 네 가지를 지켜서 만듭니다.</p>
+    <div class="grid c2">
+      <div class="card"><h4>① 담당자에 "종류" 칸을 둔다</h4><p>담당자 정보에 <b>사람 / AI</b> 구분을 미리 넣어 둡니다. 지금은 모두 "사람"이고, 나중엔 같은 자리에 AI를 등록하면 됩니다.</p></div>
+      <div class="card"><h4>② 제출 양식을 항목으로 고정한다</h4><p>자유 글 한 덩어리가 아니라 7장의 "내는 것"처럼 정해진 칸으로 받습니다. 사람이 채우던 칸을 나중에 AI가 같은 형식으로 채우게 됩니다.</p></div>
+      <div class="card"><h4>③ 단계 사이는 "제출 → 다음 작업 생성"으로만 잇는다</h4><p>앞 단계가 승인되면 다음 담당자의 작업함에 작업이 생기는 한 가지 방식만 씁니다. 받는 쪽이 사람이든 AI든 같은 통로를 씁니다.</p></div>
+      <div class="card"><h4>④ 받는 자료를 단계마다 명시한다</h4><p>각 단계가 어떤 앞 단계 결과물을 읽는지 정해 둡니다. 나중에 AI에게 넘길 입력(프롬프트 재료)이 그대로 이것이 됩니다.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="s9">
+    <h2><span class="num">9</span>관리 기능 목록</h2>
     <div class="table-wrap">
       <table>
         <thead><tr><th>기능</th><th>설명</th><th>상태</th></tr></thead>
         <tbody>
-          <tr><td><b>에피소드 목록</b></td><td>썸네일 또는 진행 현황 카드</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>에피소드 상세</b></td><td>요약, 진행 현황, 현재 단계, 결과물</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>전체 관리 페이지</b></td><td>전 에피소드 현황표, 역할별 부하율, 재분배</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>AI 상호 검수</b></td><td>다음 단계 AI나 여유 있는 AI가 결과물을 지적</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>승인 체크포인트</b></td><td>핵심 4단계 수동 승인 (B안 → 추후 C안 전환 가능)</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>캐릭터·세계관 설정집</b></td><td>모든 AI가 참고하는 기준 문서</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>역사 고증 검수</b></td><td>별도 AI의 교차 사실 검증 단계</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>버전 기록·재생성</b></td><td>이전 버전 비교, 단계별 재실행</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>오류·지연 알림</b></td><td>자동 연결 실패나 지연 알림</td><td><span class="chip ok">포함</span></td></tr>
-          <tr><td><b>업로드 캘린더·유튜브 성과</b></td><td>공개 일정, 조회수, 시청 지속률</td><td><span class="chip ok">포함</span></td></tr>
+          <tr><td><b>에피소드 목록</b></td><td>썸네일 또는 진행 현황·현재 담당자 카드</td><td><span class="chip ok">포함</span></td></tr>
+          <tr><td><b>"나는 누구?" 사용자 전환</b></td><td>계정 없이 PD·담당자 이름을 골라 화면 전환. 고른 사람은 새로고침해도 유지</td><td><span class="chip ok">포함 · 신규</span></td></tr>
+          <tr><td><b>내 작업함</b></td><td>담당자별 할 일, 받을 자료, 제출 양식, 마감</td><td><span class="chip ok">포함 · 신규</span></td></tr>
+          <tr><td><b>새 작업 표시</b></td><td>메뉴 배지 "새 작업 N건", 카드의 "새 작업" 표시. 열어보면 사라짐. 사이트 밖 알림 없음</td><td><span class="chip ok">포함 · 신규</span></td></tr>
+          <tr><td><b>제출·자료 전달</b></td><td>양식 작성, 이미지·음성·영상 파일 직접 업로드, 앞 단계 자료 열람·재생·다운로드</td><td><span class="chip ok">포함 · 신규</span></td></tr>
+          <tr><td><b>담당자 관리·배정</b></td><td>담당자 등록, 역할·검수자 배정, 사람/AI 종류 칸</td><td><span class="chip ok">포함 · 신규</span></td></tr>
+          <tr><td><b>에피소드 상세</b></td><td>요약, 진행 현황, 단계별 담당자, 결과물</td><td><span class="chip ok">포함</span></td></tr>
+          <tr><td><b>전체 관리 페이지</b></td><td>전 에피소드 현황표, 담당자별 작업량, 재배정</td><td><span class="chip ok">포함</span></td></tr>
+          <tr><td><b>상호 검수</b></td><td>다른 담당자가 결과물에 지적 사항 남기기</td><td><span class="chip ok">포함</span></td></tr>
+          <tr><td><b>승인 체크포인트</b></td><td>핵심 4단계 PD 승인 (B안 → 추후 C안 전환 가능)</td><td><span class="chip ok">포함</span></td></tr>
+          <tr><td><b>캐릭터·세계관 설정집</b></td><td>모든 담당자가 참고하는 기준 문서</td><td><span class="chip ok">포함</span></td></tr>
+          <tr><td><b>버전 기록·재작업</b></td><td>제출 버전 비교, 단계별 되돌리기</td><td><span class="chip ok">포함</span></td></tr>
+          <tr><td><b>마감·지연 표시</b></td><td>단계별 마감일, 지난 작업 강조</td><td><span class="chip ok">포함</span></td></tr>
+          <tr><td><b>업로드 캘린더</b></td><td>공개 예정일</td><td><span class="chip ok">포함</span></td></tr>
+          <tr><td><b>AI 자동 연결</b></td><td>사이트가 AI에게 직접 작업을 넘기고 결과를 받음</td><td><span class="chip info">다음 수업</span></td></tr>
+          <tr><td><b>유튜브 성과</b></td><td>조회수, 시청 지속률 (유튜브 API 연동 필요)</td><td><span class="chip">이번엔 제외</span></td></tr>
           <tr><td><b>비용 추적</b></td><td>AI별·에피소드별 API 비용</td><td><span class="chip">이번엔 제외</span></td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- 8 -->
-  <section id="s8">
-    <h2><span class="num">8</span>미정 사항과 다음 단계</h2>
+  <!-- 10 -->
+  <section id="s10">
+    <h2><span class="num">10</span>미정 사항과 다음 단계</h2>
     <div class="grid c2">
       <div class="card">
-        <h4>아직 정할 것</h4>
+        <h4>확정된 것 (2026-10-28)</h4>
+        <ul>
+          <li>1인 시연: 한 사람이 PD와 담당자 A~E를 바꿔가며 진행</li>
+          <li>로그인: 계정 없이 "나는 누구?" 선택</li>
+          <li>파일: 사이트에 직접 업로드 (추후 변경 가능)</li>
+          <li>알림: 사이트 안 표시만</li>
+          <li>저장: Supabase (선생님이 같은 데이터를 보고 피드백할 수 있도록)</li>
+          <li>배포: GitHub Pages</li>
+        </ul>
+        <h4 style="margin-top:16px">아직 정할 것</h4>
         <ul class="check">
-          <li>업로드 주기</li>
-          <li>영상 길이 확정 (10분 / 3분)</li>
-          <li>부모님 캐릭터 구성 (엄마, 아빠, 둘 다?)</li>
-          <li>그림체와 분위기</li>
-          <li>AI 자동 연결 방식과 API 키 관리</li>
-          <li>사이트 접근 보안 (혼자 쓰는 관리판)</li>
+          <li>업로드 주기, 영상 길이 (10분 / 3분)</li>
+          <li>부모님 캐릭터 구성, 그림체와 분위기</li>
         </ul>
       </div>
       <div class="card">
         <h4>다음 단계</h4>
         <ul class="check">
-          <li>남은 질문으로 기획서 보완</li>
-          <li>화면별 와이어프레임</li>
-          <li>에피소드 1편으로 파이프라인 시험 제작</li>
-          <li>AI 자동 연결 백엔드 설계</li>
+          <li>미정 사항 확정</li>
+          <li>단계별 제출 양식 항목 확정</li>
+          <li>화면별 와이어프레임 (작업함, 상세, 관리)</li>
+          <li>에피소드 1편으로 사람 담당자 흐름 시험</li>
+          <li>(다음 수업) 담당자 일부를 AI로 교체</li>
         </ul>
       </div>
     </div>
+    <h3>기술 구성</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>구분</th><th>사용</th><th>역할</th><th>무료 범위에서 주의할 점</th></tr></thead>
+        <tbody>
+          <tr><td><b>사이트 공개</b></td><td>GitHub Pages</td><td>저장소의 화면 파일을 주소 하나로 공개. 선생님은 링크로 접속</td><td>화면 파일만 올라감. 데이터는 Supabase에 저장</td></tr>
+          <tr><td><b>데이터</b></td><td>Supabase 데이터베이스</td><td>에피소드, 단계, 담당자, 제출 양식, 검수·승인 기록</td><td>500MB까지. 글 데이터로는 충분</td></tr>
+          <tr><td><b>파일</b></td><td>Supabase Storage</td><td>이미지, 음성, 영상 업로드와 재생</td><td>전체 1GB, <b>파일 하나 50MB까지</b>. 시연용 영상은 짧은 컷이나 저화질로</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout info">
+      <strong>운영 주의:</strong> ① Supabase 무료 프로젝트는 <b>1주일간 사용이 없으면 일시 정지</b>되므로, 선생님 확인 전에 한 번 접속해 두거나 대시보드에서 재개합니다. ② 계정 없는 "나는 누구?" 방식이라 링크를 아는 사람은 누구나 읽고 쓸 수 있습니다. 시연용으로는 괜찮지만, 링크는 수업 안에서만 공유합니다.
+    </div>
+
     <div class="callout">
-      <strong>참고:</strong> 이 페이지는 기획 공유용 정적 프로토타입입니다. 화면 예시의 에피소드와 수치는 모두 샘플입니다. AI끼리 결과물을 자동으로 주고받으려면 이후에 서버(백엔드)와 각 AI의 API 연동이 필요합니다.
+      <strong>참고:</strong> 이 페이지는 기획 공유용 정적 프로토타입입니다. 화면 예시의 에피소드, 담당자, 수치는 모두 샘플입니다.
     </div>
   </section>
 
-  <footer>역사 상상극장 · 기획서 초안 v0.1 · 2026-10-27</footer>
+  <footer>역사 상상극장 · 기획서 초안 v0.2 · 2026-10-28</footer>
 </div>
 </body>
 </html>
