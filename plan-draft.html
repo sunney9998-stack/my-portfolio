@@ -204,6 +204,47 @@
   .fnote { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
   .legend { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 16px; }
 
+  /* wireframes */
+  .wf { border: 1px dashed var(--muted); border-radius: 12px; background: var(--surface); padding: 12px; font-size: 13px; }
+  .wf-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); margin-bottom: 10px; }
+  .wf-nav { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wf-nav span { padding: 2px 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); }
+  .wf-nav span.on { border-color: var(--accent); color: var(--accent); font-weight: 700; }
+  .wb { border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); padding: 8px 10px; color: var(--muted); min-height: 36px; }
+  .wb b { color: var(--text); font-weight: 700; }
+  .wb.hl { border-color: var(--accent); background: var(--accent-soft); }
+  .wcol { display: grid; gap: 8px; }
+  .wrow { display: grid; gap: 8px; margin-bottom: 8px; }
+  .w-12 { grid-template-columns: 1fr 2fr; }
+  .w-11 { grid-template-columns: 1fr 1fr; }
+  .w-4 { grid-template-columns: repeat(4, 1fr); }
+  .w-tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+  .w-tabs span { padding: 2px 8px; border-bottom: 2px solid var(--line); }
+  .w-tabs span.on { border-color: var(--accent); color: var(--accent); font-weight: 700; }
+  .w-line { height: 6px; border-radius: 3px; background: var(--line); margin: 6px 0; }
+  .w-line.s { width: 60%; }
+  .w-steps { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; }
+  .w-steps i { height: 18px; border-radius: 4px; background: var(--line); font-style: normal; font-size: 10px; text-align: center; line-height: 18px; color: var(--muted); }
+  .w-steps i.d { background: var(--ok-soft); color: var(--ok); }
+  .w-steps i.c { background: var(--accent); color: #fff; }
+  .w-steps i.g { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .mk { display: inline-flex; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 11px; font-weight: 700; align-items: center; justify-content: center; margin-right: 4px; flex-shrink: 0; vertical-align: middle; }
+  ol.notes { margin: 10px 0 0; padding: 0; list-style: none; font-size: 14px; }
+  ol.notes li { display: flex; gap: 6px; padding: 4px 0; color: var(--muted); }
+  ol.notes li b { color: var(--text); }
+  .wf-table { width: 100%; min-width: 520px; border-collapse: collapse; font-size: 12px; }
+  .wf-table td, .wf-table th { border: 1px solid var(--line); padding: 4px 6px; text-align: center; background: var(--surface); }
+  .wf-table th { background: var(--surface-2); font-weight: 700; white-space: nowrap; }
+  .wf-table td:first-child { text-align: left; white-space: nowrap; }
+  .wf-table td.d { background: var(--ok-soft); color: var(--ok); }
+  .wf-table td.c { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+  .wf-table td.late { background: var(--warn-soft); color: var(--warn); font-weight: 700; }
+  .scroll { overflow-x: auto; }
+  @media (max-width: 600px) {
+    .w-12, .w-11 { grid-template-columns: 1fr; }
+    .w-4 { grid-template-columns: 1fr 1fr; }
+  }
+
   footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px; }
 
   @media (max-width: 600px) {
@@ -238,6 +279,7 @@
       <li><a href="#s6">제작 단계와 승인 지점</a></li>
       <li><a href="#s7">역할 분담과 주고받는 자료</a></li>
       <li><a href="#sf">단계별 제출 양식</a></li>
+      <li><a href="#sw">화면별 와이어프레임</a></li>
       <li><a href="#s8">AI 전환을 위한 설계 원칙</a></li>
       <li><a href="#s9">관리 기능 목록</a></li>
       <li><a href="#s10">미정 사항과 다음 단계</a></li>
@@ -699,9 +741,149 @@
     </div>
   </section>
 
+  <!-- wireframes -->
+  <section id="sw">
+    <h2><span class="num">9</span>화면별 와이어프레임</h2>
+    <p>실제 색과 디자인이 아니라 <b>무엇이 어디에 놓이는지</b>만 보여주는 뼈대입니다. 휴대폰 화면에서는 좌우로 나뉜 영역이 위아래로 쌓입니다. 동그라미 번호는 아래 설명과 짝입니다.</p>
+
+    <h3>① 공통: 상단바와 "나는 누구?"</h3>
+    <div class="wf">
+      <div class="wf-bar">
+        <span><span class="mk">1</span><b>역사 상상극장</b></span>
+        <span class="wf-nav"><span class="mk">2</span><span class="on">내 작업함 <b style="color:var(--accent)">2</b></span><span>에피소드</span><span>설정집</span><span>캘린더</span></span>
+        <span><span class="mk">3</span>나는 누구? <span class="chip accent">담당자 C ▾</span></span>
+      </div>
+      <div class="wrow w-4">
+        <div class="wb hl"><b>PD 이동훈</b><br>총괄</div>
+        <div class="wb"><b>담당자 A</b><br>시나리오·퍼블리셔</div>
+        <div class="wb"><b>담당자 B</b><br>콘티·아트</div>
+        <div class="wb"><b>담당자 C</b><br>리서치·검수</div>
+        <div class="wb"><b>담당자 D</b><br>영상·편집</div>
+        <div class="wb"><b>담당자 E</b><br>음성·음악</div>
+      </div>
+      <div style="color:var(--muted)"><span class="mk">4</span>처음 접속하면 위처럼 사람 카드가 나오고, 하나를 누르면 그 사람의 화면으로 들어갑니다.</div>
+    </div>
+    <ol class="notes">
+      <li><span class="mk">1</span><span><b>로고</b>: 누르면 그 사람의 첫 화면(PD는 전체 관리, 담당자는 내 작업함)으로 이동</span></li>
+      <li><span class="mk">2</span><span><b>메뉴</b>: 고른 사람에 따라 달라짐. PD는 <b>전체 관리 · 승인 대기 N · 에피소드 · 설정집 · 담당자 · 캘린더</b>, 담당자는 <b>내 작업함 N · 에피소드 · 설정집 · 캘린더</b>. N이 "새 작업" 배지</span></li>
+      <li><span class="mk">3</span><span><b>나는 누구?</b>: 언제든 눌러서 다른 사람으로 바꿈. 시연 때 가장 많이 누르는 버튼이라 항상 오른쪽 위 고정</span></li>
+      <li><span class="mk">4</span><span><b>사람 고르기 화면</b>: 첫 접속이거나 선택을 지웠을 때만 나옴. 이후엔 새로고침해도 유지</span></li>
+    </ol>
+
+    <h3>② 내 작업함 (담당자)</h3>
+    <div class="wf">
+      <div class="w-tabs"><span class="mk">1</span><span class="on">새 작업 1</span><span>진행 중 1</span><span>검수 요청 1</span><span>수정 요청 0</span><span>완료</span></div>
+      <div class="wb hl" style="margin-bottom:8px">
+        <span class="mk">2</span><b>3화 세종대왕과 한글 · 2. 역사 리서치</b> <span class="chip accent">새 작업</span> <span class="chip warn">마감 D-2</span>
+        <div class="wrow w-11" style="margin:8px 0 0">
+          <div class="wb"><b>받아 갈 자료</b><div class="w-line"></div><div class="w-line s"></div></div>
+          <div class="wb"><b>제출할 것</b><div class="w-line"></div><div class="w-line s"></div></div>
+        </div>
+        <div style="margin-top:8px"><span class="mk">3</span><span class="fake-btn" style="margin:0">작업 시작</span></div>
+      </div>
+      <div class="wb"><b>2화 주몽과 활쏘기 · 시나리오 검수</b> <span class="chip info">검수 요청</span></div>
+    </div>
+    <ol class="notes">
+      <li><span class="mk">1</span><span><b>상태 탭</b>: 새 작업 → 진행 중 → 완료. 검수자로 배정된 건은 "검수 요청", 반려·지적받은 건은 "수정 요청"에 모임. 마감 빠른 순 정렬</span></li>
+      <li><span class="mk">2</span><span><b>작업 카드</b>: 에피소드·단계·마감과 함께 받을 자료, 제출할 것을 요약. "새 작업" 표시는 한 번 열면 사라짐</span></li>
+      <li><span class="mk">3</span><span><b>작업 시작</b>: 누르면 진행 중으로 옮겨지고 ③ 제출 화면으로 이동</span></li>
+    </ol>
+
+    <h3>③ 제출 화면 (담당자)</h3>
+    <div class="wf">
+      <div class="wb" style="margin-bottom:8px"><b>← 내 작업함</b> &nbsp; 3화 세종대왕과 한글 · 2. 역사 리서치 · v1 작성 중</div>
+      <div class="wrow w-12">
+        <div class="wb">
+          <span class="mk">1</span><b>받은 자료</b>
+          <div class="w-tabs" style="margin-top:6px"><span class="on">컨셉 v2</span><span>설정집</span><span>PD 메모</span></div>
+          <div class="w-line"></div><div class="w-line"></div><div class="w-line s"></div>
+          <div class="wb" style="margin-top:8px;background:var(--surface)">이미지·음성·영상은 여기서 바로 보기·재생·다운로드</div>
+        </div>
+        <div class="wb">
+          <span class="mk">2</span><b>제출 양식</b> (8장 2단계 항목)
+          <div class="wb" style="margin-top:6px;background:var(--surface)">핵심 사실 1 · 사실 / 출처</div>
+          <div class="wb" style="margin-top:6px;background:var(--surface)">핵심 사실 2 · 사실 / 출처</div>
+          <div style="margin:6px 0">+ 추가</div>
+          <div class="wb" style="background:var(--surface)">아이 눈높이 포인트 ×3</div>
+          <div class="wb" style="margin-top:6px;background:var(--surface)">공통 칸: 작업 메모 · 사용한 도구</div>
+          <div style="margin-top:8px"><span class="mk">3</span><span class="fake-btn ghost" style="margin:0">임시 저장</span> <span class="fake-btn" style="margin:0">제출</span></div>
+        </div>
+      </div>
+    </div>
+    <ol class="notes">
+      <li><span class="mk">1</span><span><b>받은 자료</b>: 7장의 "받는 것"만 탭으로 보여줌. 쓰면서 옆에서 계속 볼 수 있게 왼쪽 고정</span></li>
+      <li><span class="mk">2</span><span><b>제출 양식</b>: 단계마다 8장의 칸이 그대로 나옴. 필수 칸이 비면 제출 버튼이 눌리지 않고 그 칸을 표시</span></li>
+      <li><span class="mk">3</span><span><b>임시 저장 / 제출</b>: 영상처럼 오래 걸리는 단계는 임시 저장으로 나눠 올림. 제출하면 검수자 작업함에 "검수 요청"이 생김</span></li>
+    </ol>
+
+    <h3>④ 에피소드 상세 (모두)</h3>
+    <div class="wf">
+      <div class="wb" style="margin-bottom:8px">
+        <span class="mk">1</span><b>2화 주몽과 활쏘기</b> <span class="chip">삼국</span> <span class="chip warn">승인 대기</span>
+        <div class="w-line s"></div>
+      </div>
+      <div style="margin-bottom:8px"><span class="mk">2</span>
+        <div class="w-steps" style="margin-top:4px"><i class="d">1</i><i class="d">2</i><i class="d">3</i><i class="d">4</i><i class="c g">5</i><i>6</i><i>7</i><i>8</i><i>9</i><i>10</i><i>11</i><i class="g">12</i></div>
+      </div>
+      <div class="wrow w-12">
+        <div class="wb"><span class="mk">3</span><b>5. 콘티</b><br>담당 B · 검수 C<br>마감 10/31<br><br><b>버전</b><br>v2 · 10/28 (검수 통과)<br>v1 · 10/26 (수정 요청)</div>
+        <div class="wcol">
+          <div class="wb"><span class="mk">4</span><b>제출 내용 v2</b> · 컷 24개 · 총 3분 10초<div class="w-line"></div><div class="w-line"></div><div class="w-line s"></div></div>
+          <div class="wb"><span class="mk">5</span><b>검수·승인 기록</b> · C: 통과 (지적 2건 반영됨)<div class="w-line s"></div></div>
+          <div class="wb hl"><span class="mk">6</span><b>PD 승인</b> &nbsp;<span class="fake-btn" style="margin:0">승인</span> <span class="fake-btn ghost" style="margin:0">반려</span> · 코멘트 칸</div>
+        </div>
+      </div>
+    </div>
+    <ol class="notes">
+      <li><span class="mk">1</span><span><b>요약</b>: 제목, 시대, 상태, 한 줄 줄거리, 핵심 교훈</span></li>
+      <li><span class="mk">2</span><span><b>12단계 타임라인</b>: 완료는 초록, 현재는 진한 색, 승인 단계는 테두리. 칸을 누르면 아래가 그 단계로 바뀜</span></li>
+      <li><span class="mk">3</span><span><b>단계 정보</b>: 담당자, 검수자, 마감, 버전 목록. 버전 두 개를 골라 비교 가능</span></li>
+      <li><span class="mk">4</span><span><b>제출 내용</b>: 양식 칸 그대로 표시. 콘티 이후 단계는 컷 번호 순으로 이미지·음성·영상을 나란히 봄</span></li>
+      <li><span class="mk">5</span><span><b>검수·승인 기록</b>: 지적 사항과 반영 여부, 승인·반려 코멘트</span></li>
+      <li><span class="mk">6</span><span><b>PD 승인 영역</b>: PD로 보고 있고 승인 단계일 때만 나옴. PD 메뉴의 "승인 대기"는 이 화면들로 바로 가는 목록</span></li>
+    </ol>
+
+    <h3>⑤ 전체 관리 (PD)</h3>
+    <div class="wf">
+      <div class="wrow w-4">
+        <div class="wb"><span class="mk">1</span>진행 중 에피소드<br><b style="font-size:18px">3</b></div>
+        <div class="wb hl">승인 대기<br><b style="font-size:18px">1</b></div>
+        <div class="wb">검수 대기<br><b style="font-size:18px">2</b></div>
+        <div class="wb">마감 지남<br><b style="font-size:18px;color:var(--warn)">1</b></div>
+      </div>
+      <div class="wb" style="margin-bottom:8px;background:var(--surface)">
+        <span class="mk">2</span><b>에피소드 현황표</b>
+        <div class="scroll" style="margin-top:6px">
+          <table class="wf-table">
+            <tr><th>에피소드</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr>
+            <tr><td>2화 주몽</td><td class="d">✓</td><td class="d">✓</td><td class="d">✓</td><td class="d">✓</td><td class="c">B</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>3화 세종</td><td class="d">✓</td><td class="late">C</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>4화 (기획 중)</td><td class="c">PD</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="wrow w-11">
+        <div class="wb"><span class="mk">3</span><b>담당자별 작업량</b><div class="w-line"></div><div class="w-line s"></div><div class="w-line"></div></div>
+        <div class="wb"><span class="mk">4</span><b>배정 바꾸기</b><br>단계 칸 선택 → 담당자 · 검수자 · 마감 변경</div>
+      </div>
+      <div><span class="mk">5</span><span class="fake-btn" style="margin:0">+ 새 에피소드</span></div>
+    </div>
+    <ol class="notes">
+      <li><span class="mk">1</span><span><b>숫자 타일</b>: 누르면 해당 작업 목록으로 이동. 승인 대기와 마감 지남은 강조색</span></li>
+      <li><span class="mk">2</span><span><b>현황표</b>: 줄은 에피소드, 칸은 12단계. 칸에 현재 담당자 표시, 마감 지난 칸은 노란색. 칸을 누르면 ④ 상세의 그 단계로</span></li>
+      <li><span class="mk">3</span><span><b>담당자별 작업량</b>: 4장의 막대. 진행 중 작업 수 기준</span></li>
+      <li><span class="mk">4</span><span><b>배정 바꾸기</b>: 현황표에서 칸을 고르고 담당자를 바꾸면, 작업이 새 담당자의 작업함으로 옮겨감</span></li>
+      <li><span class="mk">5</span><span><b>새 에피소드</b>: 제목만 넣어 만들고, 12단계 기본 담당자는 7장 표대로 자동 배정. 1단계 컨셉 작업이 PD 작업함에 생김</span></li>
+    </ol>
+
+    <div class="callout info">
+      <strong>시연 순서 제안:</strong> PD로 새 에피소드 만들기 → 컨셉 제출 → 승인 → "나는 누구?"를 담당자 C로 바꿔 새 작업 배지 확인 → 리서치 제출 → 담당자 A로 바꿔 시나리오 작성 … 이렇게 사람을 바꿔가며 한 편이 흘러가는 모습을 보여줍니다.
+    </div>
+  </section>
+
   <!-- 8 -->
   <section id="s8">
-    <h2><span class="num">9</span>AI 전환을 위한 설계 원칙</h2>
+    <h2><span class="num">10</span>AI 전환을 위한 설계 원칙</h2>
     <p>다음 수업에서 사이트를 갈아엎지 않고 담당자만 바꿔 끼우려면, 지금부터 아래 네 가지를 지켜서 만듭니다.</p>
     <div class="grid c2">
       <div class="card"><h4>① 담당자에 "종류" 칸을 둔다</h4><p>담당자 정보에 <b>사람 / AI</b> 구분을 미리 넣어 둡니다. 지금은 모두 "사람"이고, 나중엔 같은 자리에 AI를 등록하면 됩니다.</p></div>
@@ -713,7 +895,7 @@
 
   <!-- 9 -->
   <section id="s9">
-    <h2><span class="num">10</span>관리 기능 목록</h2>
+    <h2><span class="num">11</span>관리 기능 목록</h2>
     <div class="table-wrap">
       <table>
         <thead><tr><th>기능</th><th>설명</th><th>상태</th></tr></thead>
@@ -742,7 +924,7 @@
 
   <!-- 10 -->
   <section id="s10">
-    <h2><span class="num">11</span>미정 사항과 다음 단계</h2>
+    <h2><span class="num">12</span>미정 사항과 다음 단계</h2>
     <div class="grid c2">
       <div class="card">
         <h4>확정된 것 (2026-10-28)</h4>
@@ -766,7 +948,6 @@
         <h4>다음 단계</h4>
         <ul class="check">
           <li>남은 미정 사항 확정</li>
-          <li>화면별 와이어프레임 (작업함, 상세, 관리)</li>
           <li>에피소드 1편으로 사람 담당자 흐름 시험</li>
           <li>(다음 수업) 담당자 일부를 AI로 교체</li>
         </ul>
