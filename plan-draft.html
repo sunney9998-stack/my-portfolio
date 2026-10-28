@@ -187,6 +187,23 @@
   ul.check li:last-child { border-bottom: none; }
   ul.check li::before { content: "□"; color: var(--accent); font-weight: 700; }
 
+  /* forms */
+  details.form { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 10px; }
+  details.form summary {
+    cursor: pointer; padding: 12px 16px; font-weight: 700; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  }
+  details.form summary small { color: var(--muted); font-weight: 400; font-size: 14px; }
+  details.form[open] summary { border-bottom: 1px solid var(--line); }
+  details.form .fbody { padding: 12px 16px 16px; overflow-x: auto; }
+  table.ft { min-width: 520px; font-size: 14px; }
+  table.ft th, table.ft td { padding: 8px 10px; }
+  table.ft td.req { color: var(--accent); font-weight: 700; white-space: nowrap; }
+  table.ft td.opt { color: var(--muted); white-space: nowrap; }
+  table.ft td.t { white-space: nowrap; }
+  table.ft tr.sub td:first-child { padding-left: 28px; color: var(--muted); }
+  .fnote { font-size: 13px; color: var(--muted); margin: 10px 0 0; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 16px; }
+
   footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 16px; }
 
   @media (max-width: 600px) {
@@ -220,6 +237,7 @@
       <li><a href="#s5">보고 나서 무엇을 하는가</a></li>
       <li><a href="#s6">제작 단계와 승인 지점</a></li>
       <li><a href="#s7">역할 분담과 주고받는 자료</a></li>
+      <li><a href="#sf">단계별 제출 양식</a></li>
       <li><a href="#s8">AI 전환을 위한 설계 원칙</a></li>
       <li><a href="#s9">관리 기능 목록</a></li>
       <li><a href="#s10">미정 사항과 다음 단계</a></li>
@@ -464,9 +482,226 @@
     </div>
   </section>
 
+  <!-- forms -->
+  <section id="sf">
+    <h2><span class="num">8</span>단계별 제출 양식</h2>
+    <p>담당자가 "작성하고 제출"을 누르면 나오는 입력 칸입니다. 자유 글 한 덩어리가 아니라 칸을 나눠 두어야 다음 담당자가 필요한 것만 골라 보고, 나중에 AI가 같은 칸을 채울 수 있습니다.</p>
+    <div class="legend">
+      <span class="chip">짧은 글</span><span class="chip">긴 글</span><span class="chip">선택</span><span class="chip">숫자</span><span class="chip">날짜</span><span class="chip">체크</span><span class="chip">자동</span><span class="chip info">파일</span><span class="chip accent">반복 목록</span>
+      <span style="font-size:13px;color:var(--muted)">· 반복 목록은 "+ 추가"로 줄을 늘리는 칸입니다</span>
+    </div>
+
+    <div class="callout info">
+      <strong>컷 번호가 단계를 잇는 열쇠입니다.</strong> 5단계 콘티에서 컷 번호가 정해지면, 6~9단계의 이미지·음성·영상·음악은 모두 "몇 번 컷의 것인지"를 골라서 올립니다. 그래야 편집 담당자가 컷별로 모아 볼 수 있고, 영상 단계의 진행률(올라온 컷 / 전체 컷)도 자동으로 계산됩니다.
+    </div>
+
+    <h3>모든 제출에 공통으로 붙는 칸</h3>
+    <div class="table-wrap">
+      <table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>작업 메모</td><td class="t"><span class="chip">긴 글</span></td><td class="opt">선택</td><td>다음 담당자나 PD에게 남길 말</td></tr>
+          <tr><td>사용한 도구</td><td class="t"><span class="chip">짧은 글</span></td><td class="opt">선택</td><td>예: 직접 작성, ChatGPT, CapCut. 나중에 어떤 단계를 AI로 바꿀지 판단하는 자료</td></tr>
+          <tr><td>수정 내역</td><td class="t"><span class="chip">긴 글</span></td><td class="req">재제출 시 필수</td><td>검수·반려 지적 중 무엇을 고쳤는지</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fnote">제출자, 제출 시각, 버전 번호는 사이트가 자동으로 기록합니다.</p>
+
+    <h3>단계별 양식</h3>
+
+    <details class="form" open>
+      <summary>1. 스토리 컨셉 <span class="chip accent">승인</span> <small>담당: PD 겸임</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>에피소드 제목</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td>예: 주몽과 활쏘기</td></tr>
+          <tr><td>시대</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>고조선 / 삼국 / 고려 / 조선 / 근현대 / 세계사</td></tr>
+          <tr><td>중심 인물·사건</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td></td></tr>
+          <tr><td>핵심 교훈</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td>아이가 가져갈 한 문장</td></tr>
+          <tr><td>현실 장면</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>어디서, 무엇을 계기로 부모님이 이야기를 시작하는지</td></tr>
+          <tr><td>상상 세계 콘셉트</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>아이가 빠져드는 세계의 모습, 아이의 역할</td></tr>
+          <tr><td>한 줄 줄거리</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td>메인 카드에 표시</td></tr>
+          <tr><td>참고 이미지</td><td class="t"><span class="chip info">파일</span></td><td class="opt">선택</td><td>분위기 참고용, 여러 장</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+
+    <details class="form">
+      <summary>2. 역사 리서치 <small>담당: C</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>핵심 사실</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수 3개 이상</td><td></td></tr>
+          <tr class="sub"><td>└ 사실</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td></td></tr>
+          <tr class="sub"><td>└ 출처</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td>책 이름, 기관, 링크</td></tr>
+          <tr><td>아이 눈높이 포인트</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수 3개</td><td>5~7세에게 꼭 전할 것</td></tr>
+          <tr><td>쉬운 말 풀이</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="opt">선택</td><td>어려운 용어 → 아이용 설명</td></tr>
+          <tr><td>주의할 지점</td><td class="t"><span class="chip">긴 글</span></td><td class="opt">선택</td><td>흔한 오해, 학계 논쟁, 아이에게 민감한 내용</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+
+    <details class="form">
+      <summary>3. 시나리오 <span class="chip accent">승인</span> <small>담당: A</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>예상 길이</td><td class="t"><span class="chip">숫자</span></td><td class="req">필수</td><td>분 단위</td></tr>
+          <tr><td>장면</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>장면 번호는 자동</td></tr>
+          <tr class="sub"><td>└ 현실 / 상상</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>타임라인에 색으로 구분</td></tr>
+          <tr class="sub"><td>└ 장소</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td></td></tr>
+          <tr class="sub"><td>└ 등장인물</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>설정집 인물 중 여러 명</td></tr>
+          <tr class="sub"><td>└ 대사·지문</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>"인물: 대사" 형식</td></tr>
+          <tr><td>전환 지점 설명</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>현실 → 상상, 상상 → 현실로 넘어가는 순간과 방법</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+
+    <details class="form">
+      <summary>4. 고증·연령 적합성 검수 <small>담당: C · 3단계 시나리오의 검수 단계</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>판정</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>통과 / 수정 필요. 수정 필요면 3단계로 되돌아감</td></tr>
+          <tr><td>지적 사항</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">수정 필요 시</td><td></td></tr>
+          <tr class="sub"><td>└ 장면 번호</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>시나리오 장면 목록에서 고름</td></tr>
+          <tr class="sub"><td>└ 종류</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>사실 오류 / 연령 부적합 / 어색한 표현 / 기타</td></tr>
+          <tr class="sub"><td>└ 내용과 수정 제안</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td></td></tr>
+        </tbody>
+      </table></div>
+    </details>
+
+    <details class="form">
+      <summary>5. 콘티 <span class="chip accent">승인</span> <small>담당: B</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>컷</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>컷 번호는 자동. 총 컷 수와 총 길이도 자동 합산</td></tr>
+          <tr class="sub"><td>└ 장면 번호</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>시나리오 장면과 연결</td></tr>
+          <tr class="sub"><td>└ 길이</td><td class="t"><span class="chip">숫자</span></td><td class="req">필수</td><td>초 단위</td></tr>
+          <tr class="sub"><td>└ 구도</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>풍경 / 전신 / 상반신 / 클로즈업</td></tr>
+          <tr class="sub"><td>└ 화면 설명</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>누가 어디서 무엇을 하는지. 나중에 영상 AI 프롬프트가 되는 칸</td></tr>
+          <tr class="sub"><td>└ 대사</td><td class="t"><span class="chip">짧은 글</span></td><td class="opt">선택</td><td>이 컷에서 나오는 대사</td></tr>
+          <tr class="sub"><td>└ 다음 컷 전환</td><td class="t"><span class="chip">선택</span></td><td class="opt">선택</td><td>컷 / 페이드 / 상상 전환 효과</td></tr>
+          <tr class="sub"><td>└ 스케치</td><td class="t"><span class="chip info">파일</span></td><td class="opt">선택</td><td>손그림 사진도 가능</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+
+    <details class="form">
+      <summary>6. 캐릭터·배경 아트 <small>담당: B 또는 별도</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>캐릭터 시트</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="opt">새 인물만</td><td>인물 선택 + 이미지. 확정되면 설정집에 등록</td></tr>
+          <tr><td>배경</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>장소 이름 + 이미지</td></tr>
+          <tr><td>컷별 키 이미지</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>컷 번호 선택 + 이미지</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+
+    <details class="form">
+      <summary>7. 음성 <small>담당: E</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>대사 음성</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>콘티에서 대사가 있는 컷이 미리 채워져 있음</td></tr>
+          <tr class="sub"><td>└ 컷 번호 · 인물 · 대사</td><td class="t"><span class="chip">자동</span></td><td></td><td>콘티에서 불러옴</td></tr>
+          <tr class="sub"><td>└ 음성 파일</td><td class="t"><span class="chip info">파일</span></td><td class="req">필수</td><td>바로 재생해 볼 수 있음</td></tr>
+          <tr><td>인물별 목소리 메모</td><td class="t"><span class="chip">긴 글</span></td><td class="opt">선택</td><td>톤, 속도. 다음 화에서도 같은 목소리 유지용</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+
+    <details class="form">
+      <summary>8. 영상 컷 제작 <small>담당: D</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>컷 클립</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>콘티의 컷이 모두 미리 나열됨. 한 컷씩 올리고 중간 저장 가능</td></tr>
+          <tr class="sub"><td>└ 영상 파일</td><td class="t"><span class="chip info">파일</span></td><td class="req">필수</td><td>50MB 이하</td></tr>
+          <tr class="sub"><td>└ 실제 길이</td><td class="t"><span class="chip">자동</span></td><td></td><td>파일에서 읽음. 콘티 길이와 다르면 표시</td></tr>
+        </tbody>
+      </table>
+      <p class="fnote">컷이 많아 가장 오래 걸리는 단계라, 제출 전에도 "올라온 컷 / 전체 컷"이 진행률로 보입니다.</p></div>
+    </details>
+
+    <details class="form">
+      <summary>9. 음악·효과음 <small>담당: E</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>배경음악</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수</td><td>시작 컷 ~ 끝 컷, 분위기, 파일</td></tr>
+          <tr><td>효과음</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="opt">선택</td><td>컷 번호, 설명, 파일</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+
+    <details class="form">
+      <summary>10. 편집·자막 <small>담당: D</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>완성 영상</td><td class="t"><span class="chip info">파일</span></td><td class="req">필수</td><td>50MB 이하 (아래 참고)</td></tr>
+          <tr><td>자막 파일</td><td class="t"><span class="chip info">파일</span></td><td class="opt">선택</td><td>.srt</td></tr>
+          <tr><td>최종 길이</td><td class="t"><span class="chip">자동</span></td><td></td><td>파일에서 읽음</td></tr>
+          <tr><td>빠진 컷·변경 사항</td><td class="t"><span class="chip">긴 글</span></td><td class="opt">선택</td><td>콘티와 달라진 점</td></tr>
+        </tbody>
+      </table>
+      <p class="fnote">⚠ 10분 영상은 50MB를 넘기 쉬우므로 <b>시연용 저화질로 압축</b>해서 올립니다 (예: 480p). 유튜브 업로드용 원본은 사이트 밖에서 보관합니다.</p></div>
+    </details>
+
+    <details class="form">
+      <summary>11. 썸네일·메타데이터 <small>담당: A</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>썸네일</td><td class="t"><span class="chip info">파일</span></td><td class="req">필수</td><td>1280×720. 메인 카드에도 사용</td></tr>
+          <tr><td>제목 후보</td><td class="t"><span class="chip accent">반복 목록</span></td><td class="req">필수 2개 이상</td><td>PD가 최종 승인 때 하나 고름</td></tr>
+          <tr><td>설명</td><td class="t"><span class="chip">긴 글</span></td><td class="req">필수</td><td>유튜브 설명란</td></tr>
+          <tr><td>태그</td><td class="t"><span class="chip">짧은 글</span></td><td class="req">필수</td><td>쉼표로 구분</td></tr>
+          <tr><td>공개 예정일</td><td class="t"><span class="chip">날짜</span></td><td class="req">필수</td><td>업로드 캘린더에 표시</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+
+    <details class="form">
+      <summary>12. 최종 영상 검수 <span class="chip accent">승인</span> <small>담당: PD</small></summary>
+      <div class="fbody"><table class="ft">
+        <thead><tr><th>항목</th><th>형식</th><th>필수</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>점검 목록</td><td class="t"><span class="chip">체크</span></td><td class="req">전부 체크</td><td>사실 확인 / 연령 적합 / 캐릭터 일관성 / 음성 싱크 / 자막 오탈자 / 썸네일·제목</td></tr>
+          <tr><td>최종 제목</td><td class="t"><span class="chip">선택</span></td><td class="req">필수</td><td>11단계 후보 중 하나</td></tr>
+          <tr><td>의견</td><td class="t"><span class="chip">긴 글</span></td><td class="opt">선택</td><td></td></tr>
+        </tbody>
+      </table></div>
+    </details>
+
+    <h3>검수 양식과 승인 양식</h3>
+    <div class="grid c2">
+      <div class="card">
+        <h4>검수 (검수자가 작성, 4단계 제외 모든 단계)</h4>
+        <ul>
+          <li><b>판정</b> <span class="chip">선택</span> 통과 / 수정 필요</li>
+          <li><b>지적 사항</b> <span class="chip accent">반복 목록</span> 위치(장면·컷 번호), 내용, 수정 제안</li>
+          <li>수정 필요면 같은 담당자에게 되돌아가고, 담당자는 "수정 내역"을 적어 재제출</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>승인 (PD가 작성, 1·3·5·12단계)</h4>
+        <ul>
+          <li><b>결정</b> <span class="chip">선택</span> 승인 / 반려</li>
+          <li><b>코멘트</b> <span class="chip">긴 글</span> 반려 시 필수</li>
+          <li>검수 결과와 지적 사항 반영 여부를 같은 화면에서 보고 결정</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- 8 -->
   <section id="s8">
-    <h2><span class="num">8</span>AI 전환을 위한 설계 원칙</h2>
+    <h2><span class="num">9</span>AI 전환을 위한 설계 원칙</h2>
     <p>다음 수업에서 사이트를 갈아엎지 않고 담당자만 바꿔 끼우려면, 지금부터 아래 네 가지를 지켜서 만듭니다.</p>
     <div class="grid c2">
       <div class="card"><h4>① 담당자에 "종류" 칸을 둔다</h4><p>담당자 정보에 <b>사람 / AI</b> 구분을 미리 넣어 둡니다. 지금은 모두 "사람"이고, 나중엔 같은 자리에 AI를 등록하면 됩니다.</p></div>
@@ -478,7 +713,7 @@
 
   <!-- 9 -->
   <section id="s9">
-    <h2><span class="num">9</span>관리 기능 목록</h2>
+    <h2><span class="num">10</span>관리 기능 목록</h2>
     <div class="table-wrap">
       <table>
         <thead><tr><th>기능</th><th>설명</th><th>상태</th></tr></thead>
@@ -507,7 +742,7 @@
 
   <!-- 10 -->
   <section id="s10">
-    <h2><span class="num">10</span>미정 사항과 다음 단계</h2>
+    <h2><span class="num">11</span>미정 사항과 다음 단계</h2>
     <div class="grid c2">
       <div class="card">
         <h4>확정된 것 (2026-10-28)</h4>
@@ -518,6 +753,8 @@
           <li>알림: 사이트 안 표시만</li>
           <li>저장: Supabase (선생님이 같은 데이터를 보고 피드백할 수 있도록)</li>
           <li>배포: GitHub Pages</li>
+          <li>제출 양식: 8장 항목으로 확정</li>
+          <li>50MB 넘는 영상: 시연용 저화질로 압축해서 업로드</li>
         </ul>
         <h4 style="margin-top:16px">아직 정할 것</h4>
         <ul class="check">
@@ -528,8 +765,7 @@
       <div class="card">
         <h4>다음 단계</h4>
         <ul class="check">
-          <li>미정 사항 확정</li>
-          <li>단계별 제출 양식 항목 확정</li>
+          <li>남은 미정 사항 확정</li>
           <li>화면별 와이어프레임 (작업함, 상세, 관리)</li>
           <li>에피소드 1편으로 사람 담당자 흐름 시험</li>
           <li>(다음 수업) 담당자 일부를 AI로 교체</li>
