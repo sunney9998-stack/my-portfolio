@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>상상극장 기능정의서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  /* 기획서와 같은 색: 검정·흰색 + 남색(현실)·호박색(상상) */
+  :root {
+    --black: #111111;
+    --gray-600: #6b6b6b;
+    --gray-200: #e5e5e5;
+    --gray-100: #f5f5f5;
+    --white: #ffffff;
+    --navy: #2b3a67;
+    --navy-light: #e7eaf3;
+    --amber: #e8833a;
+    --amber-dark: #a8501a;
+    --amber-light: #fcebdd;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--white); color: var(--black);
+    font-family: "Noto Sans KR", system-ui, sans-serif; line-height: 1.7; font-size: 16px;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 96px; }
+
+  /* 문서 이동 */
+  nav.docs { background: var(--black); }
+  nav.docs .in { max-width: 960px; margin: 0 auto; padding: 8px 16px; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14px; }
+  nav.docs a { color: var(--white); opacity: .7; text-decoration: none; }
+  nav.docs a:hover { opacity: 1; text-decoration: underline; }
+  nav.docs a[aria-current="page"] { opacity: 1; font-weight: 700; color: var(--amber); }
+
+  /* 표지 */
+  header.cover { background: var(--navy); color: var(--white); position: relative; overflow: hidden; }
+  header.cover::after {
+    content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 38%;
+    background: var(--amber); clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  header.cover .in { max-width: 960px; margin: 0 auto; padding: 56px 16px 48px; position: relative; z-index: 1; }
+  .eyebrow { font-weight: 700; font-size: 14px; letter-spacing: .04em; color: var(--amber); }
+  header.cover h1 { font-size: clamp(30px, 6vw, 48px); font-weight: 900; line-height: 1.2; margin: 8px 0 12px; max-width: 62%; }
+  header.cover .lead { max-width: 58%; opacity: .9; margin: 0; }
+  .meta { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 13px; font-weight: 500; background: var(--gray-100); color: var(--gray-600); }
+  .chip.nv { background: var(--navy-light); color: var(--navy); }
+  .chip.am { background: var(--amber); color: var(--black); }
+  .chip.aml { background: var(--amber-light); color: var(--amber-dark); }
+  header.cover .chip { background: rgba(255,255,255,.14); color: var(--white); }
+
+  section { margin: 56px 0 0; }
+  h2 { font-size: 26px; font-weight: 900; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 3px solid var(--navy); }
+  h2 .num { color: var(--amber-dark); margin-right: 8px; }
+  h3 { font-size: 18px; margin: 28px 0 8px; }
+  p { margin: 0 0 12px; }
+  .muted { color: var(--gray-600); }
+  .grid { display: grid; gap: 16px; }
+  .c2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .card { background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 20px; }
+  .card h4 { margin: 0 0 6px; font-size: 16px; }
+  .card p, .card li { color: var(--gray-600); font-size: 15px; }
+  .card ul { margin: 0; padding-left: 18px; }
+  .callout { border-left: 4px solid var(--navy); background: var(--navy-light); padding: 14px 18px; border-radius: 0 10px 10px 0; margin: 16px 0; }
+  .callout.am { border-color: var(--amber); background: var(--amber-light); }
+  .label { font-size: 12px; font-weight: 700; color: var(--gray-600); letter-spacing: .04em; margin-bottom: 8px; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--gray-200); border-radius: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 640px; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
+  th { background: var(--gray-100); white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  .id { font-weight: 900; color: var(--amber-dark); white-space: nowrap; }
+
+  /* 핵심 흐름 */
+  .flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+  .flow > div { border-radius: 12px; padding: 12px; font-size: 14px; }
+  .flow b { display: block; font-size: 15px; }
+  .flow small { display: block; opacity: .85; }
+  .flow .r { background: var(--navy); color: var(--white); }
+  .flow .i { background: var(--amber); color: var(--black); }
+
+  /* 미리보기: 물건 카드 → 빨려 들어감 */
+  .preview { border: 1px dashed var(--gray-600); border-radius: 14px; padding: 14px; }
+  .shelf { display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px; scroll-snap-type: x mandatory; }
+  .obj {
+    flex: 0 0 150px; scroll-snap-align: start; cursor: pointer; font: inherit; text-align: left;
+    border: 2px solid var(--navy); border-radius: 18px; background: var(--white); padding: 12px; color: var(--black);
+    transition: transform .2s;
+  }
+  .obj:hover { transform: translateY(-4px); }
+  .obj:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+  .obj .ic { display: flex; align-items: center; justify-content: center; height: 110px; border-radius: 50%; background: var(--navy-light); font-size: 56px; margin-bottom: 8px; }
+  .obj small { display: block; font-size: 12px; font-weight: 700; color: var(--navy); }
+  .obj b { display: block; font-size: 15px; line-height: 1.35; }
+  .obj span { font-size: 13px; color: var(--gray-600); }
+
+  /* 빨려 들어가는 화면 */
+  .portal { position: fixed; inset: 0; z-index: 50; display: none; background: var(--amber); overflow-y: auto; }
+  .portal.open { display: block; }
+  .portal .scene { position: relative; height: 100vh; min-height: 420px; overflow: hidden; background: var(--black); }
+  .portal .scene img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .portal .where { position: absolute; left: 0; right: 0; top: 0; padding: 24px 16px; background: linear-gradient(rgba(0,0,0,.55), transparent); color: var(--white); text-align: center; }
+  .portal .where small { font-weight: 700; letter-spacing: .06em; color: var(--amber); }
+  .portal .where strong { display: block; font-size: clamp(24px, 5vw, 40px); font-weight: 900; line-height: 1.2; }
+  .portal .hint { position: absolute; bottom: 16px; left: 0; right: 0; text-align: center; color: var(--white); font-size: 13px; text-shadow: 0 1px 4px rgba(0,0,0,.8); }
+  .portal .info { max-width: 720px; margin: 0 auto; padding: 32px 16px 48px; color: var(--black); }
+  .portal .info .label { color: var(--amber-dark); }
+  .portal .info .box { background: var(--white); border-radius: 14px; padding: 16px 20px; margin-bottom: 14px; }
+  .portal .info .box p { margin: 0; }
+  .portal .medium { font-size: 64px; text-align: center; line-height: 1.2; }
+  .portal .acts { display: flex; flex-wrap: wrap; gap: 10px; }
+  .portal .acts button { font: inherit; font-weight: 700; cursor: pointer; border-radius: 999px; padding: 10px 20px; border: 0; }
+  .portal .back { background: var(--navy); color: var(--white); }
+  .portal .next { background: var(--white); color: var(--black); }
+  .portal .acts button:focus-visible { outline: 3px solid var(--black); outline-offset: 3px; }
+  .portal .close { position: absolute; top: 12px; right: 12px; z-index: 2; font: inherit; font-size: 13px; cursor: pointer; border: 0; border-radius: 999px; padding: 4px 12px; background: rgba(0,0,0,.5); color: var(--white); }
+
+  /* 전환 막: 물건 위치에서 원이 퍼짐 (최대 3초) */
+  .veil { position: fixed; inset: 0; z-index: 60; pointer-events: none; clip-path: circle(0 at 50% 50%); }
+  .veil.am { background: var(--amber); }
+  .veil.nv { background: var(--navy); }
+  .veil .big { position: absolute; font-size: 80px; transform: translate(-50%, -50%); }
+
+  footer { margin-top: 64px; font-size: 13px; color: var(--gray-600); text-align: center; }
+
+  @media (max-width: 640px) {
+    header.cover h1, header.cover .lead { max-width: 100%; }
+    header.cover::after { width: 20%; }
+    .flow { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="docs" aria-label="문서">
+  <div class="in">
+    <a href="plan-draft.html">기획서</a>
+    <a href="persona.html">페르소나</a>
+    <a href="feature-spec.html" aria-current="page">기능정의서</a>
+  </div>
+</nav>
+
+<header class="cover">
+  <div class="in">
+    <div class="eyebrow">기획서 v0.3 · 부록</div>
+    <h1>상상극장 기능정의서</h1>
+    <p class="lead">무엇을 누르면 어떤 일이 일어나는지 정리했습니다. 핵심은 매개체 물건 속으로 빨려 들어가 그 시대에 도착하는 순간입니다.</p>
+    <div class="meta">
+      <span class="chip">작성일 2026-10-29</span>
+      <span class="chip">기획 이동훈</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <h2><span class="num">1</span>핵심 흐름</h2>
+    <div class="flow">
+      <div class="r"><b>물건 카드</b><small>스토리 목록에서 누름</small></div>
+      <div class="i"><b>빨려 들어감</b><small>3초 이내</small></div>
+      <div class="i"><b>도착 장면</b><small>어느 시대, 어디인지</small></div>
+      <div class="i"><b>등장인물</b><small>2026 ↔ 이번 편</small></div>
+      <div class="i"><b>매개체 → 줄거리</b><small>천천히 읽기</small></div>
+      <div class="r"><b>돌아가기 / 다음</b><small>둘 중 선택</small></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span>직접 눌러 보기</h2>
+    <p class="muted">아래 물건 카드를 눌러 보세요. 실제 사이트에서 일어날 동작의 샘플입니다. 물건은 지금은 이모지로 대신했고, 나중에 그림으로 바꿉니다.</p>
+    <div class="preview">
+      <div class="label">스토리 목록 · 시대 순서대로 옆으로 밀어 보기 (샘플)</div>
+      <div class="shelf" id="shelf"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span>기능 목록</h2>
+    <h3>이번에 정한 기능</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>번호</th><th>기능</th><th>위치</th><th>동작</th></tr></thead>
+        <tbody>
+          <tr><td class="id">F1</td><td><b>매개체 물건 스토리 카드</b></td><td>스토리 목록</td><td>스토리마다 매개체 물건 모양의 카드로 보입니다 (마늘, 달걀, 솜이불, 받아쓰기 공책, 벽시계). 시대 순서대로 가로 타임라인에 놓입니다.</td></tr>
+          <tr><td class="id">F2</td><td><b>빨려 들어가는 전환</b></td><td>카드를 누른 직후</td><td>누른 물건 자리에서 호박색 화면이 퍼지며, 물건 속으로 천천히 빨려 들어가듯 상상 세계로 넘어갑니다.</td></tr>
+          <tr><td class="id">F3</td><td><b>도착 장면</b></td><td>상세 첫 화면</td><td>시대 옷을 입은 아이, 살아난 토끼, 변신한 부모님이 함께 보입니다. 위쪽에 "고조선 · 곰과 호랑이의 동굴"처럼 시대와 장소를 크게 표시합니다.</td></tr>
+          <tr><td class="id">F4</td><td><b>스크롤 정보 순서</b></td><td>상세 아래쪽</td><td>등장인물(2026년 모습 ↔ 이번 편 모습을 짝지어 정리) → 매개체 물건 크게 → 줄거리 순서로 이어집니다.</td></tr>
+          <tr><td class="id">F5</td><td><b>돌아가기와 다음 이야기</b></td><td>줄거리 끝</td><td>"2026년으로 돌아가기"를 누르면 남색 화면으로 바뀌며 스토리 목록으로 돌아갑니다. "다음 이야기: 달걀"을 누르면 다음 편으로 바로 빨려 들어갑니다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>기획서에서 이어 오는 기능</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>번호</th><th>기능</th><th>위치</th><th>동작</th></tr></thead>
+        <tbody>
+          <tr><td class="id">F6</td><td><b>현실 → 상상 전환 스크롤</b></td><td>메인</td><td>스크롤하면 남색 화면이 비스듬히 호박색으로 덮이며 시대가 바뀝니다.</td></tr>
+          <tr><td class="id">F7</td><td><b>뒤집기 카드</b></td><td>캐릭터, 장소</td><td>누르거나 키보드로 선택하면 상상 속 모습으로 뒤집힙니다.</td></tr>
+          <tr><td class="id">F8</td><td><b>시대별 필터</b></td><td>스토리, 캐릭터, 장소</td><td>시대 버튼을 누르면 해당 시대만 보입니다.</td></tr>
+          <tr><td class="id">F9</td><td><b>나란히 비교</b></td><td>장소, 에피소드 상세</td><td>2026년 장면과 상상 장면을 좌우로 배치합니다.</td></tr>
+          <tr><td class="id">F10</td><td><b>스크롤 등장 효과</b></td><td>전체</td><td>카드가 화면에 들어올 때 살짝 떠오릅니다.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted" style="margin-top:8px">※ 기획서 7장의 "가로 타임라인"은 F1에 합쳤습니다. "매개체 물건 전환"은 F2로 구체화했습니다.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span>지켜야 할 규칙</h2>
+    <div class="grid c2">
+      <div class="card">
+        <h4>시간</h4>
+        <ul>
+          <li>전환 효과는 들어갈 때, 돌아갈 때 모두 매번 보여 줍니다.</li>
+          <li>길고 천천히 보여 주되 <b>최대 3초</b>를 넘지 않습니다.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>모두가 쓸 수 있게</h4>
+        <ul>
+          <li>"움직임 줄이기" 설정을 켠 사람에게는 효과 없이 바로 넘어갑니다.</li>
+          <li>물건 카드와 버튼은 키보드(Tab, Enter)로도 누를 수 있습니다.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>마지막 편</h4>
+        <ul>
+          <li>장영실 편 끝에서는 "다음 이야기" 대신 <b>"처음 이야기로: 마늘"</b>이 나와 단군 편으로 돌아갑니다.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>색</h4>
+        <ul>
+          <li>들어갈 때는 호박색(상상), 돌아갈 때는 남색(현실)으로 화면이 덮입니다.</li>
+          <li>호박색 위 글자는 검정만 씁니다.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><b>페르소나와의 연결:</b> "돌아가기"는 처음 보는 사람이 작품을 감상하는 길이고, "다음 이야기"는 관리자가 5편을 연달아 점검하는 길입니다. <a href="persona.html">페르소나 보기 →</a></div>
+  </section>
+
+  <footer>상상극장 · 기능정의서 · 2026-10-29</footer>
+</main>
+
+<!-- 상세 화면 (샘플) -->
+<div class="portal" id="portal" role="dialog" aria-modal="true" aria-labelledby="pWhere">
+  <section class="scene" style="margin:0">
+    <button class="close" id="pClose">닫기 ✕</button>
+    <img id="pImg" alt="">
+    <div class="where"><small id="pEra"></small><strong id="pWhere"></strong></div>
+    <div class="hint">↓ 아래로 내려 보세요</div>
+  </section>
+  <div class="info">
+    <div class="label">등장인물</div>
+    <div class="box"><p id="pCast"></p></div>
+    <div class="label">매개체</div>
+    <div class="box"><div class="medium" id="pIcon"></div><p id="pMedium" style="text-align:center"></p></div>
+    <div class="label">줄거리</div>
+    <div class="box"><p id="pStory"></p></div>
+    <div class="acts">
+      <button class="back" id="pBack">2026년으로 돌아가기</button>
+      <button class="next" id="pNext"></button>
+    </div>
+  </div>
+</div>
+<div class="veil" id="veil"><span class="big" id="veilIcon"></span></div>
+
+<script>
+  var stories = [
+    { icon: '🧄', medium: '마늘', era: '고조선 · BC 2333~', where: '곰과 호랑이의 동굴', title: '단군 할아버지와 마늘',
+      img: 'images/scenes/gojoseon-cave-1.png', cast: '아이 · 이야기꾼 아빠 · 토끼 · 단군 · 웅녀',
+      story: '저녁 밥상에서 마늘을 먹다가 아빠가 단군 이야기를 꺼냅니다. 아이 손의 마늘 한 쪽이 이야기 속으로 빨려 들어가고, 아이는 곰이 마늘을 먹는 동굴에서 눈을 뜹니다.' },
+    { icon: '🥚', medium: '달걀', era: '고구려 · BC 57~668', where: '동부여 궁궐', title: '알에서 태어난 주몽',
+      img: 'images/scenes/buyeo-egg-mom-1.png', cast: '아이 · 엄마 = 유화 부인 · 토끼 · 주몽',
+      story: '아침 부엌에서 달걀 프라이를 하던 엄마가 주몽 이야기를 꺼냅니다. 달걀이 이야기 속으로 들어가고, 아이는 커다란 알이 놓인 동부여 궁궐에 도착합니다.' },
+    { icon: '🛏️', medium: '솜이불', era: '고려 · 918~1392', where: '하얗게 핀 목화밭', title: '문익점과 목화씨',
+      img: 'images/scenes/goryeo-cotton-dad-1.png', cast: '아이 · 아빠 = 문익점 · 토끼',
+      story: '추운 겨울밤, 아빠가 솜이불을 덮어 주며 문익점 이야기를 꺼냅니다. 이불 속 솜이 이야기 속으로 들어가고, 아이는 하얗게 핀 목화밭에 서 있습니다.' },
+    { icon: '📓', medium: '받아쓰기 공책', era: '조선 · 1443', where: '경복궁 집현전', title: '세종대왕과 한글',
+      img: 'images/scenes/jiphyeonjeon-2.png', cast: '아이 · 이야기꾼 엄마 · 토끼 · 세종 · 집현전 학자',
+      story: '받아쓰기 숙제를 보던 엄마가 한글 이야기를 꺼냅니다. 공책의 글자가 이야기 속으로 들어가고, 아이는 집현전 한가운데에 서 있습니다.' },
+    { icon: '🕰️', medium: '벽시계', era: '조선 · 1434', where: '경복궁 앞 해시계', title: '장영실과 해시계',
+      img: 'images/scenes/joseon-sundial-dad-1.png', cast: '아이 · 아빠 = 장영실 · 토끼 · 세종',
+      story: '"몇 시야?" 묻는 아이에게 아빠가 장영실 이야기를 꺼냅니다. 벽시계 바늘이 이야기 속으로 들어가고, 아이는 경복궁 앞 해시계 곁에 도착합니다.' }
+  ];
+
+  var DURATION = 2400; // 최대 3초 규칙
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var shelf = document.getElementById('shelf');
+  var portal = document.getElementById('portal');
+  var veil = document.getElementById('veil');
+  var veilIcon = document.getElementById('veilIcon');
+  var current = 0, lastCard = null, busy = false;
+
+  stories.forEach(function (s, i) {
+    var b = document.createElement('button');
+    b.className = 'obj';
+    b.innerHTML = '<div class="ic" aria-hidden="true">' + s.icon + '</div><small>' + s.era + '</small><b>' + s.title + '</b><span>' + s.medium + '</span>';
+    b.setAttribute('aria-label', s.title + ' · ' + s.medium + ' 속으로 들어가기');
+    b.addEventListener('click', function () { lastCard = b; enter(i, b); });
+    shelf.appendChild(b);
+  });
+
+  function fill(i) {
+    var s = stories[i], n = (i + 1) % stories.length;
+    current = i;
+    document.getElementById('pImg').src = s.img;
+    document.getElementById('pImg').alt = s.title + ' 도착 장면';
+    document.getElementById('pEra').textContent = s.era;
+    document.getElementById('pWhere').textContent = s.where;
+    document.getElementById('pCast').textContent = s.cast;
+    document.getElementById('pIcon').textContent = s.icon;
+    document.getElementById('pMedium').textContent = s.medium + ' · 상상으로 넘어가는 물건';
+    document.getElementById('pStory').textContent = s.story;
+    document.getElementById('pNext').textContent = (n === 0 ? '처음 이야기로: ' : '다음 이야기: ') + stories[n].medium + ' ' + stories[n].icon;
+    portal.scrollTop = 0;
+  }
+
+  // 물건 자리에서 원이 퍼지며 화면을 덮음 → 다음 화면을 보여 주고 원이 걷힘
+  function transition(fromEl, color, icon, swap) {
+    if (busy) return;
+    if (reduce.matches) { swap(); return; }
+    busy = true;
+    var r = fromEl.getBoundingClientRect();
+    var x = r.left + r.width / 2, y = r.top + r.height / 2;
+    veil.className = 'veil ' + color;
+    veilIcon.textContent = icon;
+    veilIcon.style.left = x + 'px'; veilIcon.style.top = y + 'px';
+    var half = DURATION / 2;
+    var grow = veil.animate(
+      [{ clipPath: 'circle(0px at ' + x + 'px ' + y + 'px)' }, { clipPath: 'circle(150vmax at ' + x + 'px ' + y + 'px)' }],
+      { duration: half, easing: 'cubic-bezier(.6,0,.4,1)', fill: 'forwards' });
+    veilIcon.animate(
+      [{ transform: 'translate(-50%,-50%) scale(1) rotate(0)', opacity: 1 }, { transform: 'translate(-50%,-50%) scale(.1) rotate(540deg)', opacity: 0 }],
+      { duration: half, easing: 'ease-in', fill: 'forwards' });
+    grow.onfinish = function () {
+      swap();
+      var cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+      veil.animate(
+        [{ clipPath: 'circle(150vmax at ' + cx + 'px ' + cy + 'px)' }, { clipPath: 'circle(0px at ' + cx + 'px ' + cy + 'px)' }],
+        { duration: half, easing: 'cubic-bezier(.6,0,.4,1)', fill: 'forwards' })
+        .onfinish = function () { busy = false; };
+    };
+  }
+
+  function enter(i, fromEl) {
+    transition(fromEl, 'am', stories[i].icon, function () {
+      fill(i);
+      portal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('pClose').focus();
+    });
+  }
+
+  function leave(fromEl) {
+    transition(fromEl, 'nv', '🏠', function () {
+      portal.classList.remove('open');
+      document.body.style.overflow = '';
+      if (lastCard) lastCard.focus();
+    });
+  }
+
+  document.getElementById('pBack').addEventListener('click', function () { leave(this); });
+  document.getElementById('pClose').addEventListener('click', function () { leave(this); });
+  document.getElementById('pNext').addEventListener('click', function () {
+    var n = (current + 1) % stories.length;
+    lastCard = shelf.children[n];
+    transition(this, 'am', stories[n].icon, function () { fill(n); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && portal.classList.contains('open')) leave(document.getElementById('pClose'));
+  });
+</script>
+</body>
+</html>

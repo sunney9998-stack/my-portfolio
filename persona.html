@@ -27,6 +27,13 @@
   }
   .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 96px; }
 
+  /* 문서 이동 */
+  nav.docs { background: var(--black); }
+  nav.docs .in { max-width: 960px; margin: 0 auto; padding: 8px 16px; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14px; }
+  nav.docs a { color: var(--white); opacity: .7; text-decoration: none; }
+  nav.docs a:hover { opacity: 1; text-decoration: underline; }
+  nav.docs a[aria-current="page"] { opacity: 1; font-weight: 700; color: var(--amber); }
+
   /* 표지 */
   header.cover { background: var(--navy); color: var(--white); position: relative; overflow: hidden; }
   header.cover::after {
@@ -126,6 +133,14 @@
 </style>
 </head>
 <body>
+
+<nav class="docs" aria-label="문서">
+  <div class="in">
+    <a href="plan-draft.html">기획서</a>
+    <a href="persona.html" aria-current="page">페르소나</a>
+    <a href="feature-spec.html">기능정의서</a>
+  </div>
+</nav>
 
 <header class="cover">
   <div class="in">
